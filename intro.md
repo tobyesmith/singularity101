@@ -520,11 +520,56 @@ Similarly you can also show several of the sections like:
 -e to show the environment settings.
 ```
 
-# Singularity storage
+# Accessing host files
+Normally some directories are available on the container, like your $HOME, /tmp, /proc, /sys and /dev, it is possible to access and even create and modify files and directories on the host system from the container.
 
-# Limiting resources
+You can specify other directories using the `--bind` option, for example, if we want to access a specific directory, lets say /opt/data, we can make it available to the container.
 
-# Singularity advanced topics
+First lets make that directory and add some data:
+
+```bash
+sudo mkdir -p /opt/data
+sudo chown $USER:$USER /opt/data
+echo $(date) > /opt/data/date.txt
+singularity exec demo.sif cat /opt/data/date.txt #This will fail.
+singularity exec —bind /opt/data demo.sif cat /opt/data/date.txt #This will succeed.
+```
+
+In order to mount several directories, you can provide them as a comma separated list like:
+`singularity exec --bind /dir1,/dir2,/dir3 demo.sif ls -l /`
+
+You can even bind the directories and have them inside the containers with a different name:
+`singularity exec --bind /dir1:/directory_one,/dir2:/directory_two demo.sif ls -l /`
+# Advanced Topics
+## Limiting resources
+It is useful to limit resource that are consumed by a container, while in a supercomputer the scheduler normally limits these, is extremely useful when testing code in a workstation and avoid excesive use of CPU and RAM making it unstable and even unusable.
+
+For CPU limiting you can use the `—cpu` flag, the minimum is `0.01` and the maximum is the number of cpu cores on the system:
+`singularity run --cpus 2.1 demo.sif` 
+
+For memory limits you can use the --memory flag, it sets the maximum ammount of RAM that a container can use in bytes, or if you prefer to set suffixes like `M` for megabytes or `G` for gigabytes. Note that if the container tries to use more memory than its limit, the system will kill it:
+`singularity run --memory 1G demo.sif`
+
+Another setting is `--memory-reservation`, which sets a soft limit that can be lower than the `--memory` limit.
+`singularity run --memory 10g --memory-reservation 8g demo.sif`
+
+I/O limit can be set but it requires `cfq` or `bfq` schedulers to be configured for your disks on the system.
+
+The `--blkio-weight` flag, sets a relative weight for the container when performing reading or writing to and from disk. This value can be set between 10 and 1000, and will control the I/O Access a container receives when there is contention for I/O with other containers.
+```bash
+singularity run --blkio-weight 1000 demo.sif
+singularity run --blkio-weight 100 demo.sif
+```
+
+The second container will have ten times less block I/O Priority.
+
+You could also set relative weight for a specific device with the `--blkio-weight-device`:
+```bash
+singularity run --blkio-weight-device /dev/sda:1000 demo.sif
+singularity run --blkio-weight-device /dev/sda:100 demo.sif
+```
+
+Second container will have ten time less block I/O on disk sda.
 
 ## Using GPU
 
