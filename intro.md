@@ -76,10 +76,7 @@ Examples of resources are:
 
 # Installation
 
-Determine your OS, if you have a redhat based OS, skip the ubuntu / debian instructions.
-
-[Continue for debian, ubuntu, etc.](10-installation-debian.md) #Link to official documentation.
-[Continue for redhat, fedora, opensuse, etc.](10-installation-redhat.md)
+Follow the instructions on the official [SingularityCE installation guide](https://docs.sylabs.io/guides/latest/user-guide/quick_start.html#quick-start).
 
 At this point, singularity is installed, no service or daemon is configured.
 
