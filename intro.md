@@ -572,6 +572,8 @@ singularity run --blkio-weight-device /dev/sda:100 demo.sif
 Second container will have ten time less block I/O on disk sda.
 
 ## Using GPU
+It is very important that the host has a driver and library installation for NVidia CUDA or AMD ROCm.
+
 
 ## MPI applications
 
