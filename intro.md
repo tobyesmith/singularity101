@@ -1,41 +1,6 @@
 # Singularity tutorial
 
-## Topics
-
-Course introduction
-
-Quickstart
-
-Course features and tools
-Introduction to Singularity CE
-Installation
-
-Running a container
-Running instances
-Basic networking
-
-Namespaces
-Container images
-Building images
-Signing images
-Components of a definition file
-Singularity image format
-Convert docker images to SIF
-Using singularity container services
-
-Using singularity inspect
-Singularity storage
-Environment variables and metadata
-Limiting resources
-Singularity advanced networking
-Creating a bridge network?
-Expose a container
-
-Singularity enterprise overview
-Using GPU
-MPI applications
-
-## Course introduction
+# Course introduction
 
 You've heard about containers before, but don't really know much about them. What exactly are they?
 
@@ -43,7 +8,7 @@ Singularity containers are a new type of container designed specifically for HPC
 
 In this course you will learn what Singularity is, how to install it, how to use it and how to take advantage of its features.
 
-## Quickstart
+# Quickstart
 
 This is how you run a container:
 
@@ -51,7 +16,7 @@ This is how you run a container:
 singularity run library://josue-sylabs/demo/wttr:latest
 ```
 
-## Course features and tools
+# Course features and tools
 
 In this course it is expected to have an updated a major linux distribution, it is true that linux kernel offers namespaces since 2.4.19, features has been andded and bugs have been fixed until version 3.8 with user namespaces.
 
@@ -70,7 +35,7 @@ Having said this the recommended is:
 
 Have some command line experience in bash.
 
-## Introduction to Singularity CE
+# Introduction to Singularity CE
 
 Container technology is an effective way to package applications, no pre-requisites, no specific OS other than linux, and offer other many advantages to distribute applications.
 
@@ -92,7 +57,7 @@ Singularity is a tool for developers who want to build and test their code befor
 
 There are many container runtimes out there, Docker started it all, but use case for singularity is different, if you wish to read more about this, please read the blog post: [Who is sylabs?](https://link-here.com).
 
-## Namespaces
+# Namespaces
 
 The linux kernel resources can be partitioned, this means for example, that one set of programs or processes sees one set of resources, and another process sees another different set of resources, in other words, grants isolation. This is a feature of the linux kernel.
 
@@ -109,7 +74,7 @@ Examples of resources are:
 * UTS Namespace.
   Isolates kernel and version identifiers, so you could have multiple containers running that may be running different kernel versions.
 
-## Installation
+# Installation
 
 Determine your OS, if you have a redhat based OS, skip the ubuntu / debian instructions.
 
@@ -118,7 +83,7 @@ Determine your OS, if you have a redhat based OS, skip the ubuntu / debian instr
 
 At this point, singularity is installed, no service or daemon is configured.
 
-## Running a container
+# Running a container
 
 You've heard of containers, but have you ever tried running them? If you haven't, then now is the time to start learning how to run them. Containers are becoming increasingly important in today's IT environment. They allow you to easily deploy applications without having to worry about managing servers or installing software.
 
@@ -197,7 +162,7 @@ Singularity> ps
 
 Note that right after executing `./ubuntu.sif` a bash command is created ready to accept commands.
 
-## Running instances
+# Running instances
 
 Instances are another way to name a running container, difference is that an instance is in the background doing its job, could be a time consuming processing a batch job or even a service.
 
@@ -231,7 +196,7 @@ singularity instance stop instance3
 > INFO:    Token stored in /home/josue/.singularity/remote.yaml
 > ```
 
-## Building images
+# Building images
 
 A more realistic example could be to setup a real instance, before that, lets demonstrate the use of definition files. Definition file is a set of instructions or commands, with the goal to prepare the image for final user. This includes setting up environment variables, installing software.
 
@@ -268,7 +233,7 @@ INFO:    Build complete: demo.sif
 
 The resulting container image is named `demo.sif`.
 
-## The Singularity Workflow
+# The Singularity Workflow
 
 The definition file is the outcome of the Singularity workflow, it is useful to test commands and make annotations, the place where commands are being tested is called the sandbox.
 
@@ -286,7 +251,7 @@ sudo singularity shell --writable sandbox/
 
 Now you can test your commands, install packages, re-configure the system and make notes in your definition file.
 
-## Components of a definition file
+# Components of a definition file
 A definition file is similar to this, some of the header and sections are optional
 
 ```bash
@@ -358,7 +323,7 @@ The `%labels` section is used to add metadata to the file /.singularity.d/labels
 
 The text in the `%help` section is transferred to a metadata file inside the container. It can be displayed using the `singularity run-help` command.
 
-## Multi-Stage Build
+# Multi-Stage Build
 Multi-Stage build are useful where one stage can be used for compilation, and the resulting binary can be copied to a light and final environment, allowing a slimmer image without any of the development stack.
 
 This can be done adjusting a definition file by adding the `Stage` keyword to the header section like so:
@@ -403,7 +368,7 @@ Stage: compiler
 
 The “final" stage cannot get the files from the “compiler” stage because they do not exist.
 
-## Convert docker images to SIF
+# Convert docker images to SIF
 There are ocassions where an image is not available in the Singularity library, you can take one docker and convert it to the native Singularity Image Format.
 
 `singularity pull docker://ubuntu:22.04`
@@ -422,7 +387,7 @@ From: ubuntu:22.04
    
 ```
 
-## Using Singularity Container Services
+# Using Singularity Container Services
 Singularity Container Service (SCS) is a free service offered to allow those who don’t have root access to their workstations and build images.
 
 This service allows you to store remotely build a SIF image and share it with others if you preffer to do so in the Singularity library, also allows you to store your signing keys and let know the community you are the real author of the image.
@@ -442,7 +407,7 @@ INFO:    Access Token Verified!
 INFO:    Token stored in /home/josue/.singularity/remote.yaml
 
 ```
-## Remote building
+# Remote building
 The ability to build a container on an external resource is built in since Singularity 3.0, to demonstrate we can take the very same `demo.def` file but in this case, submit it to a remote build service. Note that the `sudo` is not needed anymore so it is dropped and the `-r` flag is added, also you need to have an account in SCS, an access token and login to the service.
 
 ```bash
@@ -475,7 +440,7 @@ In order to leave the resulting image in the Singularity library, you can specif
 
 `singularity build -r library://<account>/directory/image:tag deffile` 
 
-## Signing and verifying images
+# Signing and verifying images
 
 Signing images provides a method of trust for sharing images to Singularity library community. It ensures a bit-for-bit reproduction of the original container as the author intended it.
 
@@ -536,7 +501,7 @@ Now you can push an image to the Singularity library:
 
 `singularity push container.sif library://<account>/directory/image:tag`
 
-## Using singularity inspect
+# Using singularity inspect
 Singularity stores metadata in their SIF files. For example, if you want to see the original definition file you can use the inspect command:
 
 ```
@@ -555,19 +520,11 @@ Similarly you can also show several of the sections like:
 -e to show the environment settings.
 ```
 
-## Singularity storage
+# Singularity storage
 
-## Environment variables and metadata
+# Limiting resources
 
-## Limiting resources
-
-## Singularity advanced networking
-
-## Creating a bridge network?
-
-## Expose a container
-
-## Singularity enterprise overview
+# Singularity advanced topics
 
 ## Using GPU
 
