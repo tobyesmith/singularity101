@@ -37,7 +37,9 @@ Singularity is a tool for developers who want to build and test their code befor
 
 **What is the difference with Docker?**
 
-There are many container runtimes out there, Docker started it all, but use case for singularity is different, if you wish to read more about this, please read the blog post: [Who is sylabs?](https://link-here.com).
+There are many container runtimes out there, Docker started it all, but this differed widely from how scientists and researchers wanted to use it in HPC with batch schedulers. So, the means to containerize applications was important, but the way in which Docker did this did not meet HPC needs for simplicity, security and repeatability. Singularity was created to address the gaps in the existing technology. While allowing easier access to the underlying hardware on a compute node.
+
+[Source](https://sylabs.io/2022/09/who-is-sylabs/)
 
 ## Namespaces
 

@@ -1,17 +1,59 @@
 # Running containers
 
-You've heard of containers, but have you ever tried running them? If you haven't, then now is the time to start learning how to run them. Containers are becoming increasingly important in today's IT environment. They allow you to easily deploy applications without having to worry about managing servers or installing software.
+You've heard of containers, but have you ever tried running them? If you haven't, then now is the time to start learning how to run them. Containers are becoming increasingly important in today's HPC environment. They allow you to easily deploy applications without having to worry about managing servers or installing software.
 
 The easiest part is to run a container and let run its job. For this course, we are going to use an image from the current configured library, which is sylabs public library.
 
 ```bash
 singularity run library://josue-sylabs/demo/wttr:latest
+
+INFO:    Using cached image
+Weather report: Tlahuac, Mexico
+
+     \  /       Partly cloudy
+   _ /"".-.     +27(26) °C     
+     \_(   ).   ↑ 4 km/h       
+     /(___(__)  16 km          
+                0.0 mm         
+                                                       ┌─────────────┐                                                       
+┌──────────────────────────────┬───────────────────────┤  Wed 28 Dec ├───────────────────────┬──────────────────────────────┐
+│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
+│     \   /     Sunny          │     \   /     Sunny          │     \   /     Sunny          │     \   /     Clear          │
+│      .-.      +8(7) °C       │      .-.      17 °C          │      .-.      18 °C          │      .-.      14 °C          │
+│   ― (   ) ―   ↖ 3-4 km/h     │   ― (   ) ―   ↑ 6 km/h       │   ― (   ) ―   ↑ 14-16 km/h   │   ― (   ) ―   ↗ 13-18 km/h   │
+│      `-’      10 km          │      `-’      10 km          │      `-’      10 km          │      `-’      10 km          │
+│     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │
+└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
+                                                       ┌─────────────┐                                                       
+┌──────────────────────────────┬───────────────────────┤  Thu 29 Dec ├───────────────────────┬──────────────────────────────┐
+│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
+│     \   /     Sunny          │               Cloudy         │               Cloudy         │     \   /     Clear          │
+│      .-.      7 °C           │      .--.     16 °C          │      .--.     18 °C          │      .-.      15 °C          │
+│   ― (   ) ―   ↑ 2-3 km/h     │   .-(    ).   ↑ 7-8 km/h     │   .-(    ).   ↑ 15-17 km/h   │   ― (   ) ―   ↑ 8-11 km/h    │
+│      `-’      10 km          │  (___.__)__)  10 km          │  (___.__)__)  10 km          │      `-’      10 km          │
+│     /   \     0.0 mm | 0%    │               0.0 mm | 0%    │               0.0 mm | 0%    │     /   \     0.0 mm | 0%    │
+└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
+                                                       ┌─────────────┐                                                       
+┌──────────────────────────────┬───────────────────────┤  Fri 30 Dec ├───────────────────────┬──────────────────────────────┐
+│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
+├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
+│     \   /     Sunny          │     \   /     Sunny          │     \   /     Sunny          │     \   /     Clear          │
+│      .-.      13 °C          │      .-.      16 °C          │      .-.      18 °C          │      .-.      +15(14) °C     │
+│   ― (   ) ―   ↑ 5-7 km/h     │   ― (   ) ―   ↑ 8-9 km/h     │   ― (   ) ―   ↗ 13-15 km/h   │   ― (   ) ―   ↑ 8-13 km/h    │
+│      `-’      10 km          │      `-’      10 km          │      `-’      10 km          │      `-’      10 km          │
+│     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │     /   \     0.0 mm | 0%    │
+└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
+
+Follow @igor_chubin for wttr.in updates
+
 ```
 
 That was easy, no need to install anything, just go its way, right? Let's get a shell and get in the container.
 
 ```bash
-> singularity shell library://josue-sylabs/demo/wttr:latest
+singularity shell library://josue-sylabs/demo/wttr:latest
 INFO:    Using cached image
 Singularity> _
 ```
@@ -103,7 +145,7 @@ singularity instance stop instance3
 ```
 
 ````{note}
-Dockerhub have limited downloads, in order to remove the limit you can login with a user and password using the `singularity docker login` command first:
+Dockerhub limits its downloads, in order to skip the limit you can login with a user and password using the `singularity docker login` command first:
 
 ```bash
 singularity remote login --username username docker://docker.io`
