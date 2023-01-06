@@ -35,6 +35,13 @@ Containers are a technology that run applications inside isolated enviroments. T
 
 Singularity is a tool for developers who want to build and test their code before deploying it to a supercomputer. In addition, they offer several advantages over traditional VMs, such as increased security, reduced resource consumption, and faster deployment times.
 
+```{figure} /images/introduction-image1.png
+---
+name: introduction-image1
+---
+Common architectures implemented in real world scenarios, bare metal, virtualized, containerized, and containerized on virtual machines.
+```
+
 **What is the difference with Docker?**
 
 There are many container runtimes out there, Docker started it all, but this differed widely from how scientists and researchers wanted to use it in HPC with batch schedulers. So, the means to containerize applications was important, but the way in which Docker did this did not meet HPC needs for simplicity, security and repeatability. Singularity was created to address the gaps in the existing technology. While allowing easier access to the underlying hardware on a compute node.
@@ -44,6 +51,13 @@ There are many container runtimes out there, Docker started it all, but this dif
 ## Namespaces
 
 The linux kernel resources can be partitioned, this means for example, that one set of programs or processes sees one set of resources, and another process sees another different set of resources, in other words, grants isolation. This is a feature of the linux kernel.
+
+```{figure} /images/introduction-image2.png
+---
+name: introduction-image2
+---
+Namespace resource partition and isolation.
+```
 
 Namespaces limit resources in a way so the process program or application is not aware of this limitation. When an program runs, the application is not aware that is within a container, and is not necessary to make changes to the source code.
 

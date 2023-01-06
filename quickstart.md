@@ -15,3 +15,12 @@ Once SingularityCE is installed, you can issue this command to run a container:
 ```bash
 singularity run library://josue-sylabs/demo/wttr:latest
 ```
+
+Here is an example output for the above command.
+
+```{figure} /images/quickstart-image1.png
+---
+name: quickstart-image1
+---
+Example of singunlarity run.
+```
