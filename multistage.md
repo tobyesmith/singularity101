@@ -1,4 +1,4 @@
-# Multi-Stage Build
+# 📄 Multi-Stage Build
 
 Multi-Stage build are useful where one stage can be used for compilation, and the resulting binary can be copied to a light and final environment, allowing a slimmer image without any of the development stack.
 

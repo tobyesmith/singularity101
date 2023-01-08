@@ -2,3 +2,6 @@
 .DS_Store
 _build
 sbom.json
+images/.DS_Store
+tutorial.code-workspace
+images/.DS_Store

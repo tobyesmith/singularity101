@@ -1,4 +1,4 @@
-# Building images
+# 📄 Building images
 
 A more realistic example could be to setup a real instance, before that, lets demonstrate the use of definition files. Definition file is a set of instructions or commands, with the goal to prepare the image for final user. This includes setting up environment variables, installing software.
 

@@ -1,4 +1,4 @@
-# Inspecting SIF files
+# 📄 Inspecting SIF files
 
 Singularity stores metadata in their SIF files. For example, if you want to see the original definition file you can use the inspect command:
 

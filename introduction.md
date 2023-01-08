@@ -1,4 +1,4 @@
-# Introduction to Singularity CE
+# 📄 Introduction to Singularity CE
 
 Container technology is an effective way to package applications, no pre-requisites, no specific OS other than linux, and offer other many advantages to distribute applications.
 

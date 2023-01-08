@@ -1,4 +1,4 @@
-# Using Singularity Container Services
+# 📄 Using Singularity Container Services
 
 Singularity Container Service (SCS) is a free service offered to allow those who don’t have root access to their workstations and build images.
 

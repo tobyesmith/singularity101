@@ -1,4 +1,4 @@
-# Signing and verifying images
+# 📄 Signing and verifying images
 
 Signing images provides a method of trust for sharing images to Singularity library community. It ensures a bit-for-bit reproduction of the original container as the author intended it.
 

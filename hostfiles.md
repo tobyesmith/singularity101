@@ -1,4 +1,4 @@
-# Accessing host files
+# 📄 Accessing host files
 
 Normally some directories are available on the container, like your $HOME, /tmp, /proc, /sys and /dev, it is possible to access and even create and modify files and directories on the host system from the container.
 

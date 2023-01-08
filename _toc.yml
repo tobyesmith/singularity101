@@ -8,11 +8,16 @@ chapters:
 - file: introduction
 - file: runcontainer
 - file: building
+- file: lab1
 - file: workflow
 - file: multistage
+- file: lab2
 - file: convert
 - file: scs
 - file: signing
+- file: lab3
 - file: inspect
 - file: hostfiles
+- file: lab4
 - file: advanced
+- file: lab5

@@ -1,4 +1,4 @@
-# Quickstart
+# 📄 Quickstart
 
 Assuming you have a Redhat based operating system like AlmaLinux, CentOS, Oracle Linux, Rocky Linux, singularity CE is available in EPEL, to quickly install it:
 
@@ -22,5 +22,5 @@ Here is an example output for the above command.
 ---
 name: quickstart-image1
 ---
-Example of singunlarity run.
+Example of singularity run.
 ```

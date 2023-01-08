@@ -1,4 +1,4 @@
-# The Singularity Workflow
+# 📄 The Singularity Workflow
 
 The definition file is the outcome of the Singularity workflow, it is useful to test commands and make annotations, the place where commands are being tested is called the sandbox.
 
