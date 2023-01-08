@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Running containers &#8212; Singularity Tutorial</title>
+    <title>📄 Running containers &#8212; Singularity Tutorial</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building images" href="building.html" />
-    <link rel="prev" title="Introduction to Singularity CE" href="introduction.html" />
+    <link rel="next" title="📄 Building images" href="building.html" />
+    <link rel="prev" title="📄 Introduction to Singularity CE" href="introduction.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -116,62 +116,72 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="quickstart.html">
-   Quickstart
+   📄 Quickstart
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="introduction.html">
-   Introduction to Singularity CE
+   📄 Introduction to Singularity CE
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Running containers
+   📄 Running containers
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="building.html">
-   Building images
+   📄 Building images
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab1.html">
+   📓 Lab 1: Running Containers
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="workflow.html">
-   The Singularity Workflow
+   📄 The Singularity Workflow
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="multistage.html">
-   Multi-Stage Build
+   📄 Multi-Stage Build
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab2.html">
+   🥽 Lab 2: Singularity Workflow
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="convert.html">
-   Convert docker images to SIF
+   📄 Convert docker images to SIF
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="scs.html">
-   Using Singularity Container Services
+   📄 Using Singularity Container Services
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="signing.html">
-   Signing and verifying images
+   📄 Signing and verifying images
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="inspect.html">
-   Inspecting SIF files
+   📄 Inspecting SIF files
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="hostfiles.html">
-   Accessing host files
+   📄 Accessing host files
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="advanced.html">
-   Advanced Topics
+   📄 Advanced Topics
   </a>
  </li>
 </ul>
@@ -365,7 +375,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Running containers</h1>
+                <h1>📄 Running containers</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -391,54 +401,16 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="running-containers">
-<h1>Running containers<a class="headerlink" href="#running-containers" title="Permalink to this headline">#</a></h1>
+<h1>📄 Running containers<a class="headerlink" href="#running-containers" title="Permalink to this headline">#</a></h1>
 <p>You’ve heard of containers, but have you ever tried running them? If you haven’t, then now is the time to start learning how to run them. Containers are becoming increasingly important in today’s HPC environment. They allow you to easily deploy applications without having to worry about managing servers or installing software.</p>
 <p>The easiest part is to run a container and let run its job. For this course, we are going to use an image from the current configured library, which is sylabs public library.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity run library://josue-sylabs/demo/wttr:latest
-
-INFO:    Using cached image
-Weather report: Tlahuac, Mexico
-
-     <span class="se">\ </span> /       Partly cloudy
-   _ /<span class="s2">&quot;&quot;</span>.-.     +27<span class="o">(</span><span class="m">26</span><span class="o">)</span> °C     
-     <span class="se">\_</span><span class="o">(</span>   <span class="o">)</span>.   ↑ <span class="m">4</span> km/h       
-     /<span class="o">(</span>___<span class="o">(</span>__<span class="o">)</span>  <span class="m">16</span> km          
-                <span class="m">0</span>.0 mm         
-                                                       ┌─────────────┐                                                       
-┌──────────────────────────────┬───────────────────────┤  Wed <span class="m">28</span> Dec ├───────────────────────┬──────────────────────────────┐
-│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
-├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
-│     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Clear          │
-│      .-.      +8<span class="o">(</span><span class="m">7</span><span class="o">)</span> °C       │      .-.      <span class="m">17</span> °C          │      .-.      <span class="m">18</span> °C          │      .-.      <span class="m">14</span> °C          │
-│   ― <span class="o">(</span>   <span class="o">)</span> ―   ↖ <span class="m">3</span>-4 km/h     │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">6</span> km/h       │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">14</span>-16 km/h   │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↗ <span class="m">13</span>-18 km/h   │
-│      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │
-│     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │
-└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
-                                                       ┌─────────────┐                                                       
-┌──────────────────────────────┬───────────────────────┤  Thu <span class="m">29</span> Dec ├───────────────────────┬──────────────────────────────┐
-│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
-├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
-│     <span class="se">\ </span>  /     Sunny          │               Cloudy         │               Cloudy         │     <span class="se">\ </span>  /     Clear          │
-│      .-.      <span class="m">7</span> °C           │      .--.     <span class="m">16</span> °C          │      .--.     <span class="m">18</span> °C          │      .-.      <span class="m">15</span> °C          │
-│   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">2</span>-3 km/h     │   .-<span class="o">(</span>    <span class="o">)</span>.   ↑ <span class="m">7</span>-8 km/h     │   .-<span class="o">(</span>    <span class="o">)</span>.   ↑ <span class="m">15</span>-17 km/h   │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">8</span>-11 km/h    │
-│      <span class="sb">`</span>-’      <span class="m">10</span> km          │  <span class="o">(</span>___.__<span class="o">)</span>__<span class="o">)</span>  <span class="m">10</span> km          │  <span class="o">(</span>___.__<span class="o">)</span>__<span class="o">)</span>  <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │
-│     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │               <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │               <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │
-└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
-                                                       ┌─────────────┐                                                       
-┌──────────────────────────────┬───────────────────────┤  Fri <span class="m">30</span> Dec ├───────────────────────┬──────────────────────────────┐
-│            Morning           │             Noon      └──────┬──────┘     Evening           │             Night            │
-├──────────────────────────────┼──────────────────────────────┼──────────────────────────────┼──────────────────────────────┤
-│     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Sunny          │     <span class="se">\ </span>  /     Clear          │
-│      .-.      <span class="m">13</span> °C          │      .-.      <span class="m">16</span> °C          │      .-.      <span class="m">18</span> °C          │      .-.      +15<span class="o">(</span><span class="m">14</span><span class="o">)</span> °C     │
-│   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">5</span>-7 km/h     │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">8</span>-9 km/h     │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↗ <span class="m">13</span>-15 km/h   │   ― <span class="o">(</span>   <span class="o">)</span> ―   ↑ <span class="m">8</span>-13 km/h    │
-│      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │      <span class="sb">`</span>-’      <span class="m">10</span> km          │
-│     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │     /   <span class="se">\ </span>    <span class="m">0</span>.0 mm <span class="p">|</span> <span class="m">0</span>%    │
-└──────────────────────────────┴──────────────────────────────┴──────────────────────────────┴──────────────────────────────┘
-
-Follow @igor_chubin <span class="k">for</span> wttr.in updates
-</pre></div>
-</div>
-<p>That was easy, no need to install anything, just go its way, right? Let’s get a shell and get in the container.</p>
+<figure class="align-default" id="quickstart-image1-1">
+<img alt="_images/quickstart-image1.png" src="_images/quickstart-image1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Example of singularity run.</span><a class="headerlink" href="#quickstart-image1-1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>That was easy, no need to install anything than the singularity container engine, just go its way, right? Let’s get a shell and get in the container.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity shell library://josue-sylabs/demo/wttr:latest
 INFO:    Using cached image
 Singularity&gt; _
@@ -556,13 +528,13 @@ INFO:    Token stored <span class="k">in</span> /home/josue/.singularity/remote.
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introduction to Singularity CE</p>
+            <p class="prev-next-title">📄 Introduction to Singularity CE</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="building.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Building images</p>
+        <p class="prev-next-title">📄 Building images</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

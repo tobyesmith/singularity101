@@ -1,4 +1,4 @@
-# Convert docker images to SIF
+# 📄 Convert docker images to SIF
 
 There are ocassions where an image is not available in the Singularity library, you can take one docker and convert it to the native Singularity Image Format.
 
