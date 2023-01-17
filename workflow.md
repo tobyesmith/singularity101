@@ -16,7 +16,7 @@ sudo singularity shell --writable sandbox/
 
 Now you can test your commands, install packages, re-configure the system and make notes in your definition file.
 
-# Components of a definition file
+## Components of a definition file
 
 A definition file is similar to this, some of the header and sections are optional
 
