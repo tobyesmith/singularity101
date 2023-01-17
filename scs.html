@@ -151,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="lab2.html">
-   🥽 Lab 2: Singularity Workflow
+   📓 Lab 2: Singularity Workflow
   </a>
  </li>
  <li class="toctree-l1">
@@ -170,6 +170,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="lab3.html">
+   📓 Lab 3: Singularity Container Services
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="inspect.html">
    📄 Inspecting SIF files
   </a>
@@ -180,8 +185,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="lab4.html">
+   📓 Lab 4: SIF Filesystem &amp; Host Filesystem
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="advanced.html">
    📄 Advanced Topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab5.html">
+   📓 Lab 5: Limiting Resources
   </a>
  </li>
 </ul>
@@ -361,12 +376,7 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   📄 Using Singularity Container Services
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#remote-building">
    Remote building
   </a>
@@ -390,12 +400,7 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   📄 Using Singularity Container Services
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#remote-building">
    Remote building
   </a>
@@ -428,9 +433,8 @@ INFO:    Access Token Verified!
 INFO:    Token stored <span class="k">in</span> /home/josue/.singularity/remote.yaml
 </pre></div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="remote-building">
-<h1>Remote building<a class="headerlink" href="#remote-building" title="Permalink to this headline">#</a></h1>
+<section id="remote-building">
+<h2>Remote building<a class="headerlink" href="#remote-building" title="Permalink to this headline">#</a></h2>
 <p>The ability to build a container on an external resource is built in since Singularity 3.0, to demonstrate we can take the very same <code class="docutils literal notranslate"><span class="pre">demo.def</span></code> file but in this case, submit it to a remote build service. Note that the <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is not needed anymore so it is dropped and the <code class="docutils literal notranslate"><span class="pre">-r</span></code> flag is added, also you need to have an account in SCS, an access token and login to the service.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity build -r demo.sif demo.def
 INFO:    Starting build...
@@ -457,6 +461,7 @@ INFO:    Build complete: demo.sif
 <p>The messages are streamed from the SCS to your terminal, and the resulting image is pulled to your local environment. Also if you have any <code class="docutils literal notranslate"><span class="pre">%files</span></code> defined in your def file, they are uploaded to SCS and discarded after some time.</p>
 <p>In order to leave the resulting image in the Singularity library, you can specify the destination to be in the form of:</p>
 <p><code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">build</span> <span class="pre">-r</span> <span class="pre">library://&lt;account&gt;/directory/image:tag</span> <span class="pre">deffile</span></code></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">

@@ -151,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="lab2.html">
-   🥽 Lab 2: Singularity Workflow
+   📓 Lab 2: Singularity Workflow
   </a>
  </li>
  <li class="toctree-l1">
@@ -170,6 +170,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="lab3.html">
+   📓 Lab 3: Singularity Container Services
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="inspect.html">
    📄 Inspecting SIF files
   </a>
@@ -180,8 +185,18 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="lab4.html">
+   📓 Lab 4: SIF Filesystem &amp; Host Filesystem
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="advanced.html">
    📄 Advanced Topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab5.html">
+   📓 Lab 5: Limiting Resources
   </a>
  </li>
 </ul>
@@ -365,6 +380,97 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="lab-1-running-containers">
 <h1>📓 Lab 1: Running Containers<a class="headerlink" href="#lab-1-running-containers" title="Permalink to this headline">#</a></h1>
+<p>First, install Singularity, assuming you have a RedHat OS.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install -y epel-release
+sudo dnf install -y singularity-ce
+</pre></div>
+</div>
+<p>Once installed you can run your first Singularity container:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity run library://josue-sylabs/demo/wttr:latest
+</pre></div>
+</div>
+<p>Secondly lets build a very simple image, we will create a file and name it lab1.def,
+type the contents of the below text.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial asumes you know vi editor, this is not a mandatory requisite, feel free to
+substitute the editor with your favorite one.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi lab1.def
+</pre></div>
+</div>
+<p>Then type the below contents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootstrap: docker
+from: almalinux:9
+</pre></div>
+</div>
+<p>Then type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes, then proceed to build the image, the compiled
+image is going to be named lab1.sif:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo singularity build lab1.sif lab1.def
+</pre></div>
+</div>
+<p>Now, lets suppose we want to do a more realistic image, lets copy some files, install some software:</p>
+<p>Here we create a very simple text file, backup the lab1.def file into a file
+named lab1-v2.def and modify the contents.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;This is a test file.&quot;</span> &gt; testfile
+cp lab1.def lab1-v2.def
+vi lab1-v2.def
+</pre></div>
+</div>
+<p>Add the below lines, feel free to copy and paste:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootsrap: docker
+from: almalinux:9
+
+%files
+    testfile
+
+%post
+    dnf install -y epel-release
+    dnf install -y figlet
+
+%runscript
+    figlet testfile
+</pre></div>
+</div>
+<p>Type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes, at this point, the SIF image of this new container
+have a new file, and a new software taking AlmaLinux 9 as the base operating system.</p>
+<p>Give it a try, build it and then run it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity build lab1-v2.sif lab1-v2.def
+singularity run lab1-v2.sif
+</pre></div>
+</div>
+<p>Go ahead and experiment with different file contents, or even different sofware,
+try installing <code class="docutils literal notranslate"><span class="pre">lolcat</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp lab1-v2.def lab1-v3.def
+vi lab1-v3.def
+</pre></div>
+</div>
+<p>Add the below lines, feel free to copy and paste:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootsrap: docker
+from: almalinux:9
+
+%files
+    testfile
+
+%post
+    dnf install -y epel-release
+    dnf install -y figlet ruby wget unzip
+    wget https://github.com/busyloop/lolcat/archive/master.zip
+    unzip master.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> lolcat-master/bin <span class="o">&amp;&amp;</span> gem install lolcat
+
+%runscript
+    figlet testfile <span class="p">|</span> lolcat
+</pre></div>
+</div>
+<p>Then type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit and save the changes, then build and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity build lab1.sif lab1.def
+singularity run lab1.sif
+</pre></div>
+</div>
+<p>Nice and colored. This is an example, and being honest, the file <code class="docutils literal notranslate"><span class="pre">lab1.def</span></code> was written
+many many times, until it worked, this approach of writting a def file, building and testing
+is not always the best practice, you might try the <em>Singularity worfklow</em>, which is described on
+the next section.</p>
 </section>
 
     <script type="text/x-thebe-config">

@@ -20,7 +20,7 @@ INFO:    Token stored in /home/josue/.singularity/remote.yaml
 
 ```
 
-# Remote building
+## Remote building
 
 The ability to build a container on an external resource is built in since Singularity 3.0, to demonstrate we can take the very same `demo.def` file but in this case, submit it to a remote build service. Note that the `sudo` is not needed anymore so it is dropped and the `-r` flag is added, also you need to have an account in SCS, an access token and login to the service.
 
