@@ -1,61 +1,19 @@
 # 📄 Signing and verifying images
 
-Signing images provides a method of trust for sharing images to Singularity library community. It ensures a bit-for-bit reproduction of the original container as the author intended it.
+SingularityCE’s SIF images can be signed, and subsequently verified, so that a
+user can be confident that an image they have obtained is a bit-for-bit
+reproduction of the original container as the author intended it. The signature,
+over the metadata and content of the container, is created using a private key,
+and directly added to the SIF file. This means that a signed container carries
+its signature with it, avoiding the need for extra infrastructure to distribute
+signatures to end users of the container.
 
-To sign your own containers, first need to generate a key.
+A user verifies the container has not been modified since signing using a public
+key or certificate. By default, SingularityCE uses PGP keys to sign and verify
+containers. Since 3.11, signing and verifying containers with X.509 key material
+ / certificates is also supported.
 
-```bash
-singularity key newpair
-Enter your name (e.g., John Doe) : Firstname Lastname
-Enter your email address (e.g., john.doe@example.com) : first.last@sylabs.io
-Enter optional comment (e.g., development keys) : a comment
-Enter a passphrase :
-Retype your passphrase :
-Would you like to push it to the keystore? [Y,n] Y
-Generating Entity and OpenPGP Key Pair... done
-```
-
-To see the signing keys:
-
-```bash
-singularity key list
-
-Public key listing (/home/anonymous/.singularity/sypgp/pgp-public):
-
-0) U: David Trudgian (demo) <first.last@sylabs.io> <-- User
-   C: 2022-11-15 09:54:54 -0600 CST                <-- Creation timestamp
-   F: E5F780B2C22F59DF748524B435C3844412EE233B     <-- Fingerprint
-   L: 4096                                         <-- Key length
-   --------
-```
-
-Now that a key is generated, a SIF image can be signed:
-
-```bash
-singularity sign container.sif
-
-Signing image: container.sif
-Enter key passphrase :
-Signature crated and applied to container.sif
-```
-
-In order to verify the SIF image:
-
-```bash
-singularity verify container.sif
-
-Verifying image: container.sif
-[LOCAL]   Signing entity: Firstname Lastname (Demo keys) <first.last@sylabs.io>
-[LOCAL]   Fingerprint: 65833F473098C6215E750B3BDFD69E5CEE85D448
-Objects verified:
-ID  |GROUP   |LINK    |TYPE
-------------------------------------------------
-1   |1       |NONE    |Def.FILE
-2   |1       |NONE    |JSON.Generic
-3   |1       |NONE    |FS
-Container verified: container.sif
-```
-
-Now you can push an image to the Singularity library:
-
-`singularity push container.sif library://<account>/directory/image:tag`
+As well as indicating a container has not been modified, a valid signature may
+be used to indicate a container has undergone testing or review, and is approved
+for execution. Multiple signatures can be added to a container, to document its
+progress through an approval process.
