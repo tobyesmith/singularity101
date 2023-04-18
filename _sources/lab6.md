@@ -1,4 +1,4 @@
-# 📓 Lab 6:  Signing with x509 Certificates
+# 📓 Lab 6:  Signing with x509 Key Materials
 
 Signatures are implemented using the [Dead Simple Signing Envelope](https://github.com/secure-systems-lab/dsse)
  (DSSE) standard.
