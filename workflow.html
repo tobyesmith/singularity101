@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>📄 The Singularity Workflow &#8212; Singularity Tutorial</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,61 +61,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'workflow';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="📄 Multi-Stage Build" href="multistage.html" />
-    <link rel="prev" title="📓 Lab 1: Running Containers" href="lab1.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="prev" title="📓 Lab 2.2: Running Containers as Instances" href="lab2.2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/singularity-logo-round.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Singularity Tutorial</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/singularity-logo-round.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/singularity-logo-round.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,379 +157,321 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="quickstart.html">
-   📄 Quickstart
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="introduction.html">
-   📄 Introduction to Singularity CE
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="runcontainer.html">
-   📄 Running containers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="building.html">
-   📄 Building images
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab1.html">
-   📓 Lab 1: Running Containers
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   📄 The Singularity Workflow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="multistage.html">
-   📄 Multi-Stage Build
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab2.html">
-   📓 Lab 2: Singularity Workflow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="convert.html">
-   📄 Convert docker images to SIF
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="scs.html">
-   📄 Using Singularity Container Services
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="signing.html">
-   📄 Signing and verifying images
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab3.html">
-   📓 Lab 3: Singularity Container Services
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="inspect.html">
-   📄 Inspecting SIF files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="hostfiles.html">
-   📄 Accessing host files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab4.html">
-   📓 Lab 4: SIF Filesystem &amp; Host Filesystem
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="advanced.html">
-   📄 Advanced Topics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab5.html">
-   📓 Lab 5: Limiting Resources
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.1.html">📓 Lab 2.1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.2.html">📓 Lab 2.2: Running Containers as Instances</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 The Singularity Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multistage.html">📄 Multi-Stage Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convert.html">📄 Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scs.html">📄 Using Singularity Container Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">📄 Signing and verifying images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Singularity Container Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspect.html">📄 Inspecting SIF files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hostfiles.html">📄 Accessing host files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">📓 Lab 4: SIF Filesystem &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">📄 Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">📓 Lab 5: Limiting Resources</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Fworkflow.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/workflow.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/josueneo/singularity-tutorial"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Fworkflow.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/workflow.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#components-of-a-definition-file">
-   Components of a definition file
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>📄 The Singularity Workflow</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#components-of-a-definition-file">
-   Components of a definition file
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📄 The Singularity Workflow</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-of-a-definition-file">Components of a definition file</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="the-singularity-workflow">
-<h1>📄 The Singularity Workflow<a class="headerlink" href="#the-singularity-workflow" title="Permalink to this headline">#</a></h1>
-<p>The definition file is the outcome of the Singularity workflow, it is useful to test commands and make annotations, the place where commands are being tested is called the sandbox.</p>
-<p>First, lets take a base operating system image to start and create a sandbox.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo singularity build --sandbox sandbox/ docker://ubuntu:22.04
+<h1>📄 The Singularity Workflow<a class="headerlink" href="#the-singularity-workflow" title="Permalink to this heading">#</a></h1>
+<p>The definition file is the outcome of the Sandbox workflow, it is useful to test
+commands and make annotations, the place where commands are being tested is
+called the sandbox.</p>
+<p>First, let’s take a base operating system image to start and create a sandbox.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>sandbox/<span class="w"> </span>docker://ubuntu:22.04
 </pre></div>
 </div>
-<p>The above command, creates a directory called “sandbox”, this is where all changes to the base image are gonna be saved and later in a SIF file.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo singularity shell --writable sandbox/
+<p>The previous command, creates a directory called “sandbox”, this is where all
+changes to the base image are going to be saved and later in a SIF file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--writable<span class="w"> </span>sandbox/
 </pre></div>
 </div>
-<p>Now you can test your commands, install packages, re-configure the system and make notes in your definition file.</p>
+<p>Now you can test your commands, install packages, fine tune configuration and
+make notes in your definition file.</p>
 <section id="components-of-a-definition-file">
-<h2>Components of a definition file<a class="headerlink" href="#components-of-a-definition-file" title="Permalink to this headline">#</a></h2>
+<h2>Components of a definition file<a class="headerlink" href="#components-of-a-definition-file" title="Permalink to this heading">#</a></h2>
 <p>A definition file is similar to this, some of the header and sections are optional</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap: library
-From: ubuntu:22.04
-%setup
-    touch /file1
-    touch <span class="si">${</span><span class="nv">SINGULARITY_ROOTFS</span><span class="si">}</span>/file2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>library
+From:<span class="w"> </span>ubuntu:22.04
 
 %files
-    /file1
-    /file1 /opt
+<span class="w">    </span>/file1
+<span class="w">    </span>/file1<span class="w"> </span>/opt
 
 %environment
-    <span class="nb">export</span> <span class="nv">LISTEN_PORT</span><span class="o">=</span><span class="m">12345</span>
-    <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>C
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">LISTEN_PORT</span><span class="o">=</span><span class="m">12345</span>
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">LC_ALL</span><span class="o">=</span>C
 
 %post
-    apt-get update <span class="o">&amp;&amp;</span> apt-get install -y netcat
-    <span class="nv">NOW</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
-    <span class="nb">echo</span> <span class="s2">&quot;export NOW=\&quot;</span><span class="si">${</span><span class="nv">NOW</span><span class="si">}</span><span class="s2">\&quot;&quot;</span> &gt;&gt; <span class="nv">$SINGULARITY_ENVIRONMENT</span>
+<span class="w">    </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>netcat
+<span class="w">    </span><span class="nv">NOW</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export NOW=\&quot;</span><span class="si">${</span><span class="nv">NOW</span><span class="si">}</span><span class="s2">\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$SINGULARITY_ENVIRONMENT</span>
 
 %runscript
-    <span class="nb">echo</span> <span class="s2">&quot;Container was created </span><span class="nv">$NOW</span><span class="s2">&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Arguments received: </span><span class="nv">$*</span><span class="s2">&quot;</span>
-    <span class="nb">exec</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Container was created </span><span class="nv">$NOW</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Arguments received: </span><span class="nv">$*</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">exec</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 
 %startscript
-    nc -lp <span class="nv">$LISTEN_PORT</span>
+<span class="w">    </span>nc<span class="w"> </span>-lp<span class="w"> </span><span class="nv">$LISTEN_PORT</span>
 
 %test
-    grep -q <span class="nv">NAME</span><span class="o">=</span><span class="se">\&quot;</span>Ubuntu<span class="se">\&quot;</span> /etc/os-release
-    <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Container base is Ubuntu as expected.&quot;</span>
-    <span class="k">else</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Container base is not Ubuntu.&quot;</span>
-        <span class="nb">exit</span> <span class="m">1</span>
-    <span class="k">fi</span>
+<span class="w">    </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="nv">NAME</span><span class="o">=</span><span class="se">\&quot;</span>Ubuntu<span class="se">\&quot;</span><span class="w"> </span>/etc/os-release
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Container base is Ubuntu as expected.&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Container base is not Ubuntu.&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
 
 %labels
-    Author d@sylabs.io
-    Version v0.0.1
+<span class="w">    </span>Author<span class="w"> </span>d@sylabs.io
+<span class="w">    </span>Version<span class="w"> </span>v0.0.1
 
 %help
-    This is a demo container used to illustrate a def file that uses all
-    supported sections.
+<span class="w">    </span>This<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>demo<span class="w"> </span>container<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>illustrate<span class="w"> </span>a<span class="w"> </span>def<span class="w"> </span>file<span class="w"> </span>that<span class="w"> </span>uses<span class="w"> </span>all
+<span class="w">    </span>supported<span class="w"> </span>sections.
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Bootstrap</span></code> serves as a source, protocol or format of the base image, there are many to select like: the Singularity Container Library (library), Docker hub, oras, yum, localimage, debootstrap, oci, busybox, and others.</p>
-<p>For more information, please see official <a class="reference external" href="https://docs.sylabs.io/guides/latest/user-guide/definition_files.html">definition file</a>  documentation.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">From</span></code> keyword depends on the bootstrap value, in this case, when using the library, the From keyword becomes valid and is used to specify the name and tag of the base OS.</p>
-<p>Commands inside the <code class="docutils literal notranslate"><span class="pre">%setup</span></code> keyword are executed during the build process on the host system, outside of the container, after the base OS has been installed.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%files</span></code> section allows to copy files into the container. This is useful when a program is compiled and you want to move around the recently built program to a second stage container.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%environment</span></code> section allows to define environment variables that will be set at runtime. These variables are not available during build time.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%post</span></code> section is where you can download files from the internet with tools like <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">wget</span></code>, install new software, write configuration files, create directories inside the container.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section contains commands that are written to a file inside the container that is executed when the container image is run with <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">run</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%startscript</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section, with the difference that the commands are executed when the command <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">instance</span> <span class="pre">start</span></code> is issued.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%test</span></code> section contains commands that are issued at the end of the build process. It usually contains validation commands of your choice, it is also executed when using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">test</span></code> command.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%labels</span></code> section is used to add metadata to the file /.singularity.d/labels.json, the labels are defined by key-value pairs and can be displayed while executing the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">inspect</span></code> command.</p>
-<p>The text in the <code class="docutils literal notranslate"><span class="pre">%help</span></code> section is transferred to a metadata file inside the container. It can be displayed using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">run-help</span></code> command.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Bootstrap</span></code> serves as a source, protocol or format of the base image, there
+are many to select like: the Singularity Container Library (library), Docker
+hub, oras, yum, localimage, debootstrap, oci, busybox, and others.</p>
+<p>For more information, please see official
+<a class="reference external" href="https://docs.sylabs.io/guides/latest/user-guide/definition_files.html">definition file</a>
+documentation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">From</span></code> keyword depends on the bootstrap value, in this case, when using the
+library, the From keyword becomes valid and is used to specify the name and tag
+of the base OS.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%files</span></code> section allows to copy files into the container. This is useful
+when a program is compiled and you want to move around the recently built
+program to a second stage container.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%environment</span></code> section allows to define environment variables that will be
+set at runtime. These variables are not available during build time.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%post</span></code> section is where you can download files from the internet with tools
+like <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">wget</span></code>, install new software, write configuration files, create
+directories inside the container.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section contains commands that are written to a file inside the
+container that is executed when the container image is run with
+<code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">run</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%startscript</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section, with the difference that
+the commands are executed when the command <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">instance</span> <span class="pre">start</span></code> is
+issued.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%test</span></code> section contains commands that are issued at the end of the build
+process. It usually contains validation commands of your choice, it is also
+executed when using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">test</span></code> command.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%labels</span></code> section is used to add metadata to the file
+<code class="docutils literal notranslate"><span class="pre">/.singularity.d/labels.json</span></code>, the labels are defined by key-value pairs and can
+be displayed while executing the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">inspect</span></code> command.</p>
+<p>The text in the <code class="docutils literal notranslate"><span class="pre">%help</span></code> section is transferred to a metadata file inside the
+container. It can be displayed using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">run-help</span></code> command.</p>
 </section>
 </section>
 
@@ -502,7 +487,7 @@ From: ubuntu:22.04
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -510,50 +495,105 @@ From: ubuntu:22.04
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="lab1.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">📓 Lab 1: Running Containers</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab2.2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📓 Lab 2.2: Running Containers as Instances</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="multistage.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="multistage.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">📄 Multi-Stage Build</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Sylabs.io<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-of-a-definition-file">Components of a definition file</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sylabs.io
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

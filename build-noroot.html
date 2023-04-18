@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>📄 Building without root access &#8212; Singularity Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'build-noroot';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="📓 Lab 3: Multi-Stage Build" href="lab3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/singularity-logo-round.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/singularity-logo-round.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Singularity Tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.1.html">📓 Lab 2.1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.2.html">📓 Lab 2.2: Running Containers as Instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">📄 The Singularity Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Multi-Stage Build</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Building without root access</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Fbuild-noroot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/build-noroot.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📄 Building without root access</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-fakeroot">Using fakeroot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-proot">Using proot</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="building-without-root-access">
+<h1>📄 Building without root access<a class="headerlink" href="#building-without-root-access" title="Permalink to this heading">#</a></h1>
+<p>There are situations where root access is not given, however, do not worry,
+there are 3 options to choose from:</p>
+<ul class="simple">
+<li><p>Use –fakeroot.</p></li>
+<li><p>Use proot.</p></li>
+<li><p>Use Singularity Container Services.</p></li>
+</ul>
+<section id="using-fakeroot">
+<h2>Using fakeroot<a class="headerlink" href="#using-fakeroot" title="Permalink to this heading">#</a></h2>
+<p>A <em>fake root</em> user has almost the same administrative rights as root but only
+inside the container and the requested namespaces.</p>
+<p>All files or directories created by the <em>fake root</em> user are owned by root:root
+inside the container, and user:group outside of the container. Let’s consider
+the following example, in this case “user” is authorized to use the fakeroot
+feature and can use 65536 UIDs starting at 131072 (same thing for GIDs).</p>
+<p>Restrictions are also applied to networking, if singularity is executed without
+the <code class="docutils literal notranslate"><span class="pre">--net</span></code> flag, the <em>fake root</em> user won’t be able to use ping or bind a
+container service to a port below 1024.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--fakeroot</span></code> option is only available with the following commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shell</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exec</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instance</span> <span class="pre">start</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code></p></li>
+</ul>
+<p>Let’s build the SIF image from the previous Lab 3:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--fakeroot<span class="w"> </span>lab3-fakeroot.sif<span class="w"> </span>lab3.def
+INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
+Getting<span class="w"> </span>image<span class="w"> </span><span class="nb">source</span><span class="w"> </span>signatures
+Copying<span class="w"> </span>blob<span class="w"> </span>d694b5ae8c79<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Copying<span class="w"> </span>blob<span class="w"> </span>9f32a84ed3da<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Copying<span class="w"> </span>blob<span class="w"> </span>f56be85fc22e<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Copying<span class="w"> </span>blob<span class="w"> </span>85791d961cd3<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Copying<span class="w"> </span>config<span class="w"> </span>4fa22900b5<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Writing<span class="w"> </span>manifest<span class="w"> </span>to<span class="w"> </span>image<span class="w"> </span>destination
+Storing<span class="w"> </span>signatures
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">21</span>:51:35<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:f56be85fc22e46face<span class="o">[</span>...<span class="o">]</span>bdaa09
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">21</span>:51:36<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:85791d961cd3578144<span class="o">[</span>...<span class="o">]</span>7a7907
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">21</span>:51:36<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:d694b5ae8c79da8739<span class="o">[</span>...<span class="o">]</span>45cbc6
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">21</span>:51:38<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:9f32a84ed3dadb94b3<span class="o">[</span>...<span class="o">]</span>ddf893
+INFO:<span class="w">    </span>Running<span class="w"> </span>post<span class="w"> </span>scriptlet
++<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>git
+fetch<span class="w"> </span>https://dl-cdn.alpinelinux.org/alpine/v3.17/main/x86_64/APKINDEX.tar.gz
+fetch<span class="w"> </span>https://dl-cdn.alpinelinux.org/alpine/v3.17/community/x86_64/APKINDEX.tar.gz
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>brotli-libs<span class="w"> </span><span class="o">(</span><span class="m">1</span>.0.9-r9<span class="o">)</span>
+<span class="o">(</span><span class="m">2</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>nghttp2-libs<span class="w"> </span><span class="o">(</span><span class="m">1</span>.51.0-r0<span class="o">)</span>
+<span class="o">(</span><span class="m">3</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>libcurl<span class="w"> </span><span class="o">(</span><span class="m">7</span>.88.1-r1<span class="o">)</span>
+<span class="o">(</span><span class="m">4</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>libexpat<span class="w"> </span><span class="o">(</span><span class="m">2</span>.5.0-r0<span class="o">)</span>
+<span class="o">(</span><span class="m">5</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>pcre2<span class="w"> </span><span class="o">(</span><span class="m">10</span>.42-r0<span class="o">)</span>
+<span class="o">(</span><span class="m">6</span>/6<span class="o">)</span><span class="w"> </span>Installing<span class="w"> </span>git<span class="w"> </span><span class="o">(</span><span class="m">2</span>.38.4-r1<span class="o">)</span>
+Executing<span class="w"> </span>busybox-1.35.0-r29.trigger
+OK:<span class="w"> </span><span class="m">16</span><span class="w"> </span>MiB<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">22</span><span class="w"> </span>packages
++<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/golang/example
+Cloning<span class="w"> </span>into<span class="w"> </span><span class="s1">&#39;example&#39;</span>...
+remote:<span class="w"> </span>Enumerating<span class="w"> </span>objects:<span class="w"> </span><span class="m">204</span>,<span class="w"> </span><span class="k">done</span>.
+remote:<span class="w"> </span>Counting<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">40</span>/40<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+remote:<span class="w"> </span>Compressing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">25</span>/25<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+remote:<span class="w"> </span>Total<span class="w"> </span><span class="m">204</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">22</span><span class="o">)</span>,<span class="w"> </span>reused<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">15</span><span class="o">)</span>,<span class="w"> </span>pack-reused<span class="w"> </span><span class="m">164</span>
+Receiving<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">204</span>/204<span class="o">)</span>,<span class="w"> </span><span class="m">109</span>.16<span class="w"> </span>KiB<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">792</span>.00<span class="w"> </span>KiB/s,<span class="w"> </span><span class="k">done</span>.
+Resolving<span class="w"> </span>deltas:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">93</span>/93<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
++<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>example/hello
++<span class="w"> </span>go<span class="w"> </span>build
+Getting<span class="w"> </span>image<span class="w"> </span><span class="nb">source</span><span class="w"> </span>signatures
+Copying<span class="w"> </span>blob<span class="w"> </span>f56be85fc22e<span class="w"> </span>skipped:<span class="w"> </span>already<span class="w"> </span>exists<span class="w">  </span>
+Copying<span class="w"> </span>config<span class="w"> </span>4798f93a2c<span class="w"> </span><span class="k">done</span><span class="w">  </span>
+Writing<span class="w"> </span>manifest<span class="w"> </span>to<span class="w"> </span>image<span class="w"> </span>destination
+Storing<span class="w"> </span>signatures
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">21</span>:51:46<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:f56be85fc22<span class="o">[</span>...<span class="o">]</span>7f64b87abdaa09
+INFO:<span class="w">    </span>Copying<span class="w"> </span>/example/hello/hello<span class="w"> </span>to<span class="w"> </span>/bin/hello
+INFO:<span class="w">    </span>Creating<span class="w"> </span>SIF<span class="w"> </span>file...
+INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span class="w"> </span>lab3-fakeroot.sif
+</pre></div>
+</div>
+<p>As you can see, the build is completed without having to rely on root or
+administrative access. However take into consideration this feature is only
+available for operating systems with linux kernel version 3.18 and newer, if
+your kernel is older, then your next option is to use proot.</p>
+</section>
+<section id="using-proot">
+<h2>Using proot<a class="headerlink" href="#using-proot" title="Permalink to this heading">#</a></h2>
+<p>SingularityCE 3.11 introduces the ability to run some definition file builds
+without –fakeroot or sudo. This is useful on systems where you cannot sudo, and
+the administrator cannot perform the configurations necessary for –fakeroot
+support.</p>
+<p>Unprivileged proot builds are automatically performed when proot is available on
+the system and singularity build is run by a non-root user against a definition
+file, so no flags need to be passed on to the singularity command.</p>
+<p>Installing proot is out of the scope of this tutorial. It is important to remark
+that this method comes with its limitations because administrative user (root)
+emulation is not complete, so let’s evaluate the definition file first and
+determine if it is worth using this method.</p>
+<ul class="simple">
+<li><p>Do not support arch / debootstrap / yum / zypper bootstraps. Use localimage,
+library, oras, or one of the docker/oci sources.</p></li>
+<li><p>Do not support <code class="docutils literal notranslate"><span class="pre">%pre</span></code> and <code class="docutils literal notranslate"><span class="pre">%setup</span></code> sections of definition files.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">%post</span></code> sections of a build in the container as an emulated root user.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">%test</span></code> section of a build as the non-root user, like singularity test.</p></li>
+<li><p>Are subject to any restrictions imposed in singularity.conf.</p></li>
+<li><p>Incur a performance penalty due to the <code class="docutils literal notranslate"><span class="pre">ptrace</span></code>-based interception of
+syscalls used by proot.</p></li>
+<li><p>May fail if the <code class="docutils literal notranslate"><span class="pre">%post</span></code> script requires privileged operations that proot cannot emulate.</p></li>
+</ul>
+<p>If your system have proot installed, you might get an output similar to this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>lolcow.sif<span class="w"> </span>lolcow.def
+INFO:<span class="w">    </span>Using<span class="w"> </span>proot<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>unprivileged.<span class="w"> </span>Not<span class="w"> </span>all<span class="w"> </span>builds<span class="w"> </span>are<span class="w"> </span>supported.<span class="w"> </span>If<span class="w"> </span>build<span class="w"> </span>fails,<span class="w"> </span>use<span class="w"> </span>--remote<span class="w"> </span>or<span class="w"> </span>--fakeroot.
+INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
+</pre></div>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">proot</span></code> word. SingularityCE automatically calls proot for you and
+performs the build. The above is an example, do not execute the above in your
+system lab, it may not work.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📓 Lab 3: Multi-Stage Build</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-fakeroot">Using fakeroot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-proot">Using proot</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sylabs.io
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

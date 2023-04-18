@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>📄 Inspecting SIF Files &#8212; Singularity Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'inspecting';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="📓 Lab 7: SIF file &amp; Host Filesystem" href="lab7.html" />
+    <link rel="prev" title="📓 Lab 6: Signing with x509 Certificates" href="lab6.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/singularity-logo-round.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/singularity-logo-round.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Singularity Tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.1.html">📓 Lab 2.1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.2.html">📓 Lab 2.2: Running Containers as Instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">📄 The Singularity Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Multi-Stage Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-noroot.html">📄 Building without root access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">📓 Lab 4: Using Singularity Container Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">📄 Signing and verifying images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">📓 Lab 5:  Signing containers with PGP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Certificates</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Inspecting SIF Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Finspecting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/inspecting.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📄 Inspecting SIF Files</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-host-files">Accessing host files</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="inspecting-sif-files">
+<h1>📄 Inspecting SIF Files<a class="headerlink" href="#inspecting-sif-files" title="Permalink to this heading">#</a></h1>
+<p>Singularity stores metadata in their SIF files. For example, if you want to see
+the original definition file you can use the inspect command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>inspect<span class="w"> </span>--deffile<span class="w"> </span>
+
+bootstrap:<span class="w"> </span>library
+from:<span class="w"> </span>ubuntu:22.04
+</pre></div>
+</div>
+<p>Similarly you can also show several of the sections like:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code> to show the <code class="docutils literal notranslate"><span class="pre">runscript</span></code> section for the image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code> to show the <code class="docutils literal notranslate"><span class="pre">startscript</span></code> section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code> to show the <code class="docutils literal notranslate"><span class="pre">test</span></code> script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e</span></code> to show the <code class="docutils literal notranslate"><span class="pre">environment</span></code> settings.</p></li>
+</ul>
+<section id="accessing-host-files">
+<h2>Accessing host files<a class="headerlink" href="#accessing-host-files" title="Permalink to this heading">#</a></h2>
+<p>Normally some directories are available on the container, like your $HOME, /tmp,
+/proc, /sys and /dev, it is possible to access and even create and modify files
+and directories on the host system from the container, however the system will
+always honor the current user permissions on the host..</p>
+<p>You can specify other directories using the –bind option, for example, if we
+want to access a specific directory or file, we can make it available to the
+container.</p>
+<p>Let’s demonstrate this, we are going to expose /etc/os-release which is a file
+that is defined by a linux operating system vendor, and is generally not changed
+by anybody.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
+INFO:<span class="w">    </span>Downloading<span class="w"> </span>library<span class="w"> </span>image
+<span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu 22.04.2 LTS&quot;</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu&quot;</span>
+<span class="nv">VERSION_ID</span><span class="o">=</span><span class="s2">&quot;22.04&quot;</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="s2">&quot;22.04.2 LTS (Jammy Jellyfish)&quot;</span>
+<span class="nv">VERSION_CODENAME</span><span class="o">=</span>jammy
+<span class="nv">ID</span><span class="o">=</span>ubuntu
+<span class="nv">ID_LIKE</span><span class="o">=</span>debian
+<span class="nv">HOME_URL</span><span class="o">=</span><span class="s2">&quot;https://www.ubuntu.com/&quot;</span>
+<span class="nv">SUPPORT_URL</span><span class="o">=</span><span class="s2">&quot;https://help.ubuntu.com/&quot;</span>
+<span class="nv">BUG_REPORT_URL</span><span class="o">=</span><span class="s2">&quot;https://bugs.launchpad.net/ubuntu/&quot;</span>
+<span class="nv">PRIVACY_POLICY_URL</span><span class="o">=</span><span class="s2">&quot;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&quot;</span>
+<span class="nv">UBUNTU_CODENAME</span><span class="o">=</span>jammy
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>—bind<span class="w"> </span>/etc/os-release<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
+INFO:<span class="w">    </span>Using<span class="w"> </span>cached<span class="w"> </span>image
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;AlmaLinux&quot;</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="s2">&quot;9.1 (Lime Lynx)&quot;</span>
+<span class="nv">ID</span><span class="o">=</span><span class="s2">&quot;almalinux&quot;</span>
+<span class="nv">ID_LIKE</span><span class="o">=</span><span class="s2">&quot;rhel centos fedora&quot;</span>
+<span class="nv">VERSION_ID</span><span class="o">=</span><span class="s2">&quot;9.1&quot;</span>
+<span class="nv">PLATFORM_ID</span><span class="o">=</span><span class="s2">&quot;platform:el9&quot;</span>
+<span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&quot;AlmaLinux 9.1 (Lime Lynx)&quot;</span>
+<span class="nv">ANSI_COLOR</span><span class="o">=</span><span class="s2">&quot;0;34&quot;</span>
+<span class="nv">LOGO</span><span class="o">=</span><span class="s2">&quot;fedora-logo-icon&quot;</span>
+<span class="nv">CPE_NAME</span><span class="o">=</span><span class="s2">&quot;cpe:/o:almalinux:almalinux:9::baseos&quot;</span>
+<span class="nv">HOME_URL</span><span class="o">=</span><span class="s2">&quot;https://almalinux.org/&quot;</span>
+<span class="nv">DOCUMENTATION_URL</span><span class="o">=</span><span class="s2">&quot;https://wiki.almalinux.org/&quot;</span>
+<span class="nv">BUG_REPORT_URL</span><span class="o">=</span><span class="s2">&quot;https://bugs.almalinux.org/&quot;</span>
+
+<span class="nv">ALMALINUX_MANTISBT_PROJECT</span><span class="o">=</span><span class="s2">&quot;AlmaLinux-9&quot;</span>
+<span class="nv">ALMALINUX_MANTISBT_PROJECT_VERSION</span><span class="o">=</span><span class="s2">&quot;9.1&quot;</span>
+<span class="nv">REDHAT_SUPPORT_PRODUCT</span><span class="o">=</span><span class="s2">&quot;AlmaLinux&quot;</span>
+<span class="nv">REDHAT_SUPPORT_PRODUCT_VERSION</span><span class="o">=</span><span class="s2">&quot;9.1&quot;</span>
+</pre></div>
+</div>
+<p>Note how the first command shows Ubuntu information and the second command shows
+the information about AlmaLinux, which is the file stored in the host.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not execute the following commands as they may fail because directories are
+fictional, lab 7 includes working examples.</p>
+</div>
+<p>In order to mount several directories, you can provide them as a comma separated
+list like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/dir1,/dir2,/dir3<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/
+</pre></div>
+</div>
+<p>You can even bind the directories and have them inside the containers with a
+different name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/dir1:/directory_one,/dir2:/directory_two<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab6.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📓 Lab 6:  Signing with x509 Certificates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab7.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">📓 Lab 7: SIF file &amp; Host Filesystem</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-host-files">Accessing host files</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sylabs.io
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

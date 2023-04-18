@@ -1,20 +1,24 @@
 # 📄 The Singularity Workflow
 
-The definition file is the outcome of the Singularity workflow, it is useful to test commands and make annotations, the place where commands are being tested is called the sandbox.
+The definition file is the outcome of the Sandbox workflow, it is useful to test
+commands and make annotations, the place where commands are being tested is
+called the sandbox.
 
-First, lets take a base operating system image to start and create a sandbox.
+First, let's take a base operating system image to start and create a sandbox.
 
 ```bash
 sudo singularity build --sandbox sandbox/ docker://ubuntu:22.04
 ```
 
-The above command, creates a directory called “sandbox”, this is where all changes to the base image are gonna be saved and later in a SIF file.
+The previous command, creates a directory called “sandbox”, this is where all
+changes to the base image are going to be saved and later in a SIF file.
 
 ```bash
 sudo singularity shell --writable sandbox/
 ```
 
-Now you can test your commands, install packages, re-configure the system and make notes in your definition file.
+Now you can test your commands, install packages, fine tune configuration and
+make notes in your definition file.
 
 ## Components of a definition file
 
@@ -23,9 +27,6 @@ A definition file is similar to this, some of the header and sections are option
 ```bash
 Bootstrap: library
 From: ubuntu:22.04
-%setup
-    touch /file1
-    touch ${SINGULARITY_ROOTFS}/file2
 
 %files
     /file1
@@ -66,26 +67,44 @@ From: ubuntu:22.04
     supported sections.
 ```
 
-The `Bootstrap` serves as a source, protocol or format of the base image, there are many to select like: the Singularity Container Library (library), Docker hub, oras, yum, localimage, debootstrap, oci, busybox, and others.
+The `Bootstrap` serves as a source, protocol or format of the base image, there
+are many to select like: the Singularity Container Library (library), Docker
+hub, oras, yum, localimage, debootstrap, oci, busybox, and others.
 
-For more information, please see official [definition file](https://docs.sylabs.io/guides/latest/user-guide/definition_files.html)  documentation.
+For more information, please see official
+[definition file](https://docs.sylabs.io/guides/latest/user-guide/definition_files.html)
+documentation.
 
-The `From` keyword depends on the bootstrap value, in this case, when using the library, the From keyword becomes valid and is used to specify the name and tag of the base OS.
+The `From` keyword depends on the bootstrap value, in this case, when using the
+library, the From keyword becomes valid and is used to specify the name and tag
+of the base OS.
 
-Commands inside the `%setup` keyword are executed during the build process on the host system, outside of the container, after the base OS has been installed.
+The `%files` section allows to copy files into the container. This is useful
+when a program is compiled and you want to move around the recently built
+program to a second stage container.
 
-The `%files` section allows to copy files into the container. This is useful when a program is compiled and you want to move around the recently built program to a second stage container.
+The `%environment` section allows to define environment variables that will be
+set at runtime. These variables are not available during build time.
 
-The `%environment` section allows to define environment variables that will be set at runtime. These variables are not available during build time.
+The `%post` section is where you can download files from the internet with tools
+like `git` and `wget`, install new software, write configuration files, create
+directories inside the container.
 
-The `%post` section is where you can download files from the internet with tools like `git` and `wget`, install new software, write configuration files, create directories inside the container.
+The `%runscript` section contains commands that are written to a file inside the
+container that is executed when the container image is run with
+`singularity run`.
 
-The `%runscript` section contains commands that are written to a file inside the container that is executed when the container image is run with `singularity run`.
+The `%startscript` is similar to `%runscript` section, with the difference that
+the commands are executed when the command `singularity instance start` is
+issued.
 
-The `%startscript` is similar to `%runscript` section, with the difference that the commands are executed when the command `singularity instance start` is issued.
+The `%test` section contains commands that are issued at the end of the build
+process. It usually contains validation commands of your choice, it is also
+executed when using the `singularity test` command.
 
-The `%test` section contains commands that are issued at the end of the build process. It usually contains validation commands of your choice, it is also executed when using the `singularity test` command.
+The `%labels` section is used to add metadata to the file
+`/.singularity.d/labels.json`, the labels are defined by key-value pairs and can
+be displayed while executing the `singularity inspect` command.
 
-The `%labels` section is used to add metadata to the file /.singularity.d/labels.json, the labels are defined by key-value pairs and can be displayed while executing the `singularity inspect` command.
-
-The text in the `%help` section is transferred to a metadata file inside the container. It can be displayed using the `singularity run-help` command.
+The text in the `%help` section is transferred to a metadata file inside the
+container. It can be displayed using the `singularity run-help` command.
