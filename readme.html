@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>📄 Convert docker images to SIF &#8212; Singularity Tutorial</title>
+    <title>Singularity 101 Course &#8212; Singularity Tutorial</title>
   
   
   
@@ -61,11 +61,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'convert';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'readme';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="📄 Using Singularity Container Services" href="scs.html" />
-    <link rel="prev" title="📓 Lab 2: Singularity Workflow" href="lab2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -156,24 +154,23 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.1.html">📓 Lab 2.1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.2.html">📓 Lab 2.2: Running Containers as Instances</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">📄 The Singularity Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="multistage.html">📄 Multi-Stage Build</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">📓 Lab 2: Singularity Workflow</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Convert docker images to SIF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scs.html">📄 Using Singularity Container Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Multi-Stage Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-noroot.html">📄 Building without root access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">📓 Lab 4: Using Singularity Container Services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="signing.html">📄 Signing and verifying images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Singularity Container Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inspect.html">📄 Inspecting SIF files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hostfiles.html">📄 Accessing host files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab4.html">📓 Lab 4: SIF Filesystem &amp; Host Filesystem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">📄 Advanced Topics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab5.html">📓 Lab 5: Limiting Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">📓 Lab 5:  Signing containers with PGP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
 </ul>
 
     </div>
@@ -245,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Fconvert.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Freadme.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -275,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/convert.md" target="_blank"
+      <li><a href="_sources/readme.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -355,7 +352,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>📄 Convert docker images to SIF</h1>
+    <h1>Singularity 101 Course</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -369,20 +366,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="convert-docker-images-to-sif">
-<h1>📄 Convert docker images to SIF<a class="headerlink" href="#convert-docker-images-to-sif" title="Permalink to this heading">#</a></h1>
-<p>There are ocassions where an image is not available in the Singularity library, you can take one docker and convert it to the native Singularity Image Format.</p>
-<p><code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">pull</span> <span class="pre">docker://ubuntu:22.04</span></code></p>
-<p>This is the most easy, it will download all the docker format layers and compile a SIF image for you.
-Other method is to use a definition file and take advantage of the bootstrap agent like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>docker
-From:<span class="w"> </span>ubuntu:22.04
-
-%post
-<span class="w">   </span>...
-%runscript
-<span class="w">   </span>...
-<span class="w">   </span>
+  <section class="tex2jax_ignore mathjax_ignore" id="singularity-101-course">
+<h1>Singularity 101 Course<a class="headerlink" href="#singularity-101-course" title="Permalink to this heading">#</a></h1>
+<p>This is a course designed to be an introductory journey for academic or
+industry researchers in search of the basic use of SingularityCE.</p>
+<p>This course is written using jupyter book.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>jupyter-book<span class="w"> </span>build<span class="w"> </span>./
 </pre></div>
 </div>
 </section>
@@ -418,24 +407,6 @@ From:<span class="w"> </span>ubuntu:22.04
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="lab2.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">📓 Lab 2: Singularity Workflow</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="scs.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">📄 Using Singularity Container Services</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
