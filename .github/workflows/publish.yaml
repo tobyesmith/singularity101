@@ -1,0 +1,28 @@
+name: Publish
+on:
+  release:
+    types: ["published"]
+jobs:
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Building tutorial html files
+        run: |
+          jupyter-book build ./
+      - name: Create a zip file
+        run: tar -zcvf Singularity101.tar.gz _build/html/
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Singularity101
+          path: Singularity101.tar.gz
