@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -370,20 +371,31 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="building-images">
 <h1>📄 Building images<a class="headerlink" href="#building-images" title="Permalink to this heading">#</a></h1>
-<p>A more realistic example could be to set up a real instance, before that, let’s demonstrate the use of definition files. Definition file is a set of instructions or commands, with the goal to prepare the image for the final user. This includes setting up environment variables, installing software.</p>
-<p>This is a Singularity Workflow (a development cycle), which is similar to the below steps:</p>
+<p>Now that we’ve seen some examples, we’re almost ready to set up a real instance.
+Before doing so, however, we’ll quickly explore  definition files and how they
+are used. A definition file consists of  a series  of instructions or commands
+aimed at configuring the image for end users. This process includes setting up
+environment variables and installing software.</p>
+<p>The Singularity Workflow (development process) can be summarized in the
+following steps:</p>
 <ol class="arabic simple">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">sandbox</span></code> container.</p></li>
-<li><p>Get into the container with the <code class="docutils literal notranslate"><span class="pre">--writable</span></code> option.</p></li>
-<li><p>Do whatever it needs to get your software running including: commands, environment variables, and take note of them in a definition file.</p></li>
-<li><p>Build the container from the definition file and do a test-run, if something goes wrong, go to step 1.</p></li>
+<li><p>Enter the container using the <code class="docutils literal notranslate"><span class="pre">--writable</span></code> option.</p></li>
+<li><p>Perform necessary actions to get your software running including executing
+commands, setting environment variables, and documenting them in a definition
+file.</p></li>
+<li><p>Build the container from the definition file and do a test-run. If any issues
+arise, return to step 1.</p></li>
 </ol>
 <p>The definition file (<code class="docutils literal notranslate"><span class="pre">def</span></code> for short) is divided into 2 parts, a <strong>header</strong> and <strong>sections</strong>.</p>
 <ul class="simple">
 <li><p><strong>Header</strong>: Describes the core operating system to build within the container.</p></li>
-<li><p><strong>Sections</strong>: These are group of commands to describe particular actions in the final image like: setup, copy files, set environment variables, download files, testing and many more.</p></li>
+<li><p><strong>Sections</strong>: These are group of commands to describe particular actions in
+the final image. They can include setup, copy files, set environment variables,
+download files, testing, and many more.</p></li>
 </ul>
-<p>This is a very basic definition file, which is going to serve as a demo for this tutorial. These are the contents of the <code class="docutils literal notranslate"><span class="pre">demo.def</span></code> file:</p>
+<p>The following  is a simple definition file that will serve as a demo for this
+tutorial. These are the contents of the <code class="docutils literal notranslate"><span class="pre">demo.def</span></code> file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>library
 From:<span class="w"> </span>ubuntu:22.04
 
@@ -391,11 +403,11 @@ From:<span class="w"> </span>ubuntu:22.04
 <span class="nb">echo</span><span class="w"> </span>“Display<span class="w"> </span>any<span class="w"> </span>message<span class="w"> </span>during<span class="w"> </span>build!”
 </pre></div>
 </div>
-<p>And the build command looks like this:</p>
+<p>And here is the build command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>josue@localhost<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>demo.sif<span class="w"> </span>demo.def
 INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
 INFO:<span class="w">    </span>Downloading<span class="w"> </span>library<span class="w"> </span>image
-<span class="m">28</span>.4MiB<span class="w"> </span>/<span class="w"> </span><span class="m">28</span>.4MiB<span class="w"> </span><span class="o">[===================================================================]</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>%<span class="w"> </span><span class="m">3</span>.4<span class="w"> </span>MiB/s<span class="w"> </span>0s
+<span class="m">28</span>.4MiB<span class="w"> </span>/<span class="w"> </span><span class="m">28</span>.4MiB<span class="w"> </span><span class="o">[=====================================]</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>%<span class="w"> </span><span class="m">3</span>.4<span class="w"> </span>MiB/s<span class="w"> </span>0s
 INFO:<span class="w">    </span>Verifying<span class="w"> </span>bootstrap<span class="w"> </span>image<span class="w"> </span>/root/.singularity/cache/library/sha256.7a63c...98b
 INFO:<span class="w">    </span>Creating<span class="w"> </span>SIF<span class="w"> </span>file...
 INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span class="w"> </span>demo.sif

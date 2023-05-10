@@ -10,7 +10,7 @@ bootstrap: library
 from: ubuntu:22.04
 ```
 
-Similarly you can also show several of the sections like:
+You can also use the following prompts to show the following sections:
 
 * `-r` to show the `runscript` section for the image.
 * `-s` to show the `startscript` section.
@@ -19,18 +19,17 @@ Similarly you can also show several of the sections like:
 
 ## Accessing host files
 
-Normally some directories are available on the container, like your $HOME, /tmp,
-/proc, /sys and /dev, it is possible to access and even create and modify files
-and directories on the host system from the container, however the system will
-always honor the current user permissions on the host..
+In a container, certain directories such as $HOME, /tmp, /proc, /sys and /dev
+are usually accessible. While it is possible to access, create, and modify files
+and directories on the host system from within the container,  the host’s user
+permissions will always be honored.
 
-You can specify other directories using the --bind option, for example, if we
-want to access a specific directory or file, we can make it available to the
-container.
+To make other directories accessible, you can use the –bind option. For example,
+if you want to access a specific directory or file, you can make it available
+inside the container.
 
-Let's demonstrate this, we are going to expose /etc/os-release which is a file
-that is defined by a linux operating system vendor, and is generally not changed
-by anybody.
+As an example, we’ll expose the /etc/os-release file, which is defined by a
+Linux operating system vendor and generally remains constant.
 
 ```bash
 $ singularity exec library://ubuntu:22.04 cat /etc/os-release
@@ -50,7 +49,7 @@ UBUNTU_CODENAME=jammy
 ```
 
 ```bash
-$ singularity exec —bind /etc/os-release library://ubuntu:22.04 cat /etc/os-release
+$ singularity exec --bind /etc/os-release library://ubuntu:22.04 cat /etc/os-release
 INFO:    Using cached image
 NAME="AlmaLinux"
 VERSION="9.1 (Lime Lynx)"
@@ -75,21 +74,12 @@ REDHAT_SUPPORT_PRODUCT_VERSION="9.1"
 Note how the first command shows Ubuntu information and the second command shows
 the information about AlmaLinux, which is the file stored in the host.
 
-````{note}
-Do not execute the following commands as they may fail because directories are
-fictional, lab 7 includes working examples.
-````
-
-In order to mount several directories, you can provide them as a comma separated
-list like the following:
+To mount multiple directories, you can provide them as a comma-separated list
+like the following:
 
 ```bash
-singularity exec --bind /dir1,/dir2,/dir3 library://ubuntu:22.04 ls -l /
+$ mkdir -p {run,var-log}
+$ singularity exec --bind run:/run,var-log:/var/log library://ubuntu:22.04 ls -l /var/log
 ```
 
-You can even bind the directories and have them inside the containers with a
-different name:
-
-```bash
-$ singularity exec --bind /dir1:/directory_one,/dir2:/directory_two library://ubuntu:22.04 ls -l /
-```
+The previous command lists the files inside the host’s /var/log directory.

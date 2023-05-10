@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -380,15 +381,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-singularity-workflow">
 <h1>📄 The Singularity Workflow<a class="headerlink" href="#the-singularity-workflow" title="Permalink to this heading">#</a></h1>
-<p>The definition file is the outcome of the Sandbox workflow, it is useful to test
-commands and make annotations, the place where commands are being tested is
-called the sandbox.</p>
-<p>First, let’s take a base operating system image to start and create a sandbox.</p>
+<p>The definition file is the outcome of the Sandbox workflow. It is helpful for
+testing commands and making notes, with the testing taking place in the sandbox
+environment.</p>
+<p>To begin, let’s choose a base operating system image and create a sandbox.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>sandbox/<span class="w"> </span>docker://ubuntu:22.04
 </pre></div>
 </div>
-<p>The previous command, creates a directory called “sandbox”, this is where all
-changes to the base image are going to be saved and later in a SIF file.</p>
+<p>The previous command creates a directory called “sandbox” where all changes to
+the base image will eventually be saved in a SIF file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--writable<span class="w"> </span>sandbox/
 </pre></div>
 </div>
@@ -396,7 +397,8 @@ changes to the base image are going to be saved and later in a SIF file.</p>
 make notes in your definition file.</p>
 <section id="components-of-a-definition-file">
 <h2>Components of a definition file<a class="headerlink" href="#components-of-a-definition-file" title="Permalink to this heading">#</a></h2>
-<p>A definition file is similar to this, some of the header and sections are optional</p>
+<p>A definition file is similar to the following, although some of the header and
+sections are optional.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>library
 From:<span class="w"> </span>ubuntu:22.04
 
@@ -439,29 +441,30 @@ From:<span class="w"> </span>ubuntu:22.04
 <span class="w">    </span>supported<span class="w"> </span>sections.
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">Bootstrap</span></code> serves as a source, protocol or format of the base image, there
-are many to select like: the Singularity Container Library (library), Docker
-hub, oras, yum, localimage, debootstrap, oci, busybox, and others.</p>
-<p>For more information, please see official
+<p>The <code class="docutils literal notranslate"><span class="pre">Bootstrap</span></code> serves as a source, protocol, or format of the base image. You
+have  many options to choose from, including the Singularity Container Library
+(library), Docker Hub, OCI Registry as Storage (ORAS), yum, localimage,
+debootstrap, Open Container Initiative (OCI), BusyBox, and others.</p>
+<p>For more information, please see our official
 <a class="reference external" href="https://docs.sylabs.io/guides/latest/user-guide/definition_files.html">definition file</a>
 documentation.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">From</span></code> keyword depends on the bootstrap value, in this case, when using the
 library, the From keyword becomes valid and is used to specify the name and tag
 of the base OS.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%files</span></code> section allows to copy files into the container. This is useful
-when a program is compiled and you want to move around the recently built
+<p>The <code class="docutils literal notranslate"><span class="pre">%files</span></code> section enables you to copy files into the container. This is
+useful when a program is compiled and you want to move around the recently built
 program to a second stage container.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%environment</span></code> section allows to define environment variables that will be
-set at runtime. These variables are not available during build time.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%environment</span></code> section enables you to define environment variables that will
+be set at runtime. These variables are not available during build time.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">%post</span></code> section is where you can download files from the internet with tools
 like <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">wget</span></code>, install new software, write configuration files, create
 directories inside the container.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section contains commands that are written to a file inside the
 container that is executed when the container image is run with
 <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">run</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">%startscript</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section, with the difference that
-the commands are executed when the command <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">instance</span> <span class="pre">start</span></code> is
-issued.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">%startscript</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">%runscript</span></code> section, with the difference being
+that the commands in <code class="docutils literal notranslate"><span class="pre">%startscript</span></code> are executed when the command
+<code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">instance</span> <span class="pre">start</span></code> is issued.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">%test</span></code> section contains commands that are issued at the end of the build
 process. It usually contains validation commands of your choice, it is also
 executed when using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">test</span></code> command.</p>

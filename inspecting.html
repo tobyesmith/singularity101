@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -388,7 +389,7 @@ bootstrap:<span class="w"> </span>library
 from:<span class="w"> </span>ubuntu:22.04
 </pre></div>
 </div>
-<p>Similarly you can also show several of the sections like:</p>
+<p>You can also use the following prompts to show the following sections:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code> to show the <code class="docutils literal notranslate"><span class="pre">runscript</span></code> section for the image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code> to show the <code class="docutils literal notranslate"><span class="pre">startscript</span></code> section.</p></li>
@@ -397,16 +398,15 @@ from:<span class="w"> </span>ubuntu:22.04
 </ul>
 <section id="accessing-host-files">
 <h2>Accessing host files<a class="headerlink" href="#accessing-host-files" title="Permalink to this heading">#</a></h2>
-<p>Normally some directories are available on the container, like your $HOME, /tmp,
-/proc, /sys and /dev, it is possible to access and even create and modify files
-and directories on the host system from the container, however the system will
-always honor the current user permissions on the host..</p>
-<p>You can specify other directories using the –bind option, for example, if we
-want to access a specific directory or file, we can make it available to the
-container.</p>
-<p>Let’s demonstrate this, we are going to expose /etc/os-release which is a file
-that is defined by a linux operating system vendor, and is generally not changed
-by anybody.</p>
+<p>In a container, certain directories such as $HOME, /tmp, /proc, /sys and /dev
+are usually accessible. While it is possible to access, create, and modify files
+and directories on the host system from within the container,  the host’s user
+permissions will always be honored.</p>
+<p>To make other directories accessible, you can use the –bind option. For example,
+if you want to access a specific directory or file, you can make it available
+inside the container.</p>
+<p>As an example, we’ll expose the /etc/os-release file, which is defined by a
+Linux operating system vendor and generally remains constant.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
 INFO:<span class="w">    </span>Downloading<span class="w"> </span>library<span class="w"> </span>image
 <span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu 22.04.2 LTS&quot;</span>
@@ -423,7 +423,7 @@ INFO:<span class="w">    </span>Downloading<span class="w"> </span>library<span 
 <span class="nv">UBUNTU_CODENAME</span><span class="o">=</span>jammy
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>—bind<span class="w"> </span>/etc/os-release<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/etc/os-release<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
 INFO:<span class="w">    </span>Using<span class="w"> </span>cached<span class="w"> </span>image
 <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;AlmaLinux&quot;</span>
 <span class="nv">VERSION</span><span class="o">=</span><span class="s2">&quot;9.1 (Lime Lynx)&quot;</span>
@@ -447,21 +447,13 @@ INFO:<span class="w">    </span>Using<span class="w"> </span>cached<span class="
 </div>
 <p>Note how the first command shows Ubuntu information and the second command shows
 the information about AlmaLinux, which is the file stored in the host.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Do not execute the following commands as they may fail because directories are
-fictional, lab 7 includes working examples.</p>
-</div>
-<p>In order to mount several directories, you can provide them as a comma separated
-list like the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/dir1,/dir2,/dir3<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/
+<p>To mount multiple directories, you can provide them as a comma-separated list
+like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="o">{</span>run,var-log<span class="o">}</span>
+$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>run:/run,var-log:/var/log<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/var/log
 </pre></div>
 </div>
-<p>You can even bind the directories and have them inside the containers with a
-different name:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/dir1:/directory_one,/dir2:/directory_two<span class="w"> </span>library://ubuntu:22.04<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/
-</pre></div>
-</div>
+<p>The previous command lists the files inside the host’s /var/log directory.</p>
 </section>
 </section>
 

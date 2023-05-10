@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="📄 Building images" href="building.html" />
-    <link rel="prev" title="📄 Introduction to Singularity CE" href="introduction.html" />
+    <link rel="prev" title="📄 Getting Started" href="gettingstarted.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -380,21 +381,29 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="running-containers">
 <h1>📄 Running containers<a class="headerlink" href="#running-containers" title="Permalink to this heading">#</a></h1>
-<p>You’ve heard of containers, but have you ever tried running them? If you haven’t, then now is the time to start learning how to run them. Containers are becoming increasingly important in today’s HPC environment. They allow you to easily deploy applications without having to worry about managing servers or installing software.</p>
-<p>The easiest part is to run a container and let it run its job. For this course, we are going to use an image from the default library, which is Sylabs SCS public library.</p>
+<p>Now that you have a better understanding of containers, you’re ready to get
+started learning how to run them. The great thing about containers is that they
+allow you to deploy applications without having to worry about managing servers
+or installing software. Best of all, it’s easy to launch a container and let it
+run its job.</p>
+<p>For this course, we are going to use an image from the default library, which is
+the <a class="reference external" href="https://cloud.sylabs.io/library">Sylabs SCS public library</a>.</p>
 <figure class="align-default" id="quickstart-image1-1">
 <img alt="_images/quickstart-image1.png" src="_images/quickstart-image1.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 4 </span><span class="caption-text">Example of singularity run.</span><a class="headerlink" href="#quickstart-image1-1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>That was easy, no need to install anything other than the singularity container engine, just go its way, right? Let’s get a shell and get in the container.</p>
+<p>Easy, right? No need to install anything other than the Singularity container
+engine and let it go its way. Next, let’s grab a shell and get into the
+container.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span>shell<span class="w"> </span>library://josue-sylabs/demo/wttr:latest
 INFO:<span class="w">    </span>Using<span class="w"> </span>cached<span class="w"> </span>image
 Singularity&gt;<span class="w"> </span>_
 </pre></div>
 </div>
-<p>Let’s print the contents of the /etc/os-release file, this file contains lots of variables about the container operating system.</p>
+<p>To view detailed information about the container’s operating system, we can
+display the contents of the /etc/os-release file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/os-release<span class="w"> </span>
 <span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&quot;Debian GNU/Linux 10 (buster)&quot;</span>
 <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;Debian GNU/Linux&quot;</span>
@@ -412,14 +421,22 @@ Singularity&gt;<span class="w"> </span>_
 <span class="nb">exit</span>
 </pre></div>
 </div>
-<p>Normally a container have an application ready, the creator of the image has defined a default command (<code class="docutils literal notranslate"><span class="pre">runscript</span></code>) and is called with the <code class="docutils literal notranslate"><span class="pre">run</span></code> subcommand. The below example shows the output of this demonstration.</p>
-<p>One can <code class="docutils literal notranslate"><span class="pre">inspect</span></code> the content of a given image and see the <code class="docutils literal notranslate"><span class="pre">runscript</span></code> value, for that, first download or <code class="docutils literal notranslate"><span class="pre">pull</span></code> the image, then <code class="docutils literal notranslate"><span class="pre">inspect</span></code> like so:</p>
+<p>In most cases, a container comes with a pre-installed application. The image
+creator defines a default command <code class="docutils literal notranslate"><span class="pre">runscript</span></code>, which is executed using the <code class="docutils literal notranslate"><span class="pre">run</span></code>
+subcommand. The following example demonstrates the output generated by this
+process.</p>
+<p>To <code class="docutils literal notranslate"><span class="pre">inspect</span></code> the content of a given image and see the <code class="docutils literal notranslate"><span class="pre">runscript</span></code> value, first
+download or <code class="docutils literal notranslate"><span class="pre">pull</span></code> the image and then <code class="docutils literal notranslate"><span class="pre">inspect</span></code> using the following steps:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>pull<span class="w"> </span>wttr.sif<span class="w"> </span>library://josue-sylabs/demo/wttr:latest
 ...
 $<span class="w"> </span>singularity<span class="w"> </span>inspect<span class="w"> </span>--runscript<span class="w"> </span>wttr.sif
 </pre></div>
 </div>
-<p>So we can see that by default, the image launches a common linux command to pull weather information. Another interesting fact about singularity is that images can be executed directly without the explicit use of the singularity command and at the same time, demonstrate we can pull any image from docker hub and convert it to SIF format really easily.</p>
+<p>You can see that by default the image launches a common Linux command to pull
+weather information. Another notable feature of Singularity is its ability to
+execute images directly without explicitly invoking the Singularity command.
+You can also easily pull any image from Docker Hub and convert it to the SIF
+format.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>pull<span class="w"> </span>ubuntu.sif<span class="w"> </span>docker://ubuntu
 $<span class="w"> </span>./ubuntu.sif<span class="w"> </span>
 Singularity&gt;<span class="w"> </span>whoami
@@ -432,10 +449,12 @@ Singularity&gt;<span class="w"> </span>ps
 <span class="w"> </span><span class="m">158187</span><span class="w"> </span>pts/0<span class="w">    </span><span class="m">00</span>:00:00<span class="w"> </span>ps
 </pre></div>
 </div>
-<p>Note that right after executing <code class="docutils literal notranslate"><span class="pre">./ubuntu.sif</span></code> a bash command is created ready to accept commands.</p>
+<p>Note that immediately after executing <code class="docutils literal notranslate"><span class="pre">./ubuntu.sif</span></code> a Bash shell is created and
+ready to accept further commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Dockerhub limits its downloads, in order to skip the limit you can login with a user and password using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">docker</span> <span class="pre">login</span></code> command first:</p>
+<p>Docker Hub limits its downloads, You can avoid the limit by logging in with a
+username and password using the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">docker</span> <span class="pre">login</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span>remote<span class="w"> </span>login<span class="w"> </span>--username<span class="w"> </span>username<span class="w"> </span>docker://docker.io<span class="sb">`</span>
 Password<span class="w"> </span>/<span class="w"> </span>Token:
 INFO:<span class="w">    </span>Token<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/josue/.singularity/remote.yaml
@@ -444,9 +463,14 @@ INFO:<span class="w">    </span>Token<span class="w"> </span>stored<span class="
 </div>
 <section id="running-instances">
 <h2>Running instances<a class="headerlink" href="#running-instances" title="Permalink to this heading">#</a></h2>
-<p>Instances are another way to name a running container, the difference is that an instance is in the background doing its job, typically  a service like web servers, which are often configured to work as detached or daemon mode where the container runs a service.</p>
-<p>A SingularityCE container running a service in the background is called an instance, to distinguish it from the default mode which runs containers in the foreground.</p>
-<p>We will explore more about instances later in a Lab.</p>
+<p>In SingularityCE, a container running a service in the background is called an
+“instance,” to distinguish it from the default mode where containers run in the
+foreground.</p>
+<p>Instances are just another name for running containers that are operating in the
+background,  typically performing tasks or running  services like web servers.
+These services  are often configured to function in detached or daemon mode,
+allowing the container to run unobtrusively.</p>
+<p>We will  delve deeper into instances in a later lab.</p>
 </section>
 </section>
 
@@ -482,12 +506,12 @@ INFO:<span class="w">    </span>Token<span class="w"> </span>stored<span class="
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="introduction.html"
+       href="gettingstarted.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">📄 Introduction to Singularity CE</p>
+        <p class="prev-next-title">📄 Getting Started</p>
       </div>
     </a>
     <a class="right-next"

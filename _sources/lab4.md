@@ -1,48 +1,43 @@
 # 📓 Lab 4: Using Singularity Container Services
 
-Singularity Container Service (SCS) is a free service offered to allow those who
-don’t have root access, fakeroot or proot is not available and cannot build an
-image properly.
+Singularity Container Service (SCS) is a free service for users who don’t have
+root access to their workstations and build images.
 
-This service allows you to remotely build a SIF image and share it with others
-if you prefer to do so in the Singularity library, also allows you to store your
-signing keys and let the community know you are the real author of the image.
+This service allows you to build a SIF image, store it remotely, and share it
+with other users of the Singularity library. It can also store your signing keys
+and let the community know you are the real author of the image.
 
-Feel free to sign up at [SCS](https://cloud.sylabs.io/) and create an access
-token afterwards.
+You are welcome to [sign up at SCS](https://cloud.sylabs.io/), after which you
+can generate an access token.
 
 ## Sign up to SCS
 
-In order to Sign up please follow these steps:
+To sign up, please follow these steps:
 
 1. Open your preferred web browser and copy and paste the SCS address in the
 address bar: https://cloud.sylabs.io
 2. Click the "Sign Up" button.
-3. Select your preferred Single Sign On option, you must select one of the 4
-options available, if you do not have any of the approved providers, consider
+3. Select your preferred Single Sign On (SSO) option  from one of the four
+available options If you do not use any of the approved providers, consider
 creating an account.
-4. Follow the instructions given by your provider such as, typing username and
-password or the mechanism set by them.
-
-5. Once you have created an account, you are automatically logged in.
+4. Follow your SSO provider’s instructions. Once you have created an account,
+you are automatically logged in.
 
 ## Create access tokens
 
-Access tokens serves as a mechanisms to communicate securely to SCS without
-exposing or disclosing the provider's credentials.
+Access tokens are a mechanism to communicate securely to SCS without disclosing
+any sensitive data like passwords.
 
-To create access tokens please follow these steps.
+Create an access token by following these steps:
 
-1. At the upper right corner, click over your username and select
+1. In the upper right corner, click over your username and select
 “Access Tokens”.
 2. Type a name and click on the green button “+ Create Access Token”.
-
-Copy your access token and save it in a safe place, you are going to need it
-when signing in with the singularity remote login command.
-
-If in the future you loose or forget this token, you can create as many as you
-wish, and also delete one if is your choice. However is adviced to login again
-to SCS with the following command using a token.
+3. Copy your access token and save it in a safe location, as you will need it to
+sign in with the `singularity remote login` command.
+4. Should  you lose this token in the future, you can create as many additional
+tokens as  needed and even delete them if desired. Nonetheless, it is
+recommended to log in to SCS using the following command with a token.
 
 ```bash
 $ singularity remote login
@@ -55,11 +50,11 @@ INFO:    Token stored in /home/josue/.singularity/remote.yaml
 
 ## Remote building
 
-The ability to build a container on an external resource is built in since
-Singularity 3.0, to demonstrate we can take the very same lab3.def file but in
-this case, submit it to a remote build service. Note that the sudo is not needed
-anymore so it is dropped and the -r flag is added, also you need to have an
-account in SCS, an access token and login to the service.
+Since SingularityCE 3.0, the ability to build a container on an external
+resource is built in. To demonstrate this feature, we can use the same
+`demo.def` file and submit it to a remote build service. Note that sudo is no
+longer necessary, so it is omitted, and the -r flag is added. Additionally, you
+must have an SCS account, an access token, and be logged into the service.
 
 ```bash
 $ singularity build --remote lab3-remote.sif lab3.def
@@ -84,13 +79,12 @@ INFO:    Image uploaded successfully.
 INFO:    Build complete: lab3-remote.sif
 ```
 
-The messages are streamed from the SCS to your terminal, and the resulting image
-is pulled to your local environment. Also if you have any `%files` defined in
-your `def` file, they are uploaded to SCS and discarded after some time.
+The messages from SCS are displayed in your terminal, and the resulting image is
+downloaded to your local environment.  Any `%files` defined in your def file
+will be uploaded to SCS and removed after a period of time.
 
-In order to leave the resulting image in the Singularity library, assuming your
-username is `Joe` you can
-specify the destination to be in the form of:
+If you want to save the resulting image in the Singularity library, you can
+specify the destination as follows:
 
 ```bash
 $ singularity build --remote library://joe/directory/image:tag deffile

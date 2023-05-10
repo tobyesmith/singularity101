@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -478,21 +479,28 @@ determine if it is worth using this method.</p>
 library, oras, or one of the docker/oci sources.</p></li>
 <li><p>Do not support <code class="docutils literal notranslate"><span class="pre">%pre</span></code> and <code class="docutils literal notranslate"><span class="pre">%setup</span></code> sections of definition files.</p></li>
 <li><p>Run the <code class="docutils literal notranslate"><span class="pre">%post</span></code> sections of a build in the container as an emulated root user.</p></li>
-<li><p>Run the <code class="docutils literal notranslate"><span class="pre">%test</span></code> section of a build as the non-root user, like singularity test.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">%test</span></code> section of a build as the non-root user, like singularity
+test.</p></li>
 <li><p>Are subject to any restrictions imposed in singularity.conf.</p></li>
 <li><p>Incur a performance penalty due to the <code class="docutils literal notranslate"><span class="pre">ptrace</span></code>-based interception of
 syscalls used by proot.</p></li>
-<li><p>May fail if the <code class="docutils literal notranslate"><span class="pre">%post</span></code> script requires privileged operations that proot cannot emulate.</p></li>
+<li><p>May fail if the <code class="docutils literal notranslate"><span class="pre">%post</span></code> script requires privileged operations that proot
+cannot emulate.</p></li>
 </ul>
 <p>If your system have proot installed, you might get an output similar to this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>lolcow.sif<span class="w"> </span>lolcow.def
-INFO:<span class="w">    </span>Using<span class="w"> </span>proot<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>unprivileged.<span class="w"> </span>Not<span class="w"> </span>all<span class="w"> </span>builds<span class="w"> </span>are<span class="w"> </span>supported.<span class="w"> </span>If<span class="w"> </span>build<span class="w"> </span>fails,<span class="w"> </span>use<span class="w"> </span>--remote<span class="w"> </span>or<span class="w"> </span>--fakeroot.
+INFO:<span class="w">    </span>Using<span class="w"> </span>proot<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>unprivileged.<span class="w"> </span>Not<span class="w"> </span>all<span class="w"> </span>builds<span class="w"> </span>are<span class="w"> </span>supported.
+If<span class="w"> </span>build<span class="w"> </span>fails,<span class="w"> </span>use<span class="w"> </span>--remote<span class="w"> </span>or<span class="w"> </span>--fakeroot.
 INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
 </pre></div>
 </div>
-<p>Note the <code class="docutils literal notranslate"><span class="pre">proot</span></code> word. SingularityCE automatically calls proot for you and
-performs the build. The above is an example, do not execute the above in your
-system lab, it may not work.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SingularityCE automatically calls proot for you and performs the build. To know
+if <code class="docutils literal notranslate"><span class="pre">proot</span></code> is installed, it is typically installed in a directory listed in the
+$PATH environment variable, issuing <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">proot</span></code> command will let you know if
+it is installed.</p>
+</div>
 </section>
 </section>
 

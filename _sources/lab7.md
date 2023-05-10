@@ -1,8 +1,9 @@
 # 📓 Lab 7: SIF file & Host Filesystem
 
-A very useful technique to recover def files from a SIF file:
+In this lab, we’ll walk through a useful technique for recovering def files from
+a SIF file.
 
-Let's get a SIF image from the SCS library:
+Let’s start with obtaining a SIF image from the SCS library:
 
 ```bash
 $ singularity pull container_lab7.sif library://library/tutorial101/demo:latest
@@ -11,7 +12,7 @@ INFO:    Downloading library image
 ```
 Then, execute it to see its output:
 
-```bash
+```
 $ ./test.sif
  _   _      _ _          __                     
 | | | | ___| | | ___    / _|_ __ ___  _ __ ___  
@@ -28,8 +29,8 @@ $ ./test.sif
 ```
 
 ````{note}
-Unlike docker containers, Singularity containers can be directly executed as if
-they were commands. Use `./` before the sif filename and it will run.
+Unlike docker containers, you can directly execute Singularity containers as if
+they were commands. Use ./ before the sif filename and it will run.
 ````
 
 Lets see the `runscript` section:
@@ -41,9 +42,11 @@ $ singularity inspect -r container_lab7.sif
     cat testfile | figlet | lolcat
 ```
 
-When debugging why a certain script or piece of software is not running, it is
-often common to forget to set environment variables, we can check for that by
-running `-e` flag to the inspect subcommand to see which ones are currently set.
+When troubleshooting why a certain script or piece of software may not be
+running, it’s common to overlook setting environment variables. To determine if
+this is an issue, you can use the `-e` flag with the inspect subcommand to view
+the currently configured environment variables.
+
 
 ```bash
 $ singularity inspect -e container_lab7.sif 
@@ -78,8 +81,10 @@ from: almalinux:9
     cat testfile | figlet | lolcat
 ```
 
-If you are interested on taking a look at the SIF image sections lets take a
-look at the `sif` subcommand, for example, lets list them:
+If you want to examine the sections of a  SIF image, you can use the `sif`
+subcommand. For example, you can list the sections by executing the following
+command:
+
 
 ```bash
 $ singularity sif list container_lab7.sif
@@ -93,12 +98,13 @@ ID   |GROUP   |LINK    |SIF POSITION (start-end)  |TYPE
 5    |NONE    |1   (G) |127049728-127051525       |Signature (SHA-256)
 ```
 
-We can also extract those by executing `sif dump` followed by the group ID, for
-example, another way to extract the def file, which is Group ID #1:
+Another way to extract specific sections is by using the `sif dump` followed by
+the group ID. For instance, to extract the def file, which is Group ID #1, you
+can run the following command:
 
 ````{note}
-The below commands output are sent to the standard output, you may want to
-redirect to a file instead with the use of the `>` character.
+The following command outputs are sent to the standard output. If you want to
+redirect to a file, use the > character.
 ````
 
 ```bash
@@ -138,7 +144,8 @@ ID   |GROUP   |LINK    |SIF POSITION (start-end)  |TYPE
 4    |1       |NONE    |36864-127049728           |FS (Squashfs/*System/amd64)
 ```
 
-You can see the signature is removed, now we can sign the sif our own signature:
+You can see the signature is removed, so now we can sign the SIF with our own
+signature:
 
 ```bash
 $ singularity sign container_lab7.sif

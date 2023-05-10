@@ -3,12 +3,12 @@
 Signatures are implemented using the [Dead Simple Signing Envelope](https://github.com/secure-systems-lab/dsse)
  (DSSE) standard.
 
-To sign a container, normally a set of keys are needed. One is a private key
-which is used to sign, and a public key which you normally distribute which is
-used to verify the signature.
+To sign a container, a set of keys is typically required. A private key is used
+for signing, while a public key, which is usually distributed, servers to verify
+the signature.
 
-For the purpose of this lab, let's create this pair of keys, first, a private
-2048 bit key:
+For the purpose of this lab, let’s create this pair of keys. First, we’ll
+generate a 2048-bit private key:
 
 ```bash
 $ openssl genrsa -out private.pem 2048

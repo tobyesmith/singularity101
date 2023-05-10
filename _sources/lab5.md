@@ -1,6 +1,7 @@
 # 📓 Lab 5:  Signing containers with PGP
 
-In this lab we are going to sign our own containers, and then push it to the SCS.
+In this lab we are going to sign our own containers, and then push it to the
+SCS.
 
 If you don't have a PGP key yet, you will need to generate one.
 
@@ -51,9 +52,9 @@ $ singularity sign container_lab5.sif
 Signing image: container_lab5.sif
 Enter key passphrase :
 Signature created and applied to container_lab5.sif
-````
+```
 
-In order to verify the SIF image:
+Next, let's verify the SIF image:
 
 ```bash
 singularity verify container_lab5.sif
@@ -71,7 +72,7 @@ Container verified: container_lab5.sif
 ```
 
 Now you can push an image to the Singularity library, assuming your username is
-`Joe` you can specify the destination to be in the form of:
+`Joe` you can specify the destination as follows:
 
 ```bash
 $ singularity push container_lab5.sif library://<account>/directory/image:tag

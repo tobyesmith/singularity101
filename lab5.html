@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -370,7 +371,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-5-signing-containers-with-pgp">
 <h1>📓 Lab 5:  Signing containers with PGP<a class="headerlink" href="#lab-5-signing-containers-with-pgp" title="Permalink to this heading">#</a></h1>
-<p>In this lab we are going to sign our own containers, and then push it to the SCS.</p>
+<p>In this lab we are going to sign our own containers, and then push it to the
+SCS.</p>
 <p>If you don’t have a PGP key yet, you will need to generate one.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>key<span class="w"> </span>newpair
 Enter<span class="w"> </span>your<span class="w"> </span>name<span class="w"> </span><span class="o">(</span>e.g.,<span class="w"> </span>John<span class="w"> </span>Doe<span class="o">)</span><span class="w"> </span>:<span class="w"> </span>Firstname<span class="w"> </span>Lastname
@@ -415,7 +417,7 @@ Enter<span class="w"> </span>key<span class="w"> </span>passphrase<span class="w
 Signature<span class="w"> </span>created<span class="w"> </span>and<span class="w"> </span>applied<span class="w"> </span>to<span class="w"> </span>container_lab5.sif
 </pre></div>
 </div>
-<p>In order to verify the SIF image:</p>
+<p>Next, let’s verify the SIF image:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span>verify<span class="w"> </span>container_lab5.sif
 
 Verifying<span class="w"> </span>image:<span class="w"> </span>container_lab5.sif
@@ -431,7 +433,7 @@ Container<span class="w"> </span>verified:<span class="w"> </span>container_lab5
 </pre></div>
 </div>
 <p>Now you can push an image to the Singularity library, assuming your username is
-<code class="docutils literal notranslate"><span class="pre">Joe</span></code> you can specify the destination to be in the form of:</p>
+<code class="docutils literal notranslate"><span class="pre">Joe</span></code> you can specify the destination as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>push<span class="w"> </span>container_lab5.sif<span class="w"> </span>library://&lt;account&gt;/directory/image:tag
 ...
 </pre></div>

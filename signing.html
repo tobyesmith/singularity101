@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -370,20 +371,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="signing-and-verifying-images">
 <h1>📄 Signing and verifying images<a class="headerlink" href="#signing-and-verifying-images" title="Permalink to this heading">#</a></h1>
-<p>SingularityCE’s SIF images can be signed, and subsequently verified, so that a
-user can be confident that an image they have obtained is a bit-for-bit
-reproduction of the original container as the author intended it. The signature,
-over the metadata and content of the container, is created using a private key,
-and directly added to the SIF file. This means that a signed container carries
-its signature with it, avoiding the need for extra infrastructure to distribute
-signatures to end users of the container.</p>
-<p>A user verifies the container has not been modified since signing using a public
-key or certificate. By default, SingularityCE uses PGP keys to sign and verify
-containers. Since 3.11, signing and verifying containers with X.509 key material
-/ certificates is also supported.</p>
-<p>As well as indicating a container has not been modified, a valid signature may
-be used to indicate a container has undergone testing or review, and is approved
-for execution. Multiple signatures can be added to a container, to document its
+<p>SingularityCE’s SIF images can be signed and then verified, giving users
+confidence that the images they obtain are bit-for-bit reproductions of the
+original containers, as intended by the authors. The signature, which
+encompasses  the container’s metadata and content, is generated using a private
+key and directly added to the SIF file. This means that a signed container
+carries its signature with it, eliminating the need for additional
+infrastructure to distribute signatures to end users.</p>
+<p>To confirm that a  container has not been modified since signing, users can
+employ a public key or certificate. By default, SingularityCE uses PGP keys to
+sign and verify containers. From version 3.11 onwards, it also supports signing
+and verifying containers with X.509 key materials or certificates.</p>
+<p>Besides indicating a container has not been modified, a valid signature can
+signify that a container has been tested or reviewed, and is approved for
+execution. Multiple signatures can be added to a container to document its
 progress through an approval process.</p>
 </section>
 

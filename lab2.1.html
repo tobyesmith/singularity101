@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -374,33 +375,34 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>library://josue-sylabs/demo/wttr:latest
 </pre></div>
 </div>
-<p>Secondly, let’s build a very simple image, we will create a file and name
-it lab2.def, type the contents of the below text.</p>
+<p>Next, let’s build a very simple image. We will create a file and name it
+lab2.def.  Simply add the following text.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note
-This tutorial asumes you know vi editor, this is not a mandatory requisite,
-feel free to substitute the editor with your favorite one.</p>
+Note This tutorial assumes that you are familiar with the vi editor. However,
+this is not a mandatory requisite, feel free to substitute your preferred editor
+instead.</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vi<span class="w"> </span>lab2.def
 ...
 </pre></div>
 </div>
-<p>Then type the below contents:</p>
+<p>Then enter the following content:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootstrap:<span class="w"> </span>docker
 from:<span class="w"> </span>almalinux:9
 %post
 cat<span class="w"> </span>/etc/os-release
 </pre></div>
 </div>
-<p>Then type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes, then proceed to build the
-image, the compiled image is going to be named <code class="docutils literal notranslate"><span class="pre">lab2.sif</span></code>:</p>
+<p>Finally type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes and proceed to build the
+image. The compiled image will be named <code class="docutils literal notranslate"><span class="pre">lab2.sif</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>lab2.sif<span class="w"> </span>lab2.def
 ...
 </pre></div>
 </div>
-<p>Now, let’s suppose we want to do a more realistic image, lets copy some files,
-install some software:</p>
+<p>Now, let’s suppose we want to create a more realistic image. Lets copy some
+files and install some software:</p>
 <p>Here we create a very simple text file, backup the <code class="docutils literal notranslate"><span class="pre">lab2.def</span></code> file into a file
 named <code class="docutils literal notranslate"><span class="pre">lab2-v2.def</span></code> and modify the contents.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;This is a test file.&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>testfile
@@ -408,7 +410,7 @@ named <code class="docutils literal notranslate"><span class="pre">lab2-v2.def</
 $<span class="w"> </span>vi<span class="w"> </span>lab2-v2.def
 </pre></div>
 </div>
-<p>Add the below lines, feel free to copy and paste:</p>
+<p>Add the following lines (feel free to copy and paste):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootstrap:<span class="w"> </span>docker
 from:<span class="w"> </span>almalinux:9
 
@@ -423,9 +425,9 @@ from:<span class="w"> </span>almalinux:9
 <span class="w">    </span>figlet<span class="w"> </span>&lt;<span class="w"> </span>testfile
 </pre></div>
 </div>
-<p>Type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes, at this point, the SIF image
-of this new container has a new file, and a new software taking AlmaLinux 9
-as the base operating system.</p>
+<p>Type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit the editor and save changes. At this point, the SIF image
+of this new container includes a new file and a new software, with AlmaLinux 9
+serving as the base operating system.</p>
 <p>Give it a try, build it and then run it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>lab2-v2.sif<span class="w"> </span>lab2-v2.def
 INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
@@ -438,9 +440,9 @@ Storing<span class="w"> </span>signatures
 INFO:<span class="w">    </span>Copying<span class="w"> </span>testfile<span class="w"> </span>to<span class="w"> </span>
 INFO:<span class="w">    </span>Running<span class="w"> </span>post<span class="w"> </span>scriptlet
 +<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release
-AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>AppStream<span class="w">                                                                                                                                  </span><span class="m">1</span>.5<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">8</span>.9<span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:05<span class="w">    </span>
-AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>BaseOS<span class="w">                                                                                                                                     </span><span class="m">2</span>.3<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">4</span>.4<span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:01<span class="w">    </span>
-AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>Extras<span class="w">                                                                                                                                      </span><span class="m">23</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
+AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>AppStream<span class="w">                              </span><span class="m">1</span>.5<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">8</span>.9<span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:05<span class="w">    </span>
+AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>BaseOS<span class="w">                                 </span><span class="m">2</span>.3<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">4</span>.4<span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:01<span class="w">    </span>
+AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>Extras<span class="w">                                  </span><span class="m">23</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 Dependencies<span class="w"> </span>resolved.
 <span class="o">=================================</span>
 <span class="w"> </span>Package<span class="w">         </span>Architecture<span class="w">     </span>Version<span class="w">    </span>Repository<span class="w">       </span><span class="nv">Size</span>
@@ -455,9 +457,8 @@ Install<span class="w">  </span><span class="m">1</span><span class="w"> </span>
 Total<span class="w"> </span>download<span class="w"> </span>size:<span class="w"> </span><span class="m">17</span><span class="w"> </span>k
 Installed<span class="w"> </span>size:<span class="w"> </span><span class="m">23</span><span class="w"> </span>k
 Downloading<span class="w"> </span>Packages:
-epel-release-9-2.el9.noarch.rpm<span class="w">                                                                                                                          </span><span class="m">146</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
-----------------------------------
-Total<span class="w">                                                                                                                                                     </span><span class="m">31</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">     </span>
+epel-release-9-2.el9.noarch.rpm<span class="w">                      </span><span class="m">146</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
+----------------------------------<span class="w">                    </span><span class="m">31</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">     </span>
 Running<span class="w"> </span>transaction<span class="w"> </span>check
 Transaction<span class="w"> </span>check<span class="w"> </span>succeeded.
 Running<span class="w"> </span>transaction<span class="w"> </span><span class="nb">test</span>
@@ -473,7 +474,7 @@ Installed:
 
 Complete!
 +<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>figlet
-Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">                                                                                                           </span><span class="m">5</span>.0<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">15</span><span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:02<span class="w">    </span>
+Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">       </span><span class="m">5</span>.0<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">15</span><span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:02<span class="w">    </span>
 Last<span class="w"> </span>metadata<span class="w"> </span>expiration<span class="w"> </span>check:<span class="w"> </span><span class="m">0</span>:00:01<span class="w"> </span>ago<span class="w"> </span>on<span class="w"> </span>Wed<span class="w"> </span>Mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">23</span>:28:21<span class="w"> </span><span class="m">2023</span>.
 Dependencies<span class="w"> </span>resolved.
 <span class="o">=================================</span>
@@ -489,10 +490,10 @@ Install<span class="w">  </span><span class="m">1</span><span class="w"> </span>
 Total<span class="w"> </span>download<span class="w"> </span>size:<span class="w"> </span><span class="m">124</span><span class="w"> </span>k
 Installed<span class="w"> </span>size:<span class="w"> </span><span class="m">665</span><span class="w"> </span>k
 Downloading<span class="w"> </span>Packages:
-figlet-2.2.5-23.20151018gita565ae1.el9.x86_64.rpm<span class="w">                                                                                                        </span><span class="m">262</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">124</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
+figlet-2.2.5-23.20151018gita565ae1.el9.x86_64.rpm<span class="w">    </span><span class="m">262</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">124</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 ---------------------------------
-Total<span class="w">                                                                                                                                                    </span><span class="m">147</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">124</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">     </span>
-Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">                                                                                                           </span><span class="m">1</span>.6<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.6<span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
+Total<span class="w">                                                </span><span class="m">147</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">124</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">     </span>
+Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">       </span><span class="m">1</span>.6<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.6<span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 Importing<span class="w"> </span>GPG<span class="w"> </span>key<span class="w"> </span>0x3228467C:
 <span class="w"> </span>Userid<span class="w">     </span>:<span class="w"> </span><span class="s2">&quot;Fedora (epel9) &lt;epel@fedoraproject.org&gt;&quot;</span>
 <span class="w"> </span>Fingerprint:<span class="w"> </span>FF8A<span class="w"> </span>D134<span class="w"> </span><span class="m">4597</span><span class="w"> </span>106E<span class="w"> </span>CE81<span class="w"> </span>3B91<span class="w"> </span>8A38<span class="w"> </span>72BF<span class="w"> </span><span class="m">3228</span><span class="w"> </span>467C
@@ -517,7 +518,7 @@ INFO:<span class="w">    </span>Creating<span class="w"> </span>SIF<span class="
 INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span class="w"> </span>lab2-v2.sif
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ singularity run lab2-v2.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity run lab2-v2.sif
  _____ _     _       _               _            _      __ _ _        
 |_   _| |__ (_)___  (_)___    __ _  | |_ ___  ___| |_   / _(_) | ___   
   | | | &#39;_ \| / __| | / __|  / _` | | __/ _ \/ __| __| | |_| | |/ _ \  
@@ -525,11 +526,12 @@ INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span clas
   |_| |_| |_|_|___/ |_|___/  \__,_|  \__\___||___/\__| |_| |_|_|\___(_)
 </pre></div>
 </div>
-<p>Go ahead and experiment with different file contents, or even different sofware, try installing lolcat:</p>
+<p>Go ahead and experiment with different file contents, or even different sofware,
+try installing lolcat:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vi<span class="w"> </span>lab2-v3.def
 </pre></div>
 </div>
-<p>Add the below lines, feel free to copy and paste:</p>
+<p>Add the following lines (feel free to copy and paste):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bootstrap:<span class="w"> </span>docker
 from:<span class="w"> </span>almalinux:9
 
@@ -546,10 +548,10 @@ from:<span class="w"> </span>almalinux:9
 <span class="w">    </span>figlet<span class="w"> </span>testfile<span class="w"> </span><span class="p">|</span><span class="w"> </span>lolcat
 </pre></div>
 </div>
-<p>Then type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit and save the changes, then build and run:</p>
+<p>Type <code class="docutils literal notranslate"><span class="pre">:wq!</span></code> to exit and save the changes, build, and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>lab2-v3.sif<span class="w"> </span>lab2-v3.def
 INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
-<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">17</span>:37:08<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:7a76c6018191c79083d136ece0e14591fa547d39614feadfbba0bfc01370169c
+<span class="m">2023</span>/03/29<span class="w"> </span><span class="m">17</span>:37:08<span class="w">  </span>info<span class="w"> </span>unpack<span class="w"> </span>layer:<span class="w"> </span>sha256:7a76c6018...eadfbba0bfc01370169c
 INFO:<span class="w">    </span>Copying<span class="w"> </span>testfile<span class="w"> </span>to<span class="w"> </span>
 INFO:<span class="w">    </span>Running<span class="w"> </span>post<span class="w"> </span>scriptlet
 +<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release
@@ -558,31 +560,31 @@ AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span
 AlmaLinux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>Extras<span class="w">                               </span><span class="m">30</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 Last<span class="w"> </span>metadata<span class="w"> </span>expiration<span class="w"> </span>check:<span class="w"> </span><span class="m">0</span>:00:01<span class="w"> </span>ago<span class="w"> </span>on<span class="w"> </span>Wed<span class="w"> </span>Mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">23</span>:37:18<span class="w"> </span><span class="m">2023</span>.
 Dependencies<span class="w"> </span>resolved.
-<span class="o">==================================================================================</span>
-<span class="w"> </span>Package<span class="w">                </span>Architecture<span class="w">     </span>Version<span class="w">           </span>Repository<span class="w">        </span><span class="nv">Size</span>
-<span class="o">==================================================================================</span>
+<span class="o">================================================================================</span>
+<span class="w"> </span>Package<span class="w">              </span>Architecture<span class="w">     </span>Version<span class="w">           </span>Repository<span class="w">        </span><span class="nv">Size</span>
+<span class="o">================================================================================</span>
 Installing:
-<span class="w"> </span>epel-release<span class="w">           </span>noarch<span class="w">           </span><span class="m">9</span>-2.el9<span class="w">           </span>extras<span class="w">            </span><span class="m">17</span><span class="w"> </span>k
+<span class="w"> </span>epel-release<span class="w">          </span>noarch<span class="w">           </span><span class="m">9</span>-2.el9<span class="w">           </span>extras<span class="w">            </span><span class="m">17</span><span class="w"> </span>k
 
 Transaction<span class="w"> </span><span class="nv">Summary</span>
-<span class="o">==================================================================================</span>
+<span class="o">================================================================================</span>
 Install<span class="w">  </span><span class="m">1</span><span class="w"> </span>Package
 
 Total<span class="w"> </span>download<span class="w"> </span>size:<span class="w"> </span><span class="m">17</span><span class="w"> </span>k
 Installed<span class="w"> </span>size:<span class="w"> </span><span class="m">23</span><span class="w"> </span>k
 Downloading<span class="w"> </span>Packages:
 epel-release-9-2.el9.noarch.rpm<span class="w">                   </span><span class="m">150</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
-----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 Total<span class="w">                                              </span><span class="m">35</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">17</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">     </span>
 Running<span class="w"> </span>transaction<span class="w"> </span>check
 Transaction<span class="w"> </span>check<span class="w"> </span>succeeded.
 Running<span class="w"> </span>transaction<span class="w"> </span><span class="nb">test</span>
 Transaction<span class="w"> </span><span class="nb">test</span><span class="w"> </span>succeeded.
 Running<span class="w"> </span>transaction
-<span class="w">  </span>Preparing<span class="w">        </span>:<span class="w">                                                          </span><span class="m">1</span>/1<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                              </span><span class="m">1</span>/1<span class="w"> </span>
-<span class="w">  </span>Running<span class="w"> </span>scriptlet:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                              </span><span class="m">1</span>/1<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                              </span><span class="m">1</span>/1<span class="w"> </span>
+<span class="w">  </span>Preparing<span class="w">        </span>:<span class="w">                                                         </span><span class="m">1</span>/1<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                             </span><span class="m">1</span>/1<span class="w"> </span>
+<span class="w">  </span>Running<span class="w"> </span>scriptlet:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                             </span><span class="m">1</span>/1<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>epel-release-9-2.el9.noarch<span class="w">                             </span><span class="m">1</span>/1<span class="w"> </span>
 
 Installed:
 <span class="w">  </span>epel-release-9-2.el9.noarch<span class="w">                                                     </span>
@@ -592,30 +594,30 @@ Complete!
 Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">    </span><span class="m">719</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">15</span><span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:21<span class="w">    </span>
 Last<span class="w"> </span>metadata<span class="w"> </span>expiration<span class="w"> </span>check:<span class="w"> </span><span class="m">0</span>:00:02<span class="w"> </span>ago<span class="w"> </span>on<span class="w"> </span>Wed<span class="w"> </span>Mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">23</span>:37:26<span class="w"> </span><span class="m">2023</span>.
 Dependencies<span class="w"> </span>resolved.
-<span class="o">==================================================================================</span>
-<span class="w"> </span>Package<span class="w">                 </span>Arch<span class="w">   </span>Version<span class="w">                           </span>Repo<span class="w">       </span><span class="nv">Size</span>
-<span class="o">==================================================================================</span>
+<span class="o">================================================================================</span>
+<span class="w"> </span>Package<span class="w">                 </span>Arch<span class="w">   </span>Version<span class="w">                          </span>Repo<span class="w">       </span><span class="nv">Size</span>
+<span class="o">================================================================================</span>
 Installing:
-<span class="w"> </span>figlet<span class="w">                  </span>x86_64<span class="w"> </span><span class="m">2</span>.2.5-23.20151018gita565ae1.el9<span class="w">   </span>epel<span class="w">      </span><span class="m">124</span><span class="w"> </span>k
-<span class="w"> </span>ruby<span class="w">                    </span>x86_64<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">41</span><span class="w"> </span>k
-<span class="w"> </span>unzip<span class="w">                   </span>x86_64<span class="w"> </span><span class="m">6</span>.0-56.el9<span class="w">                        </span>baseos<span class="w">    </span><span class="m">180</span><span class="w"> </span>k
-<span class="w"> </span>wget<span class="w">                    </span>x86_64<span class="w"> </span><span class="m">1</span>.21.1-7.el9<span class="w">                      </span>appstream<span class="w"> </span><span class="m">772</span><span class="w"> </span>k
+<span class="w"> </span>figlet<span class="w">                  </span>x86_64<span class="w"> </span><span class="m">2</span>.2.5-23.20151018gita565ae1.el9<span class="w">  </span>epel<span class="w">      </span><span class="m">124</span><span class="w"> </span>k
+<span class="w"> </span>ruby<span class="w">                    </span>x86_64<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">41</span><span class="w"> </span>k
+<span class="w"> </span>unzip<span class="w">                   </span>x86_64<span class="w"> </span><span class="m">6</span>.0-56.el9<span class="w">                       </span>baseos<span class="w">    </span><span class="m">180</span><span class="w"> </span>k
+<span class="w"> </span>wget<span class="w">                    </span>x86_64<span class="w"> </span><span class="m">1</span>.21.1-7.el9<span class="w">                     </span>appstream<span class="w"> </span><span class="m">772</span><span class="w"> </span>k
 Installing<span class="w"> </span>dependencies:
-<span class="w"> </span>libpsl<span class="w">                  </span>x86_64<span class="w"> </span><span class="m">0</span>.21.1-5.el9<span class="w">                      </span>baseos<span class="w">     </span><span class="m">63</span><span class="w"> </span>k
-<span class="w"> </span>publicsuffix-list-dafsa<span class="w"> </span>noarch<span class="w"> </span><span class="m">20210518</span>-3.el9<span class="w">                    </span>baseos<span class="w">     </span><span class="m">57</span><span class="w"> </span>k
-<span class="w"> </span>ruby-libs<span class="w">               </span>x86_64<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                   </span>appstream<span class="w"> </span><span class="m">3</span>.2<span class="w"> </span>M
-<span class="w"> </span>rubygem-io-console<span class="w">      </span>x86_64<span class="w"> </span><span class="m">0</span>.5.7-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">25</span><span class="w"> </span>k
-<span class="w"> </span>rubygem-json<span class="w">            </span>x86_64<span class="w"> </span><span class="m">2</span>.5.1-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">54</span><span class="w"> </span>k
-<span class="w"> </span>rubygem-psych<span class="w">           </span>x86_64<span class="w"> </span><span class="m">3</span>.3.2-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">51</span><span class="w"> </span>k
+<span class="w"> </span>libpsl<span class="w">                  </span>x86_64<span class="w"> </span><span class="m">0</span>.21.1-5.el9<span class="w">                     </span>baseos<span class="w">     </span><span class="m">63</span><span class="w"> </span>k
+<span class="w"> </span>publicsuffix-list-dafsa<span class="w"> </span>noarch<span class="w"> </span><span class="m">20210518</span>-3.el9<span class="w">                   </span>baseos<span class="w">     </span><span class="m">57</span><span class="w"> </span>k
+<span class="w"> </span>ruby-libs<span class="w">               </span>x86_64<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                  </span>appstream<span class="w"> </span><span class="m">3</span>.2<span class="w"> </span>M
+<span class="w"> </span>rubygem-io-console<span class="w">      </span>x86_64<span class="w"> </span><span class="m">0</span>.5.7-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">25</span><span class="w"> </span>k
+<span class="w"> </span>rubygem-json<span class="w">            </span>x86_64<span class="w"> </span><span class="m">2</span>.5.1-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">54</span><span class="w"> </span>k
+<span class="w"> </span>rubygem-psych<span class="w">           </span>x86_64<span class="w"> </span><span class="m">3</span>.3.2-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">51</span><span class="w"> </span>k
 Installing<span class="w"> </span>weak<span class="w"> </span>dependencies:
-<span class="w"> </span>ruby-default-gems<span class="w">       </span>noarch<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">32</span><span class="w"> </span>k
-<span class="w"> </span>rubygem-bigdecimal<span class="w">      </span>x86_64<span class="w"> </span><span class="m">3</span>.0.0-160.el9_0<span class="w">                   </span>appstream<span class="w">  </span><span class="m">54</span><span class="w"> </span>k
-<span class="w"> </span>rubygem-bundler<span class="w">         </span>noarch<span class="w"> </span><span class="m">2</span>.2.33-160.el9_0<span class="w">                  </span>appstream<span class="w"> </span><span class="m">372</span><span class="w"> </span>k
-<span class="w"> </span>rubygem-rdoc<span class="w">            </span>noarch<span class="w"> </span><span class="m">6</span>.3.3-160.el9_0<span class="w">                   </span>appstream<span class="w"> </span><span class="m">401</span><span class="w"> </span>k
-<span class="w"> </span>rubygems<span class="w">                </span>noarch<span class="w"> </span><span class="m">3</span>.2.33-160.el9_0<span class="w">                  </span>appstream<span class="w"> </span><span class="m">256</span><span class="w"> </span>k
+<span class="w"> </span>ruby-default-gems<span class="w">       </span>noarch<span class="w"> </span><span class="m">3</span>.0.4-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">32</span><span class="w"> </span>k
+<span class="w"> </span>rubygem-bigdecimal<span class="w">      </span>x86_64<span class="w"> </span><span class="m">3</span>.0.0-160.el9_0<span class="w">                  </span>appstream<span class="w">  </span><span class="m">54</span><span class="w"> </span>k
+<span class="w"> </span>rubygem-bundler<span class="w">         </span>noarch<span class="w"> </span><span class="m">2</span>.2.33-160.el9_0<span class="w">                 </span>appstream<span class="w"> </span><span class="m">372</span><span class="w"> </span>k
+<span class="w"> </span>rubygem-rdoc<span class="w">            </span>noarch<span class="w"> </span><span class="m">6</span>.3.3-160.el9_0<span class="w">                  </span>appstream<span class="w"> </span><span class="m">401</span><span class="w"> </span>k
+<span class="w"> </span>rubygems<span class="w">                </span>noarch<span class="w"> </span><span class="m">3</span>.2.33-160.el9_0<span class="w">                 </span>appstream<span class="w"> </span><span class="m">256</span><span class="w"> </span>k
 
 Transaction<span class="w"> </span><span class="nv">Summary</span>
-<span class="o">==================================================================================</span>
+<span class="o">================================================================================</span>
 Install<span class="w">  </span><span class="m">15</span><span class="w"> </span>Packages
 
 Total<span class="w"> </span>download<span class="w"> </span>size:<span class="w"> </span><span class="m">5</span>.6<span class="w"> </span>M
@@ -636,7 +638,7 @@ Downloading<span class="w"> </span>Packages:
 <span class="o">(</span><span class="m">13</span>/15<span class="o">)</span>:<span class="w"> </span>wget-1.21.1-7.el9.x86_64.rpm<span class="w">             </span><span class="m">3</span>.5<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">772</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 <span class="o">(</span><span class="m">14</span>/15<span class="o">)</span>:<span class="w"> </span>rubygem-bundler-2.2.33-160.el9_0.noarch.<span class="w"> </span><span class="m">481</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">372</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 <span class="o">(</span><span class="m">15</span>/15<span class="o">)</span>:<span class="w"> </span>figlet-2.2.5-23.20151018gita565ae1.el9.x<span class="w"> </span><span class="m">317</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">124</span><span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Total<span class="w">                                             </span><span class="m">324</span><span class="w"> </span>kB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">5</span>.6<span class="w"> </span>MB<span class="w">     </span><span class="m">00</span>:17<span class="w">     </span>
 Extra<span class="w"> </span>Packages<span class="w"> </span><span class="k">for</span><span class="w"> </span>Enterprise<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span>-<span class="w"> </span>x86_64<span class="w">    </span><span class="m">1</span>.6<span class="w"> </span>MB/s<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>.6<span class="w"> </span>kB<span class="w">     </span><span class="m">00</span>:00<span class="w">    </span>
 Importing<span class="w"> </span>GPG<span class="w"> </span>key<span class="w"> </span>0x3228467C:
@@ -649,38 +651,38 @@ Transaction<span class="w"> </span>check<span class="w"> </span>succeeded.
 Running<span class="w"> </span>transaction<span class="w"> </span><span class="nb">test</span>
 Transaction<span class="w"> </span><span class="nb">test</span><span class="w"> </span>succeeded.
 Running<span class="w"> </span>transaction
-<span class="w">  </span>Preparing<span class="w">        </span>:<span class="w">                                                          </span><span class="m">1</span>/1<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-libs-3.0.4-160.el9_0.x86_64<span class="w">                        </span><span class="m">1</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-bigdecimal-3.0.0-160.el9_0.x86_64<span class="w">               </span><span class="m">2</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-default-gems-3.0.4-160.el9_0.noarch<span class="w">                </span><span class="m">3</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-bundler-2.2.33-160.el9_0.noarch<span class="w">                 </span><span class="m">4</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-io-console-0.5.7-160.el9_0.x86_64<span class="w">               </span><span class="m">5</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-json-2.5.1-160.el9_0.x86_64<span class="w">                     </span><span class="m">6</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-psych-3.3.2-160.el9_0.x86_64<span class="w">                    </span><span class="m">7</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-rdoc-6.3.3-160.el9_0.noarch<span class="w">                     </span><span class="m">8</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygems-3.2.33-160.el9_0.noarch<span class="w">                        </span><span class="m">9</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-3.0.4-160.el9_0.x86_64<span class="w">                            </span><span class="m">10</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>publicsuffix-list-dafsa-20210518-3.el9.noarch<span class="w">          </span><span class="m">11</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>libpsl-0.21.1-5.el9.x86_64<span class="w">                             </span><span class="m">12</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>wget-1.21.1-7.el9.x86_64<span class="w">                               </span><span class="m">13</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>figlet-2.2.5-23.20151018gita565ae1.el9.x86_64<span class="w">          </span><span class="m">14</span>/15<span class="w"> </span>
-<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                                </span><span class="m">15</span>/15<span class="w"> </span>
-<span class="w">  </span>Running<span class="w"> </span>scriptlet:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                                </span><span class="m">15</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-3.0.4-160.el9_0.x86_64<span class="w">                             </span><span class="m">1</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-default-gems-3.0.4-160.el9_0.noarch<span class="w">                </span><span class="m">2</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-libs-3.0.4-160.el9_0.x86_64<span class="w">                        </span><span class="m">3</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-bigdecimal-3.0.0-160.el9_0.x86_64<span class="w">               </span><span class="m">4</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-bundler-2.2.33-160.el9_0.noarch<span class="w">                 </span><span class="m">5</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-io-console-0.5.7-160.el9_0.x86_64<span class="w">               </span><span class="m">6</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-json-2.5.1-160.el9_0.x86_64<span class="w">                     </span><span class="m">7</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-psych-3.3.2-160.el9_0.x86_64<span class="w">                    </span><span class="m">8</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-rdoc-6.3.3-160.el9_0.noarch<span class="w">                     </span><span class="m">9</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygems-3.2.33-160.el9_0.noarch<span class="w">                       </span><span class="m">10</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>wget-1.21.1-7.el9.x86_64<span class="w">                               </span><span class="m">11</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>libpsl-0.21.1-5.el9.x86_64<span class="w">                             </span><span class="m">12</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>publicsuffix-list-dafsa-20210518-3.el9.noarch<span class="w">          </span><span class="m">13</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                                </span><span class="m">14</span>/15<span class="w"> </span>
-<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>figlet-2.2.5-23.20151018gita565ae1.el9.x86_64<span class="w">          </span><span class="m">15</span>/15<span class="w"> </span>
+<span class="w">  </span>Preparing<span class="w">        </span>:<span class="w">                                                         </span><span class="m">1</span>/1<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-libs-3.0.4-160.el9_0.x86_64<span class="w">                       </span><span class="m">1</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-bigdecimal-3.0.0-160.el9_0.x86_64<span class="w">              </span><span class="m">2</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-default-gems-3.0.4-160.el9_0.noarch<span class="w">               </span><span class="m">3</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-bundler-2.2.33-160.el9_0.noarch<span class="w">                </span><span class="m">4</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-io-console-0.5.7-160.el9_0.x86_64<span class="w">              </span><span class="m">5</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-json-2.5.1-160.el9_0.x86_64<span class="w">                    </span><span class="m">6</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-psych-3.3.2-160.el9_0.x86_64<span class="w">                   </span><span class="m">7</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygem-rdoc-6.3.3-160.el9_0.noarch<span class="w">                    </span><span class="m">8</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>rubygems-3.2.33-160.el9_0.noarch<span class="w">                       </span><span class="m">9</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>ruby-3.0.4-160.el9_0.x86_64<span class="w">                           </span><span class="m">10</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>publicsuffix-list-dafsa-20210518-3.el9.noarch<span class="w">         </span><span class="m">11</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>libpsl-0.21.1-5.el9.x86_64<span class="w">                            </span><span class="m">12</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>wget-1.21.1-7.el9.x86_64<span class="w">                              </span><span class="m">13</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>figlet-2.2.5-23.20151018gita565ae1.el9.x86_64<span class="w">         </span><span class="m">14</span>/15<span class="w"> </span>
+<span class="w">  </span>Installing<span class="w">       </span>:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                               </span><span class="m">15</span>/15<span class="w"> </span>
+<span class="w">  </span>Running<span class="w"> </span>scriptlet:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                               </span><span class="m">15</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-3.0.4-160.el9_0.x86_64<span class="w">                            </span><span class="m">1</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-default-gems-3.0.4-160.el9_0.noarch<span class="w">               </span><span class="m">2</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>ruby-libs-3.0.4-160.el9_0.x86_64<span class="w">                       </span><span class="m">3</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-bigdecimal-3.0.0-160.el9_0.x86_64<span class="w">              </span><span class="m">4</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-bundler-2.2.33-160.el9_0.noarch<span class="w">                </span><span class="m">5</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-io-console-0.5.7-160.el9_0.x86_64<span class="w">              </span><span class="m">6</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-json-2.5.1-160.el9_0.x86_64<span class="w">                    </span><span class="m">7</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-psych-3.3.2-160.el9_0.x86_64<span class="w">                   </span><span class="m">8</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygem-rdoc-6.3.3-160.el9_0.noarch<span class="w">                    </span><span class="m">9</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>rubygems-3.2.33-160.el9_0.noarch<span class="w">                      </span><span class="m">10</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>wget-1.21.1-7.el9.x86_64<span class="w">                              </span><span class="m">11</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>libpsl-0.21.1-5.el9.x86_64<span class="w">                            </span><span class="m">12</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>publicsuffix-list-dafsa-20210518-3.el9.noarch<span class="w">         </span><span class="m">13</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>unzip-6.0-56.el9.x86_64<span class="w">                               </span><span class="m">14</span>/15<span class="w"> </span>
+<span class="w">  </span>Verifying<span class="w">        </span>:<span class="w"> </span>figlet-2.2.5-23.20151018gita565ae1.el9.x86_64<span class="w">         </span><span class="m">15</span>/15<span class="w"> </span>
 
 Installed:
 <span class="w">  </span>figlet-2.2.5-23.20151018gita565ae1.el9.x86_64<span class="w">                                   </span>
@@ -765,7 +767,7 @@ INFO:<span class="w">    </span>Creating<span class="w"> </span>SIF<span class="
 INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span class="w"> </span>lab2-v3.sif
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ singularity run lab2-v3.sif
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity run lab2-v3.sif
 
  _____ _     _       _               _            _      __ _ _        
 |_   _| |__ (_)___  (_)___    __ _  | |_ ___  ___| |_   / _(_) | ___   
@@ -775,7 +777,7 @@ INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span clas
 </pre></div>
 </div>
 <p>Change the contents of testfile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ echo “Hello World” &gt; testfile
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo “Hello World” &gt; testfile
 $ singularity run lab2-v3.sif
  _   _      _ _        __        __         _     _ 
 | | | | ___| | | ___   \ \      / /__  _ __| | __| |
@@ -784,10 +786,8 @@ $ singularity run lab2-v3.sif
 |_| |_|\___|_|_|\___/     \_/\_/ \___/|_|  |_|\__,_|
 </pre></div>
 </div>
-<p>Nice and colored. This is an example, and to be honest, the file lab2.def was
-written many many times, until it worked. This approach of writing a def file,
-building and testing is not always the best practice, you might try the sandbox
-worfklow, which is described in the next section.</p>
+<p>Nice and colored. This is just an example and, to be honest, we wrote the
+lab2.def file many times until it worked.</p>
 </section>
 
     <script type="text/x-thebe-config">

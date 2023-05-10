@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -370,20 +371,26 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-1-convert-docker-images-to-sif">
 <h1>📓 Lab 1: Convert docker images to SIF<a class="headerlink" href="#lab-1-convert-docker-images-to-sif" title="Permalink to this heading">#</a></h1>
-<p>First, install Singularity, assuming you have a RedHat OS like Alma Linux or Rocky Linux.</p>
+<p>SIF is a file format tailored to container images. It allows for the storage of
+different parts that makes up a container. For example, it may include OS
+partitions images, user writable sections, DEF files used to create the
+container, cryptographic signatures for data integrity and authenticity and the
+design is prepared to integrate other sets of data for future use.</p>
+<p>First, assuming you have a RedHat OS like Alma Linux or Rocky Linux, install
+Singularity.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release
 $<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>singularity-ce
 ...
 </pre></div>
 </div>
-<p>There are occasions where an image is not available in the Singularity library, you
-can take one docker and convert it to the native Singularity Image Format.</p>
+<p>In cases where an image is not available in the Singularity library, you have
+the option to convert a Docker image to the native Singularity Image Format.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>pull<span class="w"> </span>docker://ubuntu:22.04
 ...
 </pre></div>
 </div>
-<p>This is the most easy, it will download all the docker format layers and compile
-a SIF image for you.</p>
+<p>This process is quite simple, as it downloads all the docker format layers and
+compiles a SIF image for you.</p>
 </section>
 
     <script type="text/x-thebe-config">

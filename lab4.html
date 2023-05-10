@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -382,44 +383,42 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-4-using-singularity-container-services">
 <h1>📓 Lab 4: Using Singularity Container Services<a class="headerlink" href="#lab-4-using-singularity-container-services" title="Permalink to this heading">#</a></h1>
-<p>Singularity Container Service (SCS) is a free service offered to allow those who
-don’t have root access, fakeroot or proot is not available and cannot build an
-image properly.</p>
-<p>This service allows you to remotely build a SIF image and share it with others
-if you prefer to do so in the Singularity library, also allows you to store your
-signing keys and let the community know you are the real author of the image.</p>
-<p>Feel free to sign up at <a class="reference external" href="https://cloud.sylabs.io/">SCS</a> and create an access
-token afterwards.</p>
+<p>Singularity Container Service (SCS) is a free service for users who don’t have
+root access to their workstations and build images.</p>
+<p>This service allows you to build a SIF image, store it remotely, and share it
+with other users of the Singularity library. It can also store your signing keys
+and let the community know you are the real author of the image.</p>
+<p>You are welcome to <a class="reference external" href="https://cloud.sylabs.io/">sign up at SCS</a>, after which you
+can generate an access token.</p>
 <section id="sign-up-to-scs">
 <h2>Sign up to SCS<a class="headerlink" href="#sign-up-to-scs" title="Permalink to this heading">#</a></h2>
-<p>In order to Sign up please follow these steps:</p>
+<p>To sign up, please follow these steps:</p>
 <ol class="arabic simple">
 <li><p>Open your preferred web browser and copy and paste the SCS address in the
 address bar: <a class="reference external" href="https://cloud.sylabs.io">https://cloud.sylabs.io</a></p></li>
 <li><p>Click the “Sign Up” button.</p></li>
-<li><p>Select your preferred Single Sign On option, you must select one of the 4
-options available, if you do not have any of the approved providers, consider
+<li><p>Select your preferred Single Sign On (SSO) option  from one of the four
+available options If you do not use any of the approved providers, consider
 creating an account.</p></li>
-<li><p>Follow the instructions given by your provider such as, typing username and
-password or the mechanism set by them.</p></li>
-<li><p>Once you have created an account, you are automatically logged in.</p></li>
+<li><p>Follow your SSO provider’s instructions. Once you have created an account,
+you are automatically logged in.</p></li>
 </ol>
 </section>
 <section id="create-access-tokens">
 <h2>Create access tokens<a class="headerlink" href="#create-access-tokens" title="Permalink to this heading">#</a></h2>
-<p>Access tokens serves as a mechanisms to communicate securely to SCS without
-exposing or disclosing the provider’s credentials.</p>
-<p>To create access tokens please follow these steps.</p>
+<p>Access tokens are a mechanism to communicate securely to SCS without disclosing
+any sensitive data like passwords.</p>
+<p>Create an access token by following these steps:</p>
 <ol class="arabic simple">
-<li><p>At the upper right corner, click over your username and select
+<li><p>In the upper right corner, click over your username and select
 “Access Tokens”.</p></li>
 <li><p>Type a name and click on the green button “+ Create Access Token”.</p></li>
+<li><p>Copy your access token and save it in a safe location, as you will need it to
+sign in with the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">remote</span> <span class="pre">login</span></code> command.</p></li>
+<li><p>Should  you lose this token in the future, you can create as many additional
+tokens as  needed and even delete them if desired. Nonetheless, it is
+recommended to log in to SCS using the following command with a token.</p></li>
 </ol>
-<p>Copy your access token and save it in a safe place, you are going to need it
-when signing in with the singularity remote login command.</p>
-<p>If in the future you loose or forget this token, you can create as many as you
-wish, and also delete one if is your choice. However is adviced to login again
-to SCS with the following command using a token.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>remote<span class="w"> </span>login
 Generate<span class="w"> </span>an<span class="w"> </span>access<span class="w"> </span>token<span class="w"> </span>at<span class="w"> </span>https://cloud.sylabs.io/auth/tokens,<span class="w"> </span>and<span class="w"> </span>paste<span class="w"> </span>it<span class="w"> </span>here.
 Token<span class="w"> </span>entered<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>hidden<span class="w"> </span><span class="k">for</span><span class="w"> </span>security.
@@ -431,11 +430,11 @@ INFO:<span class="w">    </span>Token<span class="w"> </span>stored<span class="
 </section>
 <section id="remote-building">
 <h2>Remote building<a class="headerlink" href="#remote-building" title="Permalink to this heading">#</a></h2>
-<p>The ability to build a container on an external resource is built in since
-Singularity 3.0, to demonstrate we can take the very same lab3.def file but in
-this case, submit it to a remote build service. Note that the sudo is not needed
-anymore so it is dropped and the -r flag is added, also you need to have an
-account in SCS, an access token and login to the service.</p>
+<p>Since SingularityCE 3.0, the ability to build a container on an external
+resource is built in. To demonstrate this feature, we can use the same
+<code class="docutils literal notranslate"><span class="pre">demo.def</span></code> file and submit it to a remote build service. Note that sudo is no
+longer necessary, so it is omitted, and the -r flag is added. Additionally, you
+must have an SCS account, an access token, and be logged into the service.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--remote<span class="w"> </span>lab3-remote.sif<span class="w"> </span>lab3.def
 INFO:<span class="w">    </span>Starting<span class="w"> </span>build...
 INFO:<span class="w">    </span>Setting<span class="w"> </span>maximum<span class="w"> </span>build<span class="w"> </span>duration<span class="w"> </span>to<span class="w"> </span>1h0m0s
@@ -458,12 +457,11 @@ INFO:<span class="w">    </span>Image<span class="w"> </span>uploaded<span class
 INFO:<span class="w">    </span>Build<span class="w"> </span>complete:<span class="w"> </span>lab3-remote.sif
 </pre></div>
 </div>
-<p>The messages are streamed from the SCS to your terminal, and the resulting image
-is pulled to your local environment. Also if you have any <code class="docutils literal notranslate"><span class="pre">%files</span></code> defined in
-your <code class="docutils literal notranslate"><span class="pre">def</span></code> file, they are uploaded to SCS and discarded after some time.</p>
-<p>In order to leave the resulting image in the Singularity library, assuming your
-username is <code class="docutils literal notranslate"><span class="pre">Joe</span></code> you can
-specify the destination to be in the form of:</p>
+<p>The messages from SCS are displayed in your terminal, and the resulting image is
+downloaded to your local environment.  Any <code class="docutils literal notranslate"><span class="pre">%files</span></code> defined in your def file
+will be uploaded to SCS and removed after a period of time.</p>
+<p>If you want to save the resulting image in the Singularity library, you can
+specify the destination as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--remote<span class="w"> </span>library://joe/directory/image:tag<span class="w"> </span>deffile
 </pre></div>
 </div>

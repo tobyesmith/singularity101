@@ -64,8 +64,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="📄 Running containers" href="runcontainer.html" />
-    <link rel="prev" title="📄 Quickstart" href="quickstart.html" />
+    <link rel="next" title="📄 Getting Started" href="gettingstarted.html" />
+    <link rel="prev" title="Welcome to Singularity Tutorial" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -366,8 +367,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-features-and-tools">Course features and tools</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#namespaces">Namespaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-difference-between-containers-with-virtual-machines">What is the difference between containers with virtual machines?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-difference-between-singularityce-with-docker-containers">What is the difference between SingularityCE with Docker containers?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-role-of-namespaces-in-container-isolation-and-management">The role of namespaces in container isolation and management</a></li>
 </ul>
             </nav>
         </div>
@@ -381,70 +383,91 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-singularity-ce">
 <h1>📄 Introduction to Singularity CE<a class="headerlink" href="#introduction-to-singularity-ce" title="Permalink to this heading">#</a></h1>
-<p>Container technology is an effective way to package applications, no other prerequisites than the SingularityCE container runtime, no specific OS other than linux, and offer other many advantages to distribute applications.</p>
-<p>Singularity is focused to cover the high performance market, big data and supercomputing. Other container technologies allow containers to run with root privileges, which is an issue whether in the supercomputing or commercial world and there is a lot of interest in containers for compute.</p>
-<p>You can read more about at the <a class="reference external" href="https://docs.sylabs.io/guides/3.11/user-guide/introduction.html">Singularity CE documentation site</a>, or if you wish to know about <a class="reference external" href="https://docs.sylabs.io/guides/3.11/user-guide/introduction.html#use-cases">use cases</a>.</p>
-<section id="course-features-and-tools">
-<h2>Course features and tools<a class="headerlink" href="#course-features-and-tools" title="Permalink to this heading">#</a></h2>
-<p>In this course it is expected to have an updated major linux distribution, it is true that linux kernel offers namespaces since 2.4.19, features have been added and bugs have been fixed until version 3.8 with user namespaces.</p>
-<p>Having said this the recommended is:</p>
+<p>SingularityCE is a container platform focused on the user needs of the HPC, big
+data, and supercomputing markets. It allows you to create and run containers
+that package up pieces of software in a way that is portable and reproducible.
+You can build a container using SingularityCE on your laptop, and then run it on
+many of the largest HPC clusters in the world, local university or company
+clusters, a single server, in the cloud, or on a workstation down the hall.
+Your container is a single file, and you don’t have to worry about how to
+install all the software you need on each different operating system.
+Singularity CE is also rootless, reducing the risk of privilege escalation and
+unauthorized access in supercomputing and commercial environments.</p>
+<p>Singularity CE container technology is an effective way to package applications
+and easily distribute runtime environments on any Linux OS. It  is focused on
+the user needs of the HPCmarket, big data, and supercomputing. Unlike other
+container technologies that allow containers to run with root privileges,
+Singularity CE is rootless, reducing the risk of privilege escalation and
+unauthorized access in supercomputing and commercial environments.</p>
+<p><a class="reference external" href="https://docs.sylabs.io/guides/3.11/user-guide/introduction.html">Read more</a>
+about why containers are needed and SingularityCE containers and their
+use cases on our documentation site.</p>
+<section id="what-is-the-difference-between-containers-with-virtual-machines">
+<h2>What is the difference between containers with virtual machines?<a class="headerlink" href="#what-is-the-difference-between-containers-with-virtual-machines" title="Permalink to this heading">#</a></h2>
+<p>Containers are a technology that runs applications inside isolated environments.
+They provide several benefits over traditional virtual machines (VMs), such as
+faster deployment times and reproducibility. Containers also allow developers to
+build and deploy software without worrying about underlying infrastructure or
+operating system details.</p>
 <ul class="simple">
-<li><p>DEB based:</p>
-<ul>
-<li><p>Debian 10 or later.</p></li>
-<li><p>Ubuntu 20.04 or later.</p></li>
+<li><p>Although it’s possible to install a pre-built virtual machine with all its
+dependencies, containers are lighter and more portable; containers are typically
+somewhere between 10 MB and a few GB, while a virtual machine image size is
+bigger.</p></li>
+<li><p>Users can quickly modify and iterate containers.</p></li>
+<li><p>SingularityCE users have access to a public repository of premade containers
+along with the option to publish new images for other developers and consumers.</p></li>
 </ul>
-</li>
-<li><p>RPM based:</p>
-<ul>
-<li><p>Redhat 8 or later.</p></li>
-<li><p>Fedora 32 or later.</p></li>
-</ul>
-</li>
-<li><p>OpenSUSE Leap 12 or later.</p></li>
-<li><p>x86_64 or ARM64 is supported.</p></li>
-<li><p>git</p></li>
-<li><p>curl</p></li>
-</ul>
-<p>Have some command line experience in bash.</p>
-<p><strong>What is the difference with virtual machines?</strong></p>
-<p>Containers are a technology that runs applications inside isolated environments. They provide several benefits over traditional VMs, such as faster deployment times and reproducibility. Containers also allow developers to build and deploy software without worrying about underlying infrastructure or operating system details.</p>
-<ul class="simple">
-<li><p>One can install a pre-built virtual machine with all its dependencies, and that is true, but containers are lighter and portable, a container size normally is between 10 Mb and a few Gb, while a virtual machine image size is bigger.</p></li>
-<li><p>Containers are very fast to modify and iterate on.</p></li>
-<li><p>Singularity offers a public repository of premade containers, and offers the possibility to publish your very own image for others developers and consumers.</p></li>
-</ul>
-<p>Singularity is a tool for developers who want to build and test their code before deploying it to a supercomputer. In addition, they offer several advantages over traditional VMs, such as increased security, reduced resource consumption, and faster deployment times.</p>
+<p>Developers can use SingularityCE to build and test their code before deploying
+it to a supercomputer. Singularity containers also offer several advantages over
+traditional VMs, including increased security, reduced resource consumption, and
+faster deployment times.</p>
 <figure class="align-default" id="introduction-image1">
 <img alt="_images/introduction-image1.png" src="_images/introduction-image1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Common architectures implemented in real world scenarios, bare metal, virtualized, containerized, and containerized on virtual machines.</span><a class="headerlink" href="#introduction-image1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Common architectures implemented in real world scenarios, including bare metal,
+virtualized, containerized, and containerized on virtual machines.</span><a class="headerlink" href="#introduction-image1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><strong>What is the difference with Docker?</strong></p>
-<p>There are many container runtimes out there, Docker popularized them, but this differed widely from how scientists and researchers wanted to use it in HPC with batch schedulers. So, the means to containerize applications was important, but the way in which Docker did this did not meet HPC needs for simplicity, security and repeatability. Singularity was created to address the gaps in the existing technology. While allowing easier access to the underlying hardware on a compute node.</p>
-<p><a class="reference external" href="https://sylabs.io/2022/09/who-is-sylabs/">Source</a></p>
 </section>
-<section id="namespaces">
-<h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this heading">#</a></h2>
-<p>The linux kernel resources can be partitioned, this means for example, that one set of programs or processes sees one set of resources, and another process sees another different set of resources, in other words, grants isolation. This is a feature of the linux kernel.</p>
+<section id="what-is-the-difference-between-singularityce-with-docker-containers">
+<h2>What is the difference between SingularityCE with Docker containers?<a class="headerlink" href="#what-is-the-difference-between-singularityce-with-docker-containers" title="Permalink to this heading">#</a></h2>
+<p>Many container runtimes exist, with Docker being a popular choice. However,
+Docker didn’t quite fit the needs of scientists and researchers in HPC who
+wanted to use it with batch schedulers. And while containerizing applications
+was important, Docker did not meet HPC requirements for simplicity, security,
+and repeatability. Singularity was developed to fill gaps in container
+technology while also providing easier access to the underlying hardware on a
+compute node.</p>
+<p><a class="reference external" href="https://sylabs.io/2022/09/who-is-sylabs/">Read more</a> about the origins of SingularityCE and Sylabs.</p>
+</section>
+<section id="the-role-of-namespaces-in-container-isolation-and-management">
+<h2>The role of namespaces in container isolation and management<a class="headerlink" href="#the-role-of-namespaces-in-container-isolation-and-management" title="Permalink to this heading">#</a></h2>
+<p>Partitioning of the Linux kernel resources allows for distinct sets of programs or processes to access separate resource pools, effectively granting isolation between them. This isolation capability is a fundamental feature of the Linux kernel.</p>
 <figure class="align-default" id="introduction-image2">
 <img alt="_images/introduction-image2.png" src="_images/introduction-image2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Namespace resource partition and isolation.</span><a class="headerlink" href="#introduction-image2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Namespace resource partition and isolation.</span><a class="headerlink" href="#introduction-image2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Namespaces limit resources in a way so the process program or application is not aware of this limitation. When a program runs, the application is not aware that it is within a container, and is not necessary to make changes to the source code.</p>
-<p>Examples of resources are:</p>
+<p>Namespaces restrict resources in a manner that is transparent to the process,
+program, or application is not aware of this limitation. When an application
+runs, it remains unaware of its presence within a container, eliminating the
+need for any modification of the source code.</p>
+<p>Examples of resources that can be isolated include:</p>
 <ul class="simple">
 <li><p>Processes.
-This provides processes with an independent set of IDs from other namespaces.</p></li>
+Namespaces provide each container with a unique set of IDs that are independent
+from those in other namespaces.</p></li>
 <li><p>Network interfaces.
-Each namespace can have private IP addresses, routing tables, firewall, this mean your containers can communicate with the external world.</p></li>
+Each namespace can have its own private IP addresses, routing tables, and
+firewall, enabling containers to communicate with the external world.</p></li>
 <li><p>Filesystem mounts.
-Determine which filesystems are isolated from other containers.</p></li>
+Namespaces determine which filesystems are isolated from other containers,
+ensuring data isolation.</p></li>
 <li><p>UTS Namespace.
-Isolates kernel and version identifiers, so you could have multiple containers running that may be running different kernel versions.</p></li>
+Isolates kernel and version identifiers, allowing multiple containers to run
+simultaneously, even if they are using different kernel versions.</p></li>
 </ul>
 </section>
 </section>
@@ -481,20 +504,20 @@ Isolates kernel and version identifiers, so you could have multiple containers r
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="quickstart.html"
+       href="intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">📄 Quickstart</p>
+        <p class="prev-next-title">Welcome to Singularity Tutorial</p>
       </div>
     </a>
     <a class="right-next"
-       href="runcontainer.html"
+       href="gettingstarted.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">📄 Running containers</p>
+        <p class="prev-next-title">📄 Getting Started</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -516,8 +539,9 @@ Isolates kernel and version identifiers, so you could have multiple containers r
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-features-and-tools">Course features and tools</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#namespaces">Namespaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-difference-between-containers-with-virtual-machines">What is the difference between containers with virtual machines?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-difference-between-singularityce-with-docker-containers">What is the difference between SingularityCE with Docker containers?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-role-of-namespaces-in-container-isolation-and-management">The role of namespaces in container isolation and management</a></li>
 </ul>
   </nav></div>
 

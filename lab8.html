@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>📓 Lab 8: Putting it all together &#8212; Singularity Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab8';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="📓 Lab 7: SIF file &amp; Host Filesystem" href="lab7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/singularity-logo-round.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/singularity-logo-round.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Singularity Tutorial
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.1.html">📓 Lab 2.1: Running Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.2.html">📓 Lab 2.2: Running Containers as Instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">📄 The Singularity Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">📓 Lab 3: Multi-Stage Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-noroot.html">📄 Building without root access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">📓 Lab 4: Using Singularity Container Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">📄 Signing and verifying images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">📓 Lab 5:  Signing containers with PGP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📓 Lab 8: Putting it all together</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/josueneo/singularity-tutorial/issues/new?title=Issue%20on%20page%20%2Flab8.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab8.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📓 Lab 8: Putting it all together</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-use-case">Real Use Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rstudio">RStudio</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-8-putting-it-all-together">
+<h1>📓 Lab 8: Putting it all together<a class="headerlink" href="#lab-8-putting-it-all-together" title="Permalink to this heading">#</a></h1>
+<p>In this lab, you’ll start integrating all the knowledge you’ve acquired about
+SingularityCE to forge your own path. You’ll practice the majority of the
+SingularityCE subcommands you have learned in this course, and your scripting
+skills.</p>
+<p>By the end of this lab, you’ll:</p>
+<ul class="simple">
+<li><p>Understand the benefits of containerizing applications in HPC environments</p></li>
+<li><p>Be able to write simple definition files</p></li>
+<li><p>Learn how the building blocks of the SingularityCE workflow fit together</p></li>
+<li><p>Combine all of this knowledge to help you in your research or solving a
+complex problem.</p></li>
+</ul>
+<p>We will start by solving a real container problem. Along the way, you will get
+hands-on experience writing a definition file and you will quickly start to see
+how containers can be portable and reproducible.</p>
+<section id="real-use-case">
+<h2>Real Use Case<a class="headerlink" href="#real-use-case" title="Permalink to this heading">#</a></h2>
+<p>The use case explained here covers how to containerize an application and gives
+you the opportunity to apply the concepts.</p>
+<p>We are going to containerize RStudio, a popular programming language development
+platform.</p>
+</section>
+<section id="rstudio">
+<h2>RStudio<a class="headerlink" href="#rstudio" title="Permalink to this heading">#</a></h2>
+<p>The RStudio developers offer their software for various operating systems,
+including Ubuntu 22.04. In this demonstration, we guide you through the RStudio
+installation process on this operating system.</p>
+<p>Let’s begin by creating a sandbox environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>rstudio<span class="w"> </span>library://ubuntu:22.04
+</pre></div>
+</div>
+<p>Next, following the installation instructions, let’s install the R language
+interpreter, and then RStudio and RServer packages.</p>
+<p>To install the software in the container, we’ll need to access it as the root
+user. Let’s proceed by entering the container as root.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--fakeroot<span class="w"> </span>--writable<span class="w"> </span>rstudio
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting the DEBIAN_FRONTEND environment variable allows for unattended package
+installation, eliminating the need for user interaction. This is crucial for pip
+CI/CD pipelines. Similarly, the TZ (Timezone) variable should be set for the
+tzdata package to function properly.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+Singularity<span class="w"> </span>&gt;<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">TZ</span><span class="o">=</span>Etc/UTC
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span>-qq
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>software-properties-common<span class="w"> </span>dirmngr<span class="w"> </span>wget<span class="w"> </span>locales
+Reading<span class="w"> </span>package<span class="w"> </span>lists...<span class="w"> </span>Done
+Building<span class="w"> </span>dependency<span class="w"> </span>tree...<span class="w"> </span>Done
+Reading<span class="w"> </span>state<span class="w"> </span>information...<span class="w"> </span>Done
+The<span class="w"> </span>following<span class="w"> </span>additional<span class="w"> </span>packages<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>installed:
+...
+<span class="o">[</span>Output<span class="w"> </span>removed<span class="w"> </span><span class="k">for</span><span class="w"> </span>clarity<span class="o">]</span>
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+
+-----BEGIN<span class="w"> </span>PGP<span class="w"> </span>PUBLIC<span class="w"> </span>KEY<span class="w"> </span>BLOCK-----
+
+mQENBEy9tcUBCACnWQfqdrcz7tQL/iCeWDYSYPwXpPMUMLE721HfFH7d8ErunPKP
+Iwq1v4CrNmMjcainofbu/BfuZESSK1hBAItOk/5VTkzCJlzkrHY9g5v+XlBMPDQC
+<span class="o">[</span>Output<span class="w"> </span>removed<span class="w"> </span><span class="k">for</span><span class="w"> </span>clarity<span class="o">]</span>
+
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>add-apt-repository<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2">-cran40/&quot;</span>
+Repository:<span class="w"> </span><span class="s1">&#39;deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/&#39;</span>
+Description:
+Archive<span class="w"> </span><span class="k">for</span><span class="w"> </span>codename:<span class="w"> </span>jammy-cran40/<span class="w"> </span>components:<span class="w"> </span>
+<span class="o">[</span>Output<span class="w"> </span>removed<span class="o">]</span>
+
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>r-base
+</pre></div>
+</div>
+<p>We are going to pause here and review how our definition file is looking. This
+file must contain all the commands we have issued, including the operating
+system version. Let’s open a text editor and start building a def file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>library
+From:<span class="w"> </span>ubuntu:22.04
+
+%post
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">TZ</span><span class="o">=</span>Etc/UTC
+<span class="w">  </span>apt<span class="w"> </span>update<span class="w"> </span>-qq
+<span class="w">  </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>software-properties-common<span class="w"> </span>dirmngr<span class="w"> </span>wget
+<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+<span class="w">  </span>add-apt-repository<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2">-cran40/&quot;</span>
+<span class="w">  </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>r-base
+</pre></div>
+</div>
+<p>Next, we will download and install RStudio.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span>/rstudio-2023.03.0-386-amd64.deb<span class="w"> </span>https://download1.rstudio.org/electron/jammy/amd64/rstudio-2023.03.0-386-amd64.deb
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>apt<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>/rstudio-2023.03.0-386-amd64.deb
+</pre></div>
+</div>
+<p>To install RStudio Server on Ubuntu,follow the instructions on the RStudio
+Server website. Execute the following 3 commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gdebi-core
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span>/rstudio-server-2023.03.0-386-amd64.deb<span class="w"> </span>https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.03.0-386-amd64.deb
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>gdebi<span class="w"> </span>-n<span class="w"> </span>rstudio-server-2023.03.0-386-amd64.deb
+</pre></div>
+</div>
+<p>It is a good practice in the container ecosystem to redirect all application
+logs to the standard error output or stderr, which enables external agents to
+collect these logs. Let’s configure this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[*]\nlog-level=error\nlogger-type=stderr\n&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/rstudio/logging.conf
+Singularity<span class="w"> </span>&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/rstudio/logging.conf
+<span class="o">[</span>*<span class="o">]</span>
+log-level<span class="o">=</span>error
+logger-type<span class="o">=</span>stderr
+</pre></div>
+</div>
+<p>It is also a good idea to set the CRAN repository (which is a collection of
+libraries) by adding the following code to the /etc/R/Rprofile.site file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;local({</span>
+<span class="s1"> r &lt;- getOption(&quot;repos&quot;)</span>
+<span class="s1"> r[&quot;CRAN&quot;] = &quot;https://cran.us.r-project.org&quot;</span>
+<span class="s1"> options(repos = r)</span>
+<span class="s1">})&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/R/Rprofile.site
+</pre></div>
+</div>
+<p>Next, it is important to configure the container to work with UTF-8 character
+set. Let’s configure this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;/en_US.UTF-8/s/^# //g&#39;</span><span class="w"> </span>/etc/locale.gen
+$<span class="w"> </span>locale-gen
+$<span class="w"> </span>update-locale
+</pre></div>
+</div>
+<p>After completing the configuration, it’s important to verify everything works as
+expected. You can do this by running a simple R script.</p>
+<p>Now, exit the sandbox mode and re-launch the shell without the fakeroot flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span><span class="nb">exit</span>
+$<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--writable<span class="w"> </span>rstudio
+</pre></div>
+</div>
+<p>Use the  following command to start the RServer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity<span class="w"> </span>&gt;<span class="w"> </span>/usr/lib/rstudio-server/bin/rserver<span class="w"> </span>--server-user<span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>After executing the above command, open a web browser and navigate to
+<a class="reference external" href="http://127.0.0.1:8787">http://127.0.0.1:8787</a> if you are working on your local desktop system. If you’re
+using a remote system, determine its IP address and use it in place of
+<code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>.</p>
+<p>In modern Linux systems, the IP addresses are typically shown when you issue the
+“ip ad” command. Depending on the complexity of your system configuration, you
+may see anywhere from a single IP address to a large number of them.</p>
+<p>After identifying the correct IP address, load the URL in a web browser and open
+a new file by selecting File &gt; New File &gt; R Script.</p>
+<figure class="align-default" id="lab8-image1">
+<img alt="_images/lab8-image1.png" src="_images/lab8-image1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Location of the new R Script.</span><a class="headerlink" href="#lab8-image1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Next paste the following lines:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;ggplot2&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">Sepal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">Sepal.Width</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">Species</span><span class="p">))</span><span class="o">+</span><span class="w"> </span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Highlight or select the first line, and click on the “Run” button as shown below.</p>
+<figure class="align-default" id="lab8-image2">
+<img alt="_images/lab8-image2.png" src="_images/lab8-image2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Highlighting the first line.</span><a class="headerlink" href="#lab8-image2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>During the installation of the ggplot2 package, you may encounter some errors.
+These issues typically arise in the development cycle when additional packages
+need to be installed as dependencies. Let’s examine the errors, with the
+problematic lines highlighted in red:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>During<span class="w"> </span>startup<span class="w"> </span>-<span class="w"> </span>Warning<span class="w"> </span>messages:
+*<span class="w"> </span>installing<span class="w"> </span>*source*<span class="w"> </span>package<span class="w"> </span><span class="s1">&#39;isoband&#39;</span><span class="w"> </span>...
+**<span class="w"> </span>package<span class="w"> </span><span class="s1">&#39;isoband&#39;</span><span class="w"> </span>successfully<span class="w"> </span>unpacked<span class="w"> </span>and<span class="w"> </span>MD5<span class="w"> </span>sums<span class="w"> </span>checked
+**<span class="w"> </span>using<span class="w"> </span>staged<span class="w"> </span>installation
+**<span class="w"> </span>libs
+sh:<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>make:<span class="w"> </span>not<span class="w"> </span>found
+Error<span class="w"> </span><span class="k">in</span><span class="w"> </span>system<span class="o">(</span>paste<span class="o">(</span>MAKE,<span class="w"> </span>p1<span class="o">(</span>paste<span class="o">(</span><span class="s2">&quot;-f&quot;</span>,<span class="w"> </span>shQuote<span class="o">(</span>makefiles<span class="o">)))</span>,<span class="w"> </span><span class="s2">&quot;compilers&quot;</span><span class="o">)</span>,<span class="w">  </span>:<span class="w"> </span>
+<span class="w">  </span>error<span class="w"> </span><span class="k">in</span><span class="w"> </span>running<span class="w"> </span><span class="nb">command</span>
+*<span class="w"> </span>removing<span class="w"> </span><span class="s1">&#39;/usr/local/lib/R/site-library/isoband&#39;</span>
+Warning<span class="w"> </span><span class="k">in</span><span class="w"> </span>install.packages<span class="w"> </span>:
+<span class="w">  </span>installation<span class="w"> </span>of<span class="w"> </span>package<span class="w"> </span><span class="s1">&#39;isoband&#39;</span><span class="w"> </span>had<span class="w"> </span>non-zero<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>status
+During<span class="w"> </span>startup<span class="w"> </span>-<span class="w"> </span>Warning<span class="w"> </span>messages:
+ERROR:<span class="w"> </span>dependency<span class="w"> </span><span class="s1">&#39;farver&#39;</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>available<span class="w"> </span><span class="k">for</span><span class="w"> </span>package<span class="w"> </span><span class="s1">&#39;scales&#39;</span>
+*<span class="w"> </span>removing<span class="w"> </span><span class="s1">&#39;/usr/local/lib/R/site-library/scales&#39;</span>
+Warning<span class="w"> </span><span class="k">in</span><span class="w"> </span>install.packages<span class="w"> </span>:
+...
+</pre></div>
+</div>
+<p>The previous error message indicates that RServer needs the ‘make’ utility to
+build and compile source code, but it isn’t installed by default. To resolve
+this issue, you can install the ‘make’ package at the operating system level.
+However, a better solution would be to install the ‘r-base-dev’ package, which
+includes a large set of packages for compiling and building R programs.</p>
+<p>Close the browser and press CTRL+C in the terminal to terminate R Server. Next,
+exit the shell and initiate a new one with root privileges  to install the
+package.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Singularity&gt;<span class="w"> </span><span class="nb">exit</span>
+<span class="nb">exit</span>
+<span class="o">[</span>josue@eagle<span class="o">]</span>~/Singularity%<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--fakeroot<span class="w"> </span>--writable<span class="w"> </span>rstudio
+Singularity&gt;<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>r-base-dev
+Reading<span class="w"> </span>package<span class="w"> </span>lists...<span class="w"> </span>Done
+Building<span class="w"> </span>dependency<span class="w"> </span>tree...<span class="w"> </span>Done
+Reading<span class="w"> </span>state<span class="w"> </span>information...<span class="w"> </span>Done
+The<span class="w"> </span>following<span class="w"> </span>additional<span class="w"> </span>packages<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>installed:
+<span class="w">  </span>build-essential<span class="w"> </span>bzip2<span class="w"> </span>bzip2-doc<span class="w"> </span>dpkg-dev<span class="w"> </span>fakeroot<span class="w"> </span>g++<span class="w"> </span>g++-11<span class="w"> </span>gcc<span class="w"> </span>gfortran
+<span class="w">  </span>gfortran-11<span class="w"> </span>gnupg<span class="w"> </span>gnupg-l10n<span class="w"> </span>gnupg-utils<span class="w"> </span>gpg-agent<span class="w"> </span>gpg-wks-client
+<span class="w">  </span>gpg-wks-server<span class="w"> </span>gpgsm<span class="w"> </span>gpgv<span class="w"> </span>icu-devtools<span class="w"> </span>libalgorithm-diff-perl
+<span class="o">[</span>Output<span class="w"> </span>removed<span class="w"> </span><span class="k">for</span><span class="w"> </span>clarity<span class="o">]</span>
+
+Singularity&gt;<span class="w"> </span><span class="nb">exit</span>
+<span class="nb">exit</span>
+<span class="o">[</span>josue@eagle<span class="o">]</span>~/Singularity%<span class="w"> </span>singularity<span class="w"> </span>shell<span class="w"> </span>--writable<span class="w"> </span>rstudio<span class="w">          </span>
+Singularity&gt;<span class="w"> </span>/usr/lib/rstudio-server/bin/rserver<span class="w"> </span>--server-user<span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>After installing the package, try running the installation again. Highlight the
+first line and click the ‘Run’ button.he RServer will install the package, and
+there should be no further issues. Highlight the remaining lines and click Run’
+to see the output.</p>
+<figure class="align-default" id="lab8-image3">
+<img alt="_images/lab8-image3.png" src="_images/lab8-image3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">RStudio Server running in a SingularityCE Container.</span><a class="headerlink" href="#lab8-image3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Our final definition file requires additional configuration items. Since RServer
+is expected to run as a server, it’s normal to define a %startscript section. We
+can also add the missing packages required for building and compiling as well as
+clean up our .deb packages. The new text is highlighted in blue, so our final
+RServer.def file looks like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bootstrap:<span class="w"> </span>library
+From:<span class="w"> </span>ubuntu:22.04
+
+%post
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">TZ</span><span class="o">=</span>Etc/UTC
+<span class="w">  </span>apt<span class="w"> </span>update<span class="w"> </span>-qq
+<span class="w">  </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>software-properties-common<span class="w"> </span>dirmngr<span class="w"> </span>wget
+<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+<span class="w">  </span>add-apt-repository<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="k">$(</span>lsb_release<span class="w"> </span>-cs<span class="k">)</span><span class="s2">-cran40/&quot;</span>
+<span class="w">  </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>r-base<span class="w"> </span>r-base-dev
+<span class="w">  </span>wget<span class="w"> </span>-O<span class="w"> </span>/rstudio-2023.03.0-386-amd64.deb<span class="w"> </span>https://download1.rstudio.org/electron/jammy/amd64/rstudio-2023.03.0-386-amd64.deb
+<span class="w">  </span>apt<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>/rstudio-2023.03.0-386-amd64.deb
+<span class="w">  </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gdebi-core
+<span class="w">  </span>wget<span class="w"> </span>-O<span class="w"> </span>/rstudio-server-2023.03.0-386-amd64.deb<span class="w"> </span>https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.03.0-386-amd64.deb
+<span class="w">  </span>gdebi<span class="w"> </span>-n<span class="w"> </span>rstudio-server-2023.03.0-386-amd64.deb
+<span class="w">  </span>useradd<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;RStudio Account&quot;</span><span class="w"> </span>-u<span class="w"> </span><span class="m">500</span><span class="w"> </span>-d<span class="w"> </span>/home/rstudio<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>rstudio
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;rstudio:rstudio&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>/usr/sbin/chpasswd
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[*]\nlog-level=error\nlogger-type=stderr\n&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/rstudio/logging.conf
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;local({</span>
+<span class="s1"> r &lt;- getOption(&quot;repos&quot;)</span>
+<span class="s1"> r[&quot;CRAN&quot;] = &quot;https://cran.us.r-project.org&quot;</span>
+<span class="s1"> options(repos = r)</span>
+<span class="s1">})&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/R/Rprofile.site
+<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;/en_US.UTF-8/s/^# //g&#39;</span><span class="w"> </span>/etc/locale.gen
+<span class="w">  </span>locale-gen
+<span class="w">  </span>update-locale
+<span class="w">  </span>rm<span class="w"> </span>/rstudio*.deb
+
+%startscript
+<span class="w">  </span>/usr/lib/rstudio-server/bin/rserver<span class="w"> </span>--server-user<span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>At this point, we only have a definition file. The last step is to build the
+actual SIF file like so:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>build<span class="w"> </span>--fakeroot<span class="w"> </span>rstudio.sif<span class="w"> </span>rstudio.def
+</pre></div>
+</div>
+<p>You can start RStudio by running the SIF file as an instance.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity instance start rstudio.sif rs
+</pre></div>
+</div>
+<p>Once you execute this, however, we encounter another problem: the system doesn’t
+start and RStudio throws an error:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2023</span>-04-28T22:50:57.409255Z<span class="w"> </span><span class="o">[</span>rserver<span class="o">]</span><span class="w"> </span>ERROR<span class="w"> </span>system<span class="w"> </span>error<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="o">(</span>Read-only<span class="w"> </span>file<span class="w"> </span>system<span class="o">)</span><span class="w"> </span><span class="o">[</span>path:<span class="w"> </span>/var/lib/rstudio-server/rstudio-os.sqlite<span class="o">]</span><span class="p">;</span><span class="w"> </span>OCCURRED<span class="w"> </span>AT<span class="w"> </span>rstudio::core::Error<span class="w"> </span>rstudio::core::<span class="o">{</span>anonymous<span class="o">}</span>::changeFileModeImpl<span class="o">(</span>const<span class="w"> </span>string<span class="p">&amp;</span>,<span class="w"> </span>mode_t<span class="o">)</span><span class="w"> </span>src/cpp/shared_core/FilePath.cpp:317<span class="p">;</span><span class="w"> </span>LOGGED<span class="w"> </span>FROM:<span class="w"> </span>int<span class="w"> </span>main<span class="o">(</span>int,<span class="w"> </span>char*<span class="w"> </span>const*<span class="o">)</span><span class="w"> </span>src/cpp/server/ServerMain.cpp:753
+</pre></div>
+</div>
+<p>As we can see, the system reports a read-only file system while attempting to
+write data to a file located in <code class="docutils literal notranslate"><span class="pre">/var/lib/rstudio-server</span></code>. We can address this
+issue by binding a directory to make it writable,  and simultaneously save the
+state of RStudio, ensuring the settings are not lost between restarts.</p>
+<p>Stop the instance, create working directories, and restart the instance with the
+bind flags this time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>instance<span class="w"> </span>stop<span class="w"> </span>rs
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="o">{</span>run,var-lib-rstudio-server<span class="o">}</span>
+$<span class="w"> </span>singularity<span class="w"> </span>instance<span class="w"> </span>start<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bind<span class="w"> </span>run:/run,var-lib-rstudio-server:/var/lib/rstudio-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rstudio.sif<span class="w"> </span>rs
+</pre></div>
+</div>
+<p>To confirm the system is running, use of the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ss -ntlp | grep 8787
+LISTEN 0      4096         0.0.0.0:8787       0.0.0.0:*    users:((&quot;rserver&quot;,pid=2067530,fd=18))
+</pre></div>
+</div>
+<p>The previous command lists all the TCP ports opened by a process, filtered by
+the default 8787 port used by RStudio.</p>
+<p>We now have a portable RStudio container image that can be shared with peers
+using the SCS library. The final step is to sign the SIF file and upload it to
+the SCS library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>sign<span class="w"> </span>rstudio.sif<span class="w"> </span>
+INFO:<span class="w">    </span>Signing<span class="w"> </span>image<span class="w"> </span>with<span class="w"> </span>PGP<span class="w"> </span>key<span class="w"> </span>material
+<span class="m">0</span><span class="o">)</span><span class="w"> </span>U:<span class="w"> </span>Josue<span class="w"> </span>Balbuena<span class="w"> </span><span class="o">(</span>Master<span class="o">)</span><span class="w"> </span>&lt;josue@sylabs.io&gt;
+<span class="w">   </span>C:<span class="w"> </span><span class="m">2023</span>-03-30<span class="w"> </span><span class="m">17</span>:09:33<span class="w"> </span>-0600<span class="w"> </span>CST
+<span class="w">   </span>F:<span class="w"> </span>7C2767…DA030D0
+<span class="w">   </span>L:<span class="w"> </span><span class="m">4096</span>
+<span class="w">   </span>--------
+<span class="m">1</span><span class="o">)</span><span class="w"> </span>U:<span class="w"> </span>Josue<span class="w"> </span>Balbuena<span class="w"> </span><span class="o">(</span>Staging<span class="w"> </span>-<span class="w"> </span>NOT<span class="w"> </span>MASTER<span class="o">)</span><span class="w"> </span>&lt;josue@sylabs.io&gt;
+<span class="w">   </span>C:<span class="w"> </span><span class="m">2023</span>-03-30<span class="w"> </span><span class="m">17</span>:17:28<span class="w"> </span>-0600<span class="w"> </span>CST
+<span class="w">   </span>F:<span class="w"> </span>9B7B4…1AB57A2C
+<span class="w">   </span>L:<span class="w"> </span><span class="m">4096</span>
+<span class="w">   </span>--------
+Enter<span class="w"> </span><span class="c1"># of private key to use : 0</span>
+Enter<span class="w"> </span>key<span class="w"> </span>passphrase<span class="w"> </span>:<span class="w"> </span>
+INFO:<span class="w">    </span>Signature<span class="w"> </span>created<span class="w"> </span>and<span class="w"> </span>applied<span class="w"> </span>to<span class="w"> </span>image<span class="w"> </span><span class="s1">&#39;rstudio.sif&#39;</span>
+</pre></div>
+</div>
+<p>And last but not least, push the signed SIF file to the library. Before doing
+so, make sure to type your account name (replace library) and your desired
+collection name (replace tutorial101).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>push<span class="w"> </span>rstudio.sif<span class="w"> </span>library://&lt;account<span class="w"> </span>name&gt;/&lt;collection<span class="w"> </span>name&gt;/rstudio:2023.03
+</pre></div>
+</div>
+<p>For demonstration purposes, this is the command used to push the SIF file to the SCS library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity<span class="w"> </span>push<span class="w"> </span>rstudio.sif<span class="w"> </span>library://library/tutorial101/rstudio:2023.03
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📓 Lab 7: SIF file &amp; Host Filesystem</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-use-case">Real Use Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rstudio">RStudio</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sylabs.io
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

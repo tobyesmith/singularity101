@@ -157,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">📄 Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">📄 Introduction to Singularity CE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">📄 Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="runcontainer.html">📄 Running containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">📄 Building images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">📓 Lab 1: Convert docker images to SIF</a></li>
@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lab6.html">📓 Lab 6:  Signing with x509 Key Materials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspecting.html">📄 Inspecting SIF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lab7.html">📓 Lab 7: SIF file &amp; Host Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab8.html">📓 Lab 8: Putting it all together</a></li>
 </ul>
 
     </div>
@@ -370,11 +371,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-3-multi-stage-build">
 <h1>📓 Lab 3: Multi-Stage Build<a class="headerlink" href="#lab-3-multi-stage-build" title="Permalink to this heading">#</a></h1>
-<p>Multi-Stage builds are useful where one stage can be used for compilation, and
-the resulting binary can be copied to a light and final environment, allowing a
-slimmer image without any of the development stack.</p>
-<p>This can be done adjusting a definition file by adding the Stage keyword to the
-header section, lets create a lab3.def file:</p>
+<p>Multi-Stage builds are useful when one stage is used for compilation and the
+resulting binary is then copied to a lightweight, final environment. This
+approach allows for a more streamlined image that doesn’t include any of the
+development stack components.</p>
+<p>To achieve this,  modify the definition file by adding the <code class="docutils literal notranslate"><span class="pre">Stage</span></code> keyword to
+the header section, let’s create a lab3.def file as shown below:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vi<span class="w"> </span>lab3.def
 </pre></div>
 </div>
@@ -436,9 +438,10 @@ Hello,<span class="w"> </span>Go<span class="w"> </span>examples!
 </pre></div>
 </div>
 <p>The names of the stages are up to you, and each of the sections will be executed
-in the same order as described. Note that if you re-arrange the order of the
-above stages will result in an error, create a file named lab3-wrong.def and try
-to build it.</p>
+in the defined order. Note how in the following example if you rearrange the
+order of the above stages, the “final” stage cannot get the files from the
+“compiler” stage because they do not exist.</p>
+<p>Let’s create a file named lab3-wrong.def and then build it as shown below:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vi<span class="w"> </span>lab3-wrong.def
 
 Bootstrap:<span class="w"> </span>docker
@@ -466,8 +469,8 @@ INFO:<span class="w">    </span>Copying<span class="w"> </span>/root/hello<span 
 FATAL:<span class="w">   </span>While<span class="w"> </span>performing<span class="w"> </span>build:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>copy<span class="w"> </span>files<span class="w"> </span>from<span class="w"> </span>stage<span class="w"> </span>to<span class="w"> </span>container<span class="w"> </span>fs:<span class="w"> </span>no<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files<span class="w"> </span>found<span class="w"> </span>matching:<span class="w"> </span>/root/hello
 </pre></div>
 </div>
-<p>The “final” stage cannot get the files from the “compiler” stage because they do
-not exist.</p>
+<p>The “final” stage does not find the compiled program from the “compiler” stage
+because it doesn’t exist yet.</p>
 </section>
 
     <script type="text/x-thebe-config">
