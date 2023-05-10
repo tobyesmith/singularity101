@@ -1,15 +1,16 @@
 # 📓 Lab 3: Multi-Stage Build
 
-Multi-Stage builds are useful where one stage can be used for compilation, and
-the resulting binary can be copied to a light and final environment, allowing a
-slimmer image without any of the development stack.
+Multi-Stage builds are useful when one stage is used for compilation and the
+resulting binary is then copied to a lightweight, final environment. This
+approach allows for a more streamlined image that doesn’t include any of the
+development stack components.
 
-This can be done adjusting a definition file by adding the Stage keyword to the
-header section, lets create a lab3.def file:
+To achieve this,  modify the definition file by adding the `Stage` keyword to
+the header section, let’s create a lab3.def file as shown below:
 
 ```bash
 $ vi lab3.def
-````
+```
 
 Copy and paste the contents of this file into the terminal:
 
@@ -73,9 +74,11 @@ Hello, Go examples!
 ```
 
 The names of the stages are up to you, and each of the sections will be executed
-in the same order as described. Note that if you re-arrange the order of the
-above stages will result in an error, create a file named lab3-wrong.def and try
-to build it.
+in the defined order. Note how in the following example if you rearrange the
+order of the above stages, the “final” stage cannot get the files from the
+“compiler” stage because they do not exist.
+
+Let’s create a file named lab3-wrong.def and then build it as shown below:
 
 ```bash
 $ vi lab3-wrong.def
@@ -106,5 +109,5 @@ INFO:    Copying /root/hello to /bin/hello
 FATAL:   While performing build: unable to copy files from stage to container fs: no source files found matching: /root/hello
 ```
 
-The “final” stage cannot get the files from the “compiler” stage because they do
-not exist.
+The “final” stage does not find the compiled program from the “compiler” stage
+because it doesn’t exist yet.

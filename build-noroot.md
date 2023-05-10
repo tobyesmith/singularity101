@@ -104,20 +104,26 @@ determine if it is worth using this method.
 library, oras, or one of the docker/oci sources.
 * Do not support `%pre` and `%setup` sections of definition files.
 * Run the `%post` sections of a build in the container as an emulated root user.
-* Run the `%test` section of a build as the non-root user, like singularity test.
+* Run the `%test` section of a build as the non-root user, like singularity
+test.
 * Are subject to any restrictions imposed in singularity.conf.
 * Incur a performance penalty due to the `ptrace`-based interception of
 syscalls used by proot.
-* May fail if the `%post` script requires privileged operations that proot cannot emulate.
+* May fail if the `%post` script requires privileged operations that proot
+cannot emulate.
 
 If your system have proot installed, you might get an output similar to this:
 
 ```bash
 $ singularity build lolcow.sif lolcow.def
-INFO:    Using proot to build unprivileged. Not all builds are supported. If build fails, use --remote or --fakeroot.
+INFO:    Using proot to build unprivileged. Not all builds are supported.
+If build fails, use --remote or --fakeroot.
 INFO:    Starting build...
 ```
 
-Note the `proot` word. SingularityCE automatically calls proot for you and
-performs the build. The above is an example, do not execute the above in your
-system lab, it may not work.
+````{note}
+SingularityCE automatically calls proot for you and performs the build. To know
+if `proot` is installed, it is typically installed in a directory listed in the
+$PATH environment variable, issuing `which proot` command will let you know if
+it is installed.
+````

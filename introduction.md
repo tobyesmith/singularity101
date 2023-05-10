@@ -1,58 +1,73 @@
 # 📄 Introduction to Singularity CE
 
-Container technology is an effective way to package applications, no other prerequisites than the SingularityCE container runtime, no specific OS other than linux, and offer other many advantages to distribute applications.
+SingularityCE is a container platform focused on the user needs of the HPC, big
+data, and supercomputing markets. It allows you to create and run containers
+that package up pieces of software in a way that is portable and reproducible.
+You can build a container using SingularityCE on your laptop, and then run it on
+many of the largest HPC clusters in the world, local university or company
+clusters, a single server, in the cloud, or on a workstation down the hall.
+Your container is a single file, and you don’t have to worry about how to
+install all the software you need on each different operating system.
+Singularity CE is also rootless, reducing the risk of privilege escalation and
+unauthorized access in supercomputing and commercial environments.  
 
-Singularity is focused to cover the high performance market, big data and supercomputing. Other container technologies allow containers to run with root privileges, which is an issue whether in the supercomputing or commercial world and there is a lot of interest in containers for compute.
 
-You can read more about at the [Singularity CE documentation site](https://docs.sylabs.io/guides/3.11/user-guide/introduction.html), or if you wish to know about [use cases](https://docs.sylabs.io/guides/3.11/user-guide/introduction.html#use-cases).
+Singularity CE container technology is an effective way to package applications
+and easily distribute runtime environments on any Linux OS. It  is focused on
+the user needs of the HPCmarket, big data, and supercomputing. Unlike other
+container technologies that allow containers to run with root privileges,
+Singularity CE is rootless, reducing the risk of privilege escalation and
+unauthorized access in supercomputing and commercial environments. 
 
-## Course features and tools
+[Read more](https://docs.sylabs.io/guides/3.11/user-guide/introduction.html)
+about why containers are needed and SingularityCE containers and their
+use cases on our documentation site. 
 
-In this course it is expected to have an updated major linux distribution, it is true that linux kernel offers namespaces since 2.4.19, features have been added and bugs have been fixed until version 3.8 with user namespaces.
+## What is the difference between containers with virtual machines?
 
-Having said this the recommended is:
+Containers are a technology that runs applications inside isolated environments.
+They provide several benefits over traditional virtual machines (VMs), such as
+faster deployment times and reproducibility. Containers also allow developers to
+build and deploy software without worrying about underlying infrastructure or
+operating system details.
 
-* DEB based:
-  * Debian 10 or later.
-  * Ubuntu 20.04 or later.
-* RPM based:
-  * Redhat 8 or later.
-  * Fedora 32 or later.
-* OpenSUSE Leap 12 or later.
-* x86_64 or ARM64 is supported.
-* git
-* curl
+* Although it’s possible to install a pre-built virtual machine with all its
+dependencies, containers are lighter and more portable; containers are typically
+somewhere between 10 MB and a few GB, while a virtual machine image size is
+bigger.
+* Users can quickly modify and iterate containers.
+* SingularityCE users have access to a public repository of premade containers
+along with the option to publish new images for other developers and consumers.
 
-Have some command line experience in bash.
 
-**What is the difference with virtual machines?**
-
-Containers are a technology that runs applications inside isolated environments. They provide several benefits over traditional VMs, such as faster deployment times and reproducibility. Containers also allow developers to build and deploy software without worrying about underlying infrastructure or operating system details.
-
-* One can install a pre-built virtual machine with all its dependencies, and that is true, but containers are lighter and portable, a container size normally is between 10 Mb and a few Gb, while a virtual machine image size is bigger.
-
-* Containers are very fast to modify and iterate on.
-
-* Singularity offers a public repository of premade containers, and offers the possibility to publish your very own image for others developers and consumers.
-
-Singularity is a tool for developers who want to build and test their code before deploying it to a supercomputer. In addition, they offer several advantages over traditional VMs, such as increased security, reduced resource consumption, and faster deployment times.
+Developers can use SingularityCE to build and test their code before deploying
+it to a supercomputer. Singularity containers also offer several advantages over
+traditional VMs, including increased security, reduced resource consumption, and
+faster deployment times.
 
 ```{figure} /images/introduction-image1.png
 ---
 name: introduction-image1
 ---
-Common architectures implemented in real world scenarios, bare metal, virtualized, containerized, and containerized on virtual machines.
+Common architectures implemented in real world scenarios, including bare metal,
+virtualized, containerized, and containerized on virtual machines.
 ```
 
-**What is the difference with Docker?**
+## What is the difference between SingularityCE with Docker containers?
 
-There are many container runtimes out there, Docker popularized them, but this differed widely from how scientists and researchers wanted to use it in HPC with batch schedulers. So, the means to containerize applications was important, but the way in which Docker did this did not meet HPC needs for simplicity, security and repeatability. Singularity was created to address the gaps in the existing technology. While allowing easier access to the underlying hardware on a compute node.
+Many container runtimes exist, with Docker being a popular choice. However,
+Docker didn’t quite fit the needs of scientists and researchers in HPC who
+wanted to use it with batch schedulers. And while containerizing applications
+was important, Docker did not meet HPC requirements for simplicity, security,
+and repeatability. Singularity was developed to fill gaps in container
+technology while also providing easier access to the underlying hardware on a
+compute node.
 
-[Source](https://sylabs.io/2022/09/who-is-sylabs/)
+[Read more](https://sylabs.io/2022/09/who-is-sylabs/) about the origins of SingularityCE and Sylabs. 
 
-## Namespaces
+## The role of namespaces in container isolation and management
 
-The linux kernel resources can be partitioned, this means for example, that one set of programs or processes sees one set of resources, and another process sees another different set of resources, in other words, grants isolation. This is a feature of the linux kernel.
+Partitioning of the Linux kernel resources allows for distinct sets of programs or processes to access separate resource pools, effectively granting isolation between them. This isolation capability is a fundamental feature of the Linux kernel.
 
 ```{figure} /images/introduction-image2.png
 ---
@@ -61,15 +76,22 @@ name: introduction-image2
 Namespace resource partition and isolation.
 ```
 
-Namespaces limit resources in a way so the process program or application is not aware of this limitation. When a program runs, the application is not aware that it is within a container, and is not necessary to make changes to the source code.
+Namespaces restrict resources in a manner that is transparent to the process,
+program, or application is not aware of this limitation. When an application
+runs, it remains unaware of its presence within a container, eliminating the
+need for any modification of the source code.
 
-Examples of resources are:
+Examples of resources that can be isolated include:
 
 * Processes.
-  This provides processes with an independent set of IDs from other namespaces.
+Namespaces provide each container with a unique set of IDs that are independent
+from those in other namespaces.
 * Network interfaces.
-  Each namespace can have private IP addresses, routing tables, firewall, this mean your containers can communicate with the external world.
+Each namespace can have its own private IP addresses, routing tables, and
+firewall, enabling containers to communicate with the external world.
 * Filesystem mounts.
-  Determine which filesystems are isolated from other containers.
+Namespaces determine which filesystems are isolated from other containers,
+ensuring data isolation.
 * UTS Namespace.
-  Isolates kernel and version identifiers, so you could have multiple containers running that may be running different kernel versions.
+Isolates kernel and version identifiers, allowing multiple containers to run
+simultaneously, even if they are using different kernel versions.

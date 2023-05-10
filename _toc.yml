@@ -4,8 +4,8 @@
 format: jb-book
 root: intro
 chapters:
-- file: quickstart
 - file: introduction
+- file: gettingstarted
 - file: runcontainer
 - file: building
 - file: lab1
@@ -20,3 +20,4 @@ chapters:
 - file: lab6
 - file: inspecting
 - file: lab7
+- file: lab8
