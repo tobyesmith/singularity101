@@ -19,10 +19,12 @@ jobs:
       - name: Building tutorial html files
         run: |
           jupyter-book build ./
-      - name: Create a zip file
+      - name: Create a compressed file
         run: tar -zcvf Singularity101.tar.gz _build/html/
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload file to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: Singularity101
-          path: Singularity101.tar.gz
+          asset_name: Singularity101
+          tag: ${{ github.ref }}
+          overwrite: true
+          file: Singularity101.tar.gz
