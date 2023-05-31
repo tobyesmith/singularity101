@@ -1,4 +1,4 @@
-# 📄 Introduction to Singularity CE
+# 📄 Introduction to SingularityCE
 
 SingularityCE is a container platform focused on the user needs of the HPC, big
 data, and supercomputing markets. It allows you to create and run containers
@@ -8,15 +8,15 @@ many of the largest HPC clusters in the world, local university or company
 clusters, a single server, in the cloud, or on a workstation down the hall.
 Your container is a single file, and you don’t have to worry about how to
 install all the software you need on each different operating system.
-Singularity CE is also rootless, reducing the risk of privilege escalation and
+SingularityCE is also rootless, reducing the risk of privilege escalation and
 unauthorized access in supercomputing and commercial environments.  
 
 
-Singularity CE container technology is an effective way to package applications
+SingularityCE container technology is an effective way to package applications
 and easily distribute runtime environments on any Linux OS. It  is focused on
 the user needs of the HPCmarket, big data, and supercomputing. Unlike other
 container technologies that allow containers to run with root privileges,
-Singularity CE is rootless, reducing the risk of privilege escalation and
+SingularityCE is rootless, reducing the risk of privilege escalation and
 unauthorized access in supercomputing and commercial environments. 
 
 [Read more](https://docs.sylabs.io/guides/3.11/user-guide/introduction.html)
