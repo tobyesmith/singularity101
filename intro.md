@@ -16,6 +16,9 @@ This tutorial:
 * Tutorial examples and code excerpts are written for compatibility with version
 3.11 of SingularityCE or SingularityPRO.
 
+If you wish to improve the contents of this course, feel free to share your
+feedback to support@sylabs.io
+
 ## Table of Contents
 
 ```{tableofcontents}
