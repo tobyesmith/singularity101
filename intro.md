@@ -1,4 +1,4 @@
-# Welcome to Singularity Tutorial
+# Welcome to the Singularity Tutorial
 
 In recent years, container runtimes have become an indispensable tool in large
 computing environments and high performance computing (HPC) labs.
