@@ -21,9 +21,16 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  google_analytics_id: G-ZTE25XWQKF
   extra_footer: |
     <p>&copy; Copyright 2023</p>
     <p>Some parts of this course may have contents from the <a href="https://docs.sylabs.io/guides/latest/user-guide/">user guide</a> which are under BSD 3-Clause license.</p>
 sphinx:
   config:
     html_show_copyright: false
+    html_theme_options:
+      use_download_button: false
+      repository_url: https://github.com/sylabs/singularity101
+      use_issues_button: true
+      use_repository_button: true
+      use_edit_page_button: true

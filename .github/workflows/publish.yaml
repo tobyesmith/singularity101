@@ -18,13 +18,11 @@ jobs:
           pip install -r requirements.txt
       - name: Building tutorial html files
         run: |
-          jupyter-book build ./
-      - name: Create a compressed file
-        run: tar -zcvf Singularity101.tar.gz _build/html/
-      - name: Upload file to release
+          jupyter-book build ./ --builder pdfhtml
+      - name: Upload PDF to release
         uses: svenstaro/upload-release-action@v2
         with:
-          asset_name: Singularity101.tar.gz
+          asset_name: Sylabs_Singularity101.pdf
           tag: ${{ github.ref }}
           overwrite: true
-          file: Singularity101.tar.gz
+          file: book.pdf
