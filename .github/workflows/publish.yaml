@@ -1,7 +1,7 @@
 name: Publish PDF
 on:
-  push:
-    branches: ["main"]
+  release:
+    types: ["published"]
 jobs:
   publish:
     name: publish
@@ -23,7 +23,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           asset_name: Sylabs_Singularity101.pdf
-          tag: "PDF"
-          #tag: ${{ github.ref }}
+          #tag: "PDF"
+          tag: ${{ github.ref }}
           overwrite: true
           file: _build/pdf/book.pdf
