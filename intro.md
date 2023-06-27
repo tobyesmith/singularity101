@@ -19,6 +19,8 @@ This tutorial:
 If you wish to improve the contents of this course, feel free to share your
 feedback to support@sylabs.io
 
+For your convenience, this course is also available in [PDF format](https://github.com/sylabs/singularity101/releases/download/PDF/Sylabs_Singularity101.pdf).
+
 ## Table of Contents
 
 ```{tableofcontents}
