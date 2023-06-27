@@ -26,4 +26,4 @@ jobs:
           tag: "PDF"
           #tag: ${{ github.ref }}
           overwrite: true
-          file: book.pdf
+          file: _build/pdf/book.pdf
