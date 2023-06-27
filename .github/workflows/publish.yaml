@@ -1,7 +1,7 @@
-name: Publish
+name: Publish PDF
 on:
-  release:
-    types: ["published"]
+  push:
+    branches: ["main"]
 jobs:
   publish:
     name: publish
@@ -16,13 +16,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      - name: Building tutorial html files
+      - name: Building tutorial PDF file
         run: |
           jupyter-book build ./ --builder pdfhtml
       - name: Upload PDF to release
         uses: svenstaro/upload-release-action@v2
         with:
           asset_name: Sylabs_Singularity101.pdf
-          tag: ${{ github.ref }}
+          tag: "PDF"
+          #tag: ${{ github.ref }}
           overwrite: true
           file: book.pdf
