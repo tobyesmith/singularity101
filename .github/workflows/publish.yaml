@@ -16,14 +16,21 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      - name: Setup Chrome/Chromium web browser
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: latest
+        id: setup-chrome
       - name: Building tutorial PDF file
         run: |
-          jupyter-book build ./ --builder pdfhtml
+          jupyter-book build ./ --builder singlehtml
+          echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
+          ${{ steps.setup-chrome.outputs.chrome-path }} --headless --disable-gpu --print-to-pdf file:///$(pwd)/_build/singlehtml/intro.html
       - name: Upload PDF to release
         uses: svenstaro/upload-release-action@v2
         with:
-          asset_name: Sylabs_Singularity101.pdf
+          asset_name: Sylabs_Singularity101-${{ github.ref_name }}.pdf
           #tag: "PDF"
           tag: ${{ github.ref }}
           overwrite: true
-          file: _build/pdf/book.pdf
+          file: output.pdf
