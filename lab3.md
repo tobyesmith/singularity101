@@ -20,6 +20,7 @@ From: golang:1.20.2-alpine
 Stage: compiler
 
 %post
+  apk add git
   git clone https://github.com/golang/example
   cd example/hello
   go build
@@ -29,7 +30,7 @@ From: alpine:3.17
 Stage: final
 
 %files from compiler
-  /root/hello /bin/hello
+  /example/hello/hello /bin/hello
 ```
 
 ```bash
