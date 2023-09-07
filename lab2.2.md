@@ -7,7 +7,7 @@ into a SIF image. Following this process, the name of the instance is specified.
 
 
 ```bash
-$ sudo singularity instance start --writable-tmpfs –net \
+$ sudo singularity instance start --writable-tmpfs –-net \
        --network-args “portmap=8080:80/tcp” \
        docker://nginx:1.23.4-alpine webserver
 INFO:    Converting OCI blobs to SIF format
